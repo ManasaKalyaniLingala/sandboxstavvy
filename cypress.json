@@ -1,0 +1,7 @@
+{
+    "chromeWebSecurity": false,
+    "defaultCommandTimeout": 20000,
+    "viewportWidth": 1080,
+    "viewportHeight": 720,
+    "testFiles": "**/*.spec.js"
+  }
