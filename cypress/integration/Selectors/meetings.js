@@ -1,0 +1,26 @@
+export default {
+    createMeetingBttn: "[class=align-bottom]",
+    purchaseTypeBttn:"//*[text()='Purchase']",
+    refinanceTypeBtnn: "//*[text()='Refinance']",
+    equityTypeBtnn:"//*[text()='Equity']",
+    modificationTypeBtnn:"//*[text()='Modification']",
+    propertyAddressTextbx : "[placeholder='Property Address Search']",
+    meetingDate: "[data-testid='new-meeting-date-datepicker-input']",
+    startTime: '(//input[@name="timezone-dropdown"])[1]',
+    timeZone: '(//input[@name="timezone-dropdown"])[2]',
+    notary: '[name="notary"]',
+    fisrtnameTxtbx:'[name="firstName"]',
+    middleNameTxbx:'[name="middleName"]',
+    lastNameTxtbx: '[name="lastName"]',
+    phoneNumberTxtbx: '[inputmode="numeric"]',
+    emailTxtbx:'[name="email"]',
+    createClosingBttn: '[data-testid="review-create-meeting-btn"]',
+    streetName: '[name="Street name"]',
+    streetNumber: '[name="Street number"]',
+    postalCode: '[name="Postal code"]',
+    closingsBttn:"//*[text()='Closings']",
+    closingDetailsPage:'//span[3]/text()',
+    fileNumberTxBx:"[name='fileNumber']",
+    fileId:'//div[3]/div/div[2]/text()'
+
+}
