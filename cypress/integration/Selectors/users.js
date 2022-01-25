@@ -14,7 +14,13 @@ inviteUsersBttn: "[data-testid='invite-users-btn']",
 userNameBttn: '(//*[contains(@class,"user-basic columns")])[3]',
 deleteUserBttn:'//*[text()="Delete User"]',
 manageUserCloseBttn: "[class='close']",
-errorText:"[class='error-text']"
+errorText:"[class='error-text']",
+pageNumber:'//div[2]/span/text()',
+searchUser:'[placeholder="Search users"]',
+userStatus:'(//td[2]/p/text())',
+notaryCheckBox:'[type="checkbox"]',
+userRole:'//input[@value="User"]',
+filterByNotaryBttn:'//input[@placeholder="My meetings"]',
 
 
 
