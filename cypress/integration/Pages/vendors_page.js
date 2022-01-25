@@ -1,0 +1,109 @@
+import Selectors from "../Selectors/vendors"
+
+export class Vendors{
+
+    clickOnOrganizations()
+    {
+        cy.get(Selectors.organizationsLink).click();
+    }
+    clickOnInviteNewVendor()
+    {
+        cy.xpath(Selectors.inviteNewVendorBttn).click();
+    }
+    enterVendorDomain(vendorDomain)
+    {
+        cy.get(Selectors.vendorDomainTxBx).type(vendorDomain).click();
+    
+    }
+    enterVendorName(vendorName)
+    {
+        cy.get(Selectors.vendorNameTxBx).type(vendorName);
+    }
+    enterFirstName(firstName)
+    {
+        cy.get(Selectors.firstNameTxBx).type(firstName);
+    }
+    enterMiddleName(middleName)
+    {
+        cy.get(Selectors.middleNameTxBx).type(middleName);
+    }
+    enterLastName(lastName)
+    {
+        cy.get(Selectors.lastNameTxBx).type(lastName);
+    }
+    enterVendoMail(mail)
+    {
+        cy.get(Selectors.emailTxBx).type(mail);
+    }
+    clickOnInviteVendor()
+    {
+        cy.xpath(Selectors.inviteVendorBttn).click();
+    }
+    clickOnNextButton()
+    {
+        cy.xpath(Selectors.nextBttn).click();
+    }
+    verifyNextButtonIsDisabled()
+    {
+        cy.xpath(Selectors.nextBttn).should('be.disabled');
+    }
+    clickOnBackButton()
+    {
+        cy.xpath(Selectors.backBttn).click()
+    }
+    clickOnCloseIcon()
+    {
+        cy.get(Selectors.closeIcon).click()
+    }
+    enterVendorInfo(vendorName,firstName,middleName,lastName,mail)
+    { 
+        this.clickOnNextButton();
+        this.enterVendorName(vendorName);
+        this.enterFirstName(firstName);
+        this.enterMiddleName(middleName);
+        this.enterLastName(lastName);
+        this.enterVendoMail(mail);
+    }
+    verifyInvitedVendorMessage(message)
+   {
+    cy.get(".react-toast-notifications__toast__content").should('have.text', message);
+    cy.wait(5000);
+   }
+   verifyStatusOfVendor(vendorDomain,status)
+   {
+    cy.xpath('(//tr/td/span[text()="'+vendorDomain+'"]/..)/following-sibling::td/div/text()').should('have.text',status);
+   }
+   verifyAddedOnDateOfVendor(vendorDomain,date)
+   {
+       cy.xpath('(//tr/td/span[text()="'+vendorDomain+'"]/..)/following-sibling::td/text()').should('have.text',date);
+   }
+   clickOnDetailsOfVendor(vendorName)
+   {
+       cy.xpath('(//tr/td/span[text()="'+vendorName+'"]/..)/following-sibling::td[3]/span').click();
+   }
+   CopyDomainAndEnterInVendorDoamin()
+   {
+    cy.xpath('//tr[3]/td/span[2]/text()').then(($temp)=>{
+        const txt = $temp.text()
+        this.clickOnInviteNewVendor();
+        this.enterVendorDomain(`${txt}`);
+    })
+   }
+   verifyErrorText(errorText)
+   {
+       cy.xpath(Selectors.errorText).should('have.text',errorText)
+   }
+   verifyDomainNotExistInTheList(domain)
+   {
+       cy.xpath(Selectors.domainTxt).should('not.have.text',domain);
+   }
+   verifyVendorNameInDetailsPage(vendor)
+   {
+       cy.xpath('//h2/text()').should('have.text',vendor);
+   }
+   verifyRejectConnectionButtonPresentAndDisbaled()
+   {
+    cy.get('div>div>button').should('have.text',"Reject connection").should('be.disabled');
+   }
+   
+}
