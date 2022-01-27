@@ -5,14 +5,14 @@ import { Files } from "../Pages/files_page";
 import { should } from "chai";
 const login =new Login();
 const files= new Files();
-describe("stavvy application" , ()=>{
+describe("Files test cases" , ()=>{
 
     beforeEach("Login as valid user",()=>{
         login.navigateToUrl();
         login.loginToApplication();
      })
     
-it("Create Purchase type File", ()=> {
+it.only("Create Purchase type File", ()=> {
     var loanNumber="Loan"+Math.floor(Math.random()*1000);
 
     //Navigate to Files page
@@ -21,12 +21,12 @@ it("Create Purchase type File", ()=> {
     //Create file
     files.clickCreateFileButton();
     files.clickPurchaseType();
-    files.enterBasicInfo(loanNumber,"01/26/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
+    files.enterBasicInfo(loanNumber,"01/28/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
     files.enterPurchasePrice("150");
     files.clickContinueButton();
     files.enterBorrowerAddress("jaya", "prakash", "manasa.lingala+123@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
-    files.addTitleOrder("01/20/2022","MANASA VENDOR")
-    files.addForeclosureOrder("01/22/2022","MANASA VENDOR");
+    files.addTitleOrder("01/29/2022","MANASA VENDOR")
+   // files.addForeclosureOrder("01/29/2022","MANASA VENDOR");
     files.clickContinueButton();
     files.clickCreateFileButtonOnReviewOfAFile();
 
@@ -52,11 +52,11 @@ it("create a refinance type file",()=>{
     // creating file
     files.clickCreateFileButton();
     files.clickRefinanceType();
-    files.enterBasicInfo(loanNumber,"01/26/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
+    files.enterBasicInfo(loanNumber,"01/28/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
     files.clickContinueButton();
     files.enterBorrowerAddress("jaya", "prakash", "manasa.lingala+123@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
-    files.addTitleOrder("01/20/2022","MANASA VENDOR")
-    files.addForeclosureOrder("01/22/2022","MANASA VENDOR");
+    files.addTitleOrder("01/28/2022","MANASA VENDOR")
+   // files.addForeclosureOrder("01/28/2022","MANASA VENDOR");
     files.clickContinueButton();
     files.clickCreateFileButtonOnReviewOfAFile();
     files.verifyMessage("Creating file...");
@@ -82,11 +82,11 @@ it("create a equity type file",()=>{
     //Create file
     files.clickCreateFileButton();
     files.clickEquityType();
-    files.enterBasicInfo(loanNumber,"01/26/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
+    files.enterBasicInfo(loanNumber,"01/28/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
     files.clickContinueButton();
     files.enterBorrowerAddress("jaya", "prakash", "manasa.lingala@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
-    files.addTitleOrder("01/20/2022","MANASA VENDOR")
-    files.addForeclosureOrder("01/22/2022","MANASA VENDOR");
+    files.addTitleOrder("01/28/2022","MANASA VENDOR")
+   // files.addForeclosureOrder("01/30/2022","MANASA VENDOR");
     files.clickContinueButton();
     files.clickCreateFileButtonOnReviewOfAFile();
 
@@ -118,7 +118,7 @@ it("navigate to file details page",()=>{
 })
 
 
-it("verify creating a file without property address",()=>{
+it.only("verify creating a file without property address",()=>{
     var loanNumber="Loan"+Math.floor(Math.random()*1000);
 
     //Navigate to Files page
@@ -127,8 +127,8 @@ it("verify creating a file without property address",()=>{
     //Create File
     files.clickCreateFileButton();
     files.enterLoanNumber(loanNumber);
-    files.selectClosingDate("01/18/2022");
-    files.selectLoanProcessor(" MANASA KALYANI    LINGALA");
+    files.selectClosingDate("01/28/2022");
+    files.selectLoanProcessor("MANASA                                              KALYANI  LINGALA");
     files.enterLoanAmount("77");
     files.enterPurchasePrice("98");
     files.clickContinueButton();
@@ -243,8 +243,8 @@ it("verify updating Loan Number",()=>{
 })
 
 
-it("Assign closer to file",()=>{
-    var closer=" MANASA KALYANI    LINGALA";
+it.only("Assign closer to file",()=>{
+    var closer="MANASA                                              KALYANI  LINGALA";
 
     //Navigate to Files
     files.navigateToFiles();

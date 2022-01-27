@@ -6,7 +6,7 @@ import { Users } from "../Pages/users_page";
 const login = new Login();
 const users = new Users();
 
-describe("stavvy application" , ()=>{
+describe("Users test cases" , ()=>{
 
     beforeEach("Login as valid user",()=>{
         login.navigateToUrl();
@@ -110,13 +110,14 @@ describe("stavvy application" , ()=>{
         users.verifyDeletedUserInTheList(userName);
     })
 
-    it("verify inviting new user with existing user's mail", ()=>{
-        
+    it.only("verify inviting new user with existing user's mail", ()=>{
+        var mail="manasa.lingala+7778@qualitlabs.com"
+
         //Navigating to Users page
         users.clickOnUsers();
 
         //Inviting new user the existing user's email
-        users.clickOnUserNameFromTheList();
+        users.clickOnUserMail(mail);
         users.copyMailAndPasteInMail();
 
         //Verifying invited user

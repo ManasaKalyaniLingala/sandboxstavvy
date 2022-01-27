@@ -7,7 +7,7 @@ export class Orders{
     navigateToPendingOrders()
     {
         cy.get(selectors.pendingBttn).click();
-        cy.wait(3000);
+        cy.wait(4000);
     }
     navigateToInProgressOrders()
     {
@@ -91,7 +91,7 @@ export class Orders{
     }
     verifystatusOfOrdersInTheList(status)
     {
-        cy.xpath(selectors.orderStatusInTheList).should('have.text',status);
+        cy.xpath(selectors.orderStatusInTheList).should('contain.text',status);
     }
     
     }
