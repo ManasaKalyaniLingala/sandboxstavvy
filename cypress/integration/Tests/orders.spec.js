@@ -5,59 +5,81 @@ import { Orders } from '../Pages/orders_page';
 
 const login = new Login();
 const orders = new Orders();
-describe("stavvy application" , ()=>{
+describe("Assigned Order test cases" , ()=>{
 
     beforeEach("Login as valid user",()=>{
         login.navigateToUrl();
         login.loginToApplication("manasa.lingala@qualitlabs.com","16c31a0_486");
      })
+
+
      it("Verify navigating to Pending orders page",()=>{
-    
-         //failed test case
+         var status1="Pending";
+         
+         //Navigate to pending orders page
          orders.navigateToAssignedOrders();
          orders.navigateToPendingOrders();
-         orders.verifyPageHeading("Pending");
-         orders.verifystatusOfOrdersInTheList("Pending");
+
+         //Verify Navigated to Pending orders page
+         orders.verifyPageHeading(status1);
      })
 
-    it.only("verify navigating to In Progress Orders page",()=>{
 
+    it("verify navigating to In Progress Orders page",()=>{
+        
+        var heading="In Progress";
+        var status2="In progress";
+
+        //Navigate to In Progress orders page
         orders.navigateToAssignedOrders();
         orders.navigateToInProgressOrders();
-        orders.verifyPageHeading("In Progress");
-        orders.verifystatusOfOrdersInTheList("In progress");
+
+        //Verify navigating to In progress orders page
+        orders.verifyPageHeading(heading);
+        orders.verifystatusOfOrdersInTheList(status2);
     })
 
 
     it("verify navigated to Completed orders page",()=>{
 
+        var status="Completed";
+
+        //Navigate to Completed Orders page
         orders.navigateToAssignedOrders();
         orders.clickOnArchivedButton();
         orders.navigateToCompletedOrders();
-        orders.verifyPageHeading("Completed");
-        orders.verifystatusOfOrdersInTheList("Completed");
+
+        //Verify navigated to completed orders page
+        orders.verifyPageHeading(status);
+        orders.verifystatusOfOrdersInTheList(status);
     })
 
 
     it("Verify navigating to Favorite orders page",()=>{
+         var heading="Favorites";
 
+        //Navigate to Favorites orders page.
         orders.navigateToAssignedOrders();
         orders.navigateToMyFavoritesOrders();
-        orders.verifyPageHeading("Favorites");
+
+        //Verify navigated to Favorites order page
+        orders.verifyPageHeading(heading);
     })
 
 
-     it("Verify accepting a pending order",()=>{
-         var file="Loan@222";
-         var orderType="Settlement"
+     it("Verify accepting a pending order in the list",()=>{
+         var file="45656";
+         var orderType="Title";
          var status1="Pending";
          var action="Accept";
          var status2="In Progress";
 
-         //Accepting order.
+         //Navigate to Pending orders page
          orders.navigateToAssignedOrders();
          orders.navigateToPendingOrders();
          orders.verifyPageHeading(status1);
+
+         //Accepting order in the list
          orders.acceptOrRejectOrderByNameAndType(file,orderType,action);
 
          //verification
@@ -70,29 +92,31 @@ describe("stavvy application" , ()=>{
          orders.verifyOrderNotPresentInTheList(file,orderType);
      })
    
-     it("Verify rejecting a pending order",()=>{
 
-        var file="Loan@222";
-        var orderType="Title";
+     it("Verify rejecting a pending order in the list",()=>{
+
+        var file="45656";
+        var orderType="Settlement";
         var status1="Pending";
         var status2="Rejected";
         var action="Reject";
 
-        //Rejecting order
+        //Navigate to Pending orders page
          orders.navigateToAssignedOrders();
          orders.navigateToPendingOrders();
          orders.verifyPageHeading(status1);
+
+         //Rejecting order in the list
          orders.acceptOrRejectOrderByNameAndType(file,orderType,action);
 
-         //verification
+         //verifying rejected order
          orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status2);
          orders.navigateToOrdersListThroughAssignedOrdersLink();
-         orders.verifyPageHeading(status2);
-         orders.verifyOrderDetailsInTheList(file,orderType,"In progress");
          orders.navigateToPendingOrders();
          orders.verifyPageHeading(status1);
          orders.verifyOrderNotPresentInTheList(file,orderType);
      })
+
 
      it("verify accepting an order in order details page",()=>{
          var file="2222";
@@ -101,14 +125,16 @@ describe("stavvy application" , ()=>{
          var status2="In Progress";
          var action="Accept";
 
-         //Accepting order
+         //Navigate to Pending orders page
          orders.navigateToAssignedOrders();
          orders.navigateToPendingOrders();
          orders.verifyPageHeading(status1);
+
+         //Accepting order in the order details page
          orders.navigateToOrderDetailsPage(file);
          orders.acceptOrRejectOrderInDetailsPage(orderType,action);
         
-         //verification
+         //verifying accepted order
          orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status2);
          orders.navigateToOrdersListThroughAssignedOrdersLink();
          orders.verifyPageHeading(status1);
@@ -117,6 +143,7 @@ describe("stavvy application" , ()=>{
          orders.verifyPageHeading(status2);
          orders.verifyOrderDetailsInTheList(file,orderType,"In progress");
      })
+     
 
      it("verify rejecting order in order details page",()=>{
 
@@ -126,23 +153,20 @@ describe("stavvy application" , ()=>{
          var status2="Rejected";
          var action="Reject";
 
-         //Rejecting order
+         //Navigate to Pending orders page
          orders.navigateToAssignedOrders();
          orders.navigateToPendingOrders();
          orders.verifyPageHeading(status1);
          orders.navigateToOrderDetailsPage(file);
+
+         //Reject order in order details page
          orders.acceptOrRejectOrderInDetailsPage(orderType,action);
          orders.clickCancelItButton();
 
-        //verification
+        //verifying rejected order
          orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status2);
          orders.navigateToOrdersListThroughAssignedOrdersLink();
          orders.verifyPageHeading(status1);
-         orders.verifyOrderNotPresentInTheList(file,orderType)
-     })
-
-     it("verify making an order favorite",()=>{
-
-
+         orders.verifyOrderNotPresentInTheList(file,orderType);
      })
     })

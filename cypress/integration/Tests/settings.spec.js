@@ -6,7 +6,7 @@ import { Settings } from "../Pages/settings_page";
 const login = new Login();
 const settings=new Settings();
 
-describe("stavvy application" , ()=>{
+describe("Settings test cases" , ()=>{
 
     beforeEach("Login as valid user",()=>{
         login.navigateToUrl();
@@ -15,7 +15,7 @@ describe("stavvy application" , ()=>{
 
      it("Updating first name",()=>{
          
-         var firstName="MANU";
+         var firstName="First name";
          
         //Navigate to settings
          settings.clickOnProfileIcon();
@@ -31,21 +31,21 @@ describe("stavvy application" , ()=>{
 
      it("Updating middle name",()=>{
 
-         var middleName="KAL";
+         var middleName="middle name";
 
         //Navigate to settings
          settings.clickOnProfileIcon();
          settings.navigateToSettingsPage();
-         settings.updateOrganizationName(middleName);
+         settings.updateMiddleName(middleName);
 
          //Verify updated middle name
-         settings.verifyUpdatedOrganizationName(middleName);
+         settings.verifyUpdatedMiddleName(middleName);
          settings.verifyUpdatedNameInProfile(middleName);
      })
 
      it("Updating last name",()=>{
 
-         var lastName="L";
+         var lastName="last name";
 
         //Navigate to settings
          settings.clickOnProfileIcon();

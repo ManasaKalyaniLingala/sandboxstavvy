@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { Login } from "../Pages/login_page";
-import { ESign, eSign } from "../Pages/eSign_page";
+import { ESign } from "../Pages/eSign_page";
 
 const login = new Login();
 const eSign = new ESign();
@@ -14,7 +14,7 @@ describe("stavvy application" , ()=>{
     
      it("Create new eSign with Just Others", ()=>{
 
-         var packetTitle="packet341";
+         var packetTitle="packet351";
 
          //Creating packet
          eSign.creatingNewESignWithJustOtherOption(packetTitle,'title_exam (4).pdf',"manasa","kalyani","k","manasa.lingala+123@qualitlabs.com");
@@ -29,7 +29,7 @@ describe("stavvy application" , ()=>{
 
         it("Create new eSign with Just Me & Others", ()=>{
 
-         var packetTitle="packet342";
+         var packetTitle="packet352";
 
          //Creating packet
          eSign.createNewEsignWithMeAndOthers(packetTitle,'title_exam (4).pdf',"manasa","kalyani","lingala","manasa.lingala+123@qualitlabs.com");
@@ -44,7 +44,7 @@ describe("stavvy application" , ()=>{
 
       it("create new eSign with just Me", () =>{
 
-         var packetTitle="packet343";
+         var packetTitle="packet353";
 
          //Creating packet
          eSign.creatingNewESignWithJustMeOption(packetTitle,'title_exam (4).pdf');
@@ -60,7 +60,7 @@ describe("stavvy application" , ()=>{
 
      it("verify searching a packet by title and navigating to details page",()=>{
 
-        var packetTitle="packet343"
+        var packetTitle="packet353"
 
         //Navigate to eSign page
         eSign.clickOneSignButton();
@@ -81,7 +81,7 @@ describe("stavvy application" , ()=>{
          eSign.clickOneSignButton();
 
          //Upload document
-         eSign.clickOnPacketFromTheList("123");
+         eSign.clickOnPacketFromTheList("packet353");
          eSign.clickOnAddDocument();
          eSign.clickOnUploadDocuments('title_exam (4).pdf');
 
@@ -97,7 +97,7 @@ describe("stavvy application" , ()=>{
         eSign.clickOneSignButton();
 
         //Add Signer
-        eSign.clickOnPacketFromTheList("packet343");
+        eSign.clickOnPacketFromTheList("packet353");
         eSign.clickOnAddSignerButton();
         eSign.addSigner1Info("manasa","kalyani","l","manasa.lingala+133@qualitlabs.com");
         eSign.clickOnSaveButton();
@@ -113,7 +113,7 @@ describe("stavvy application" , ()=>{
         eSign.clickOneSignButton();
 
         //Add signers
-        eSign.clickOnPacketFromTheList("packet343");
+        eSign.clickOnPacketFromTheList("packet353");
         eSign.clickOnAddSignerButton();
         eSign.addSigner1Info("manasa","kalyani","L","manasa.lingala+122@qualitlabs.com");
         eSign.clickOnaddSignerBttn();
@@ -130,7 +130,7 @@ describe("stavvy application" , ()=>{
         eSign.clickOneSignButton();
 
         //Delete signer
-        eSign.clickOnPacketFromTheList("packet343");
+        eSign.clickOnPacketFromTheList("packet353");
         eSign.clickOnEditButtonOfSigner("manasa.lingala+122@qualitlabs.com");
         eSign.clickOnDelete();
         eSign.clickOnRemoveSignerButton();
@@ -145,7 +145,7 @@ describe("stavvy application" , ()=>{
       eSign.clickOneSignButton();
 
       //Edit Signer details
-      eSign.clickOnPacketFromTheList("packet343");
+      eSign.clickOnPacketFromTheList("packet353");
       eSign.clickOnEditButtonOfSigner("manasa.lingala+133@qualitlabs.com");
       eSign.clickOnEdit();
       eSign.editSignerDetails("kalyani","l","manasa","manasa.lingala+132@qualitlabs.com");
@@ -155,20 +155,20 @@ describe("stavvy application" , ()=>{
       eSign.verifyAddedSignerInTheList("manasa.lingala+132@qualitlabs.com");
      })
 
-     it("verify Cancelling a pcket", ()=>{
+     it.only("verify Cancelling a pcket", ()=>{
 
         //Navigate to eSign page
         eSign.clickOneSignButton();
 
         //Cancel packet
-        eSign.clickOnPacketFromTheList("packet343");
+        eSign.clickOnPacketFromTheList("packet351");
         eSign.clickOnCancelPacket();
         eSign.clickOnCancelPacketButtonInPopupPage();
 
         //Verify cancelled packet
         eSign.verifyPacketStatusInDetailsPage("Cancelled");
         eSign.clickOneSignLink();
-        eSign.searcPacket("packet343");
+        eSign.searcPacket("packet351");
         eSign.verifyPacketStatusInTheList("Cancelled");
      })
 })

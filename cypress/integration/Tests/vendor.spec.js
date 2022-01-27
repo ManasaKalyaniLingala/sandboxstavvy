@@ -5,9 +5,9 @@ import { Vendors } from "../Pages/vendors_page";
 
 const login = new Login();
 const vendors=new Vendors();
-describe("stavvy application" , ()=>{
+describe("Vendor test cases" , ()=>{
 
-    beforeEach("Login as valid user",()=>{
+    beforeEach("eSign test cases",()=>{
         login.navigateToUrl();
         login.loginToApplication();
      })
@@ -20,8 +20,8 @@ describe("stavvy application" , ()=>{
 
         //Invite new vendor
         vendors.clickOnInviteNewVendor();
-        vendors.enterVendorDomain("yyyyy111.com");
-        vendors.enterVendorInfo("First Vendor6","first","middle","last","abbcccddddd@gmail.com");
+        vendors.enterVendorDomain("yyyyy112.com");
+        vendors.enterVendorInfo("First Vendor6","first","middle","last","abbcdeeee@gmail.com");
         vendors.clickOnInviteVendor();
 
         //Verify added vendor
@@ -70,10 +70,5 @@ describe("stavvy application" , ()=>{
          vendors.verifyRejectConnectionButtonPresentAndDisbaled();
      })
 
-     it.only("Accepting vendor request",()=>{
-
-         
-
-
-     })
+   
     })

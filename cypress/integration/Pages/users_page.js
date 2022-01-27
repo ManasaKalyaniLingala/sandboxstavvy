@@ -99,7 +99,7 @@ export class Users{
     {
         cy.xpath('//div[2]/span[text()="'+pageNumber+'"]').click();
     }
-    clickOnUser(mail)
+    clickOnUserMail(mail)
     {
         cy.xpath('//*[text()="'+mail+'"]').click();
     }

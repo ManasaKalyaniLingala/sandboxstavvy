@@ -5,7 +5,7 @@ import { Meetings } from "../Pages/meetings_page";
 const login = new Login();
 const meetings = new Meetings();
 
-describe("stavvy application" , ()=>{
+describe("Meetings/Closings test cases" , ()=>{
 
    beforeEach("Login as valid user",()=>{
        login.navigateToUrl();
@@ -20,8 +20,8 @@ describe("stavvy application" , ()=>{
         meetings.clickOnPurchaseType();
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress("Cape Coral, FL, USA","tree","121","91213","55");
-        meetings.enterMeetingInfo("01/13/2022","2:00 AM","Adak (GMT-10:00)");
-        meetings.selectNotary(" MANASA KALYANI    LINGALA (manasa.lingala@qualitlabs.com)");
+        meetings.enterMeetingInfo("01/30/2022","2:00 AM","Adak (GMT-10:00)");
+        meetings.selectNotary("MANASA                                              KALYANI LINGALA (manasa.lingala@qualitlabs.com)");
         meetings.enterSignerInfo("manasa","l","kalyani","0000000000","manasa.lingala+123@qualitlabs.com"); 
         meetings.clickOnCreateClosing();
 
@@ -40,9 +40,9 @@ describe("stavvy application" , ()=>{
         meetings.clickOnRefinanceType();
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress("Cape Coral, FL, USA","tree","121","91213","55");
-        meetings.enterMeetingInfo("01/13/2022","2:00 AM","Adak (GMT-10:00)");
+        meetings.enterMeetingInfo("01/30/2022","2:00 AM","Adak (GMT-10:00)");
         meetings.enterSignerInfo("manasa","kalyani","lingala","0000000000","manasa.lingala+123@qualitlabs.com");
-        meetings.selectNotary(" MANASA KALYANI    LINGALA (manasa.lingala@qualitlabs.com)");
+        meetings.selectNotary("MANASA                                              KALYANI LINGALA (manasa.lingala@qualitlabs.com)");
         meetings.clickOnCreateClosing();
 
         //verify created meeting
@@ -61,9 +61,9 @@ describe("stavvy application" , ()=>{
         meetings.clickOnRefinanceType();
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress("Cape Coral, FL, USA","tree","121","91213","55");
-        meetings.enterMeetingInfo("01/13/2022","4:00 AM","Adak (GMT-10:00)");
+        meetings.enterMeetingInfo("01/30/2022","4:00 AM","Adak (GMT-10:00)");
         meetings.enterSignerInfo("manasa","kalyani","kalyani","0000000000","manasa.lingala+123@qualitlabs.com");
-        meetings.selectNotary(" MANASA KALYANI    LINGALA (manasa.lingala@qualitlabs.com)");
+        meetings.selectNotary("MANASA                                              KALYANI LINGALA (manasa.lingala@qualitlabs.com)");
         meetings.clickOnCreateClosing();
 
         //verify created meeting
@@ -82,9 +82,9 @@ describe("stavvy application" , ()=>{
         meetings.clickOnRefinanceType();
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress("Cape Coral, FL, USA","tree","121","91213","55");
-        meetings.enterMeetingInfo("01/13/2022","12:00 PM","Adak (GMT-10:00)");
+        meetings.enterMeetingInfo("01/30/2022","12:00 PM","Adak (GMT-10:00)");
         meetings.enterSignerInfo("lingala","manasa","kalyani","0000000000","manasa.lingala+123@qualitlabs.com");
-        meetings.selectNotary(" MANASA KALYANI    LINGALA (manasa.lingala@qualitlabs.com)");
+        meetings.selectNotary("MANASA                                              KALYANI LINGALA (manasa.lingala@qualitlabs.com)");
         meetings.clickOnCreateClosing();
 
         //verify created meeting
@@ -96,7 +96,7 @@ describe("stavvy application" , ()=>{
     } )
 
     it("Navigated to closing details page", () =>{
-        const fileId="file107"
+        const fileId="file Id 111"
 
         //navigating to closing details page
         meetings.navigatingToClosingDetailsPage(fileId)
@@ -139,7 +139,7 @@ describe("stavvy application" , ()=>{
 
         //Uploading document.
         meetings.navigateToScheduledMeetings();
-        meetings.navigatingToClosingDetailsPage("file Id 126");
+        meetings.navigatingToClosingDetailsPage("file Id 111");
         meetings.uploadDocument('title_exam (4).pdf');
 
         //Verify added document.
@@ -147,18 +147,18 @@ describe("stavvy application" , ()=>{
         meetings.verifyAddedDocumentName('title_exam (4).pdf');
     })
 
-    it ("Add attendee to the Meeting",()=>{
+    it.only("Add attendee to the Meeting",()=>{
 
         //Adding attendee
         meetings.navigateToScheduledMeetings();
-        meetings.navigatingToClosingDetailsPage("file Id 126");
+        meetings.navigatingToClosingDetailsPage("file Id 111");
         meetings.clickAddAttendeeButton();
-        meetings.enterSignerInfo("manasa","kalyani","l","9999999999","manasa.lingala+11@qualitlabs.com");
+        meetings.enterSignerInfo("manasa","kalyani","lingala","9999999999","manasa.lingala+12@qualitlabs.com");
         meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
 
         //verify added signer.
         meetings.verifyPopupMessage("Successfully invited manasa lingala as an attendee");
-        meetings.verifyAddedSigner("manasa.lingala+11@qualitlabs.com");
+        meetings.verifyAddedSigner("manasa.lingala+12@qualitlabs.com");
     })
     
     
