@@ -8,20 +8,21 @@ const orders = new Orders();
 describe("Assigned Order test cases" , ()=>{
 
     beforeEach("Login as valid user",()=>{
+
         login.navigateToUrl();
         login.loginToApplication("manasa.lingala@qualitlabs.com","16c31a0_486");
      })
 
 
      it("Verify navigating to Pending orders page",()=>{
-         var status1="Pending";
+         var status="Pending";
          
          //Navigate to pending orders page
          orders.navigateToAssignedOrders();
          orders.navigateToPendingOrders();
 
          //Verify Navigated to Pending orders page
-         orders.verifyPageHeading(status1);
+         orders.verifyPageHeading(status);
      })
 
 

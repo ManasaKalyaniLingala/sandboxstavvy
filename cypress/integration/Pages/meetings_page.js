@@ -2,6 +2,10 @@ import selectors from "../Selectors/meetings"
 
 export class Meetings {
 
+    navigateToMeetingsPage()
+    {
+        cy.xpath(selectors.meetingsLink).click();
+    }
     clickOnCreateMeeting()
     {
         cy.get(selectors.createMeetingBttn).click();
@@ -78,6 +82,11 @@ export class Meetings {
     {
         cy.xpath(selectors.startTime).click();
         cy.xpath('//li//span[text()="' + time + '"]').click();
+    }
+
+    verifyDefaultTimezone(timezone)
+    {
+        cy.get(selectors.defaultTimeZoneText).should('have.value',timezone)
     }
 
     selectTimeZone(timeZone)

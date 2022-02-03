@@ -1,5 +1,6 @@
 export default {
     createMeetingBttn: "[class=align-bottom]",
+    meetingsLink:'(//a[@data-testid="nav-link-Meetings"])[1]',
     purchaseTypeBttn:"//*[text()='Purchase']",
     refinanceTypeBtnn: "//*[text()='Refinance']",
     equityTypeBtnn:"//*[text()='Equity']",
@@ -8,6 +9,7 @@ export default {
     meetingDate: "[data-testid='new-meeting-date-datepicker-input']",
     startTime: '(//input[@name="timezone-dropdown"])[1]',
     timeZone: '(//input[@name="timezone-dropdown"])[2]',
+    defaultTimeZoneText:'[placeholder="Select timezone"]',
     notary: '[name="notary"]',
     fisrtnameTxtbx:'[name="firstName"]',
     middleNameTxbx:'[name="middleName"]',
