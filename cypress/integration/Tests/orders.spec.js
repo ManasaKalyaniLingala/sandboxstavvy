@@ -5,6 +5,7 @@ import { Orders } from '../Pages/orders_page';
 
 const login = new Login();
 const orders = new Orders();
+
 describe("Assigned Order test cases" , ()=>{
 
     beforeEach("Login as valid user",()=>{
@@ -14,160 +15,274 @@ describe("Assigned Order test cases" , ()=>{
      })
 
 
-     it("Verify navigating to Pending orders page",()=>{
-         var status="Pending";
+     it("Verify navigating to Origination orders page and its view",()=>{
          
-         //Navigate to pending orders page
-         orders.navigateToAssignedOrders();
-         orders.navigateToPendingOrders();
+         //Navigate to Orders page
+         orders.navigateToOrders();
 
-         //Verify Navigated to Pending orders page
-         orders.verifyPageHeading(status);
+         //Navigate to Origination orders page
+         orders.navigateToOriginationOrdersPage();
+
+         //Verify Orders page view
+         orders.verifyOriginationOrdersPageView("Origination Orders","Origination","Origination: Pending");
      })
 
 
-    it("verify navigating to In Progress Orders page",()=>{
+     it("verify navigating to Servicing orders page and its view",()=>{
         
-        var heading="In Progress";
-        var status2="In progress";
+        //Navigate to Orders page
+        orders.navigateToOrders();
 
-        //Navigate to In Progress orders page
-        orders.navigateToAssignedOrders();
-        orders.navigateToInProgressOrders();
+        //Navigate to Servicing orders page
+        orders.navigateToServicingOrdersPage();
 
-        //Verify navigating to In progress orders page
-        orders.verifyPageHeading(heading);
-        orders.verifystatusOfOrdersInTheList(status2);
-    })
+        //Verify Servicing Orders page view
+        orders.verifyServicingOrdersPageView("Servicing Orders","Servicing","Servicing: Submitted");
+     })
 
 
-    it("verify navigated to Completed orders page",()=>{
-
-        var status="Completed";
-
-        //Navigate to Completed Orders page
-        orders.navigateToAssignedOrders();
-        orders.clickOnArchivedButton();
-        orders.navigateToCompletedOrders();
-
-        //Verify navigated to completed orders page
-        orders.verifyPageHeading(status);
-        orders.verifystatusOfOrdersInTheList(status);
-    })
-
-
-    it("Verify navigating to Favorite orders page",()=>{
-         var heading="Favorites";
-
-        //Navigate to Favorites orders page.
-        orders.navigateToAssignedOrders();
-        orders.navigateToMyFavoritesOrders();
-
-        //Verify navigated to Favorites order page
-        orders.verifyPageHeading(heading);
-    })
-
-
-     it("Verify accepting a pending order in the list",()=>{
-         var file="45656";
+     it("Verify accepting a pending Origination order in the list",()=>{
+         
+         var heading="Origination Orders";
+         var page="Origination";
+         var PendingSubtitle="Origination: Pending";
+         var progressSubtitle="Origination: In Progress";
+         var file="2222";
          var orderType="Title";
-         var status1="Pending";
          var action="Accept";
-         var status2="In Progress";
+         var status="In Progress";
 
          //Navigate to Pending orders page
-         orders.navigateToAssignedOrders();
-         orders.navigateToPendingOrders();
-         orders.verifyPageHeading(status1);
+         orders.navigateToOrders();
+         orders.navigateToOriginationOrdersPage();
+         orders.verifyPageHeading(heading,page);
 
          //Accepting order in the list
          orders.acceptOrRejectOrderByNameAndType(file,orderType,action);
 
          //verification
-         orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status2);
-         orders.navigateToOrdersListThroughAssignedOrdersLink();
-         orders.verifyPageHeading(status2);
-         orders.verifyOrderDetailsInTheList(file,orderType,"In progress");
-         orders.navigateToPendingOrders();
-         orders.verifyPageHeading(status1);
+         orders.verifyTabSubtitle(PendingSubtitle);
          orders.verifyOrderNotPresentInTheList(file,orderType);
+         orders.navigateToInProgressOrdersTab();
+         orders.verifyTabSubtitle(progressSubtitle);
+         orders.verifyOrderDetailsInTheList(file,orderType);
+         orders.navigateToOrderDetailsPage(file,orderType);
+         orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status);
      })
    
 
-     it("Verify rejecting a pending order in the list",()=>{
+     it("Verify rejecting a pending Origination order in the list",()=>{
 
-        var file="45656";
-        var orderType="Settlement";
-        var status1="Pending";
-        var status2="Rejected";
-        var action="Reject";
+        var heading="Origination Orders";
+         var page="Origination";
+         var PendingSubtitle="Origination: Pending";
+         var progressSubtitle="Origination: In Progress";
+         var file="2222";
+         var orderType="Settlement";
+         var action="Reject";
+        
+         //Navigate to Pending orders page
+         orders.navigateToOrders();
+         orders.navigateToOriginationOrdersPage();
+         orders.verifyPageHeading(heading,page);
 
-        //Navigate to Pending orders page
-         orders.navigateToAssignedOrders();
-         orders.navigateToPendingOrders();
-         orders.verifyPageHeading(status1);
-
-         //Rejecting order in the list
+         //Accepting order in the list
          orders.acceptOrRejectOrderByNameAndType(file,orderType,action);
 
-         //verifying rejected order
-         orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status2);
-         orders.navigateToOrdersListThroughAssignedOrdersLink();
-         orders.navigateToPendingOrders();
-         orders.verifyPageHeading(status1);
+         //verification
+         orders.verifyTabSubtitle(PendingSubtitle);
+         orders.verifyOrderNotPresentInTheList(file,orderType);
+         orders.navigateToInProgressOrdersTab();
+         orders.verifyTabSubtitle(progressSubtitle);
          orders.verifyOrderNotPresentInTheList(file,orderType);
      })
 
 
-     it("verify accepting an order in order details page",()=>{
-         var file="2222";
+     it("verify accepting Origination order in order details page",()=>{
+
+         var heading="Origination Orders";
+         var page="Origination";
+         var PendingSubtitle="Origination: Pending";
+         var progressSubtitle="Origination: In Progress";
+         var file="1file";
          var orderType="Settlement";
-         var status1="Pending";
-         var status2="In Progress";
+         var status="In Progress";
          var action="Accept";
 
-         //Navigate to Pending orders page
-         orders.navigateToAssignedOrders();
-         orders.navigateToPendingOrders();
-         orders.verifyPageHeading(status1);
+         //Navigate to Orignatio Pending orders page
+         orders.navigateToOrders();
+         orders.navigateToOriginationOrdersPage();
+         orders.verifyPageHeading(heading,page);
+
 
          //Accepting order in the order details page
-         orders.navigateToOrderDetailsPage(file);
+         orders.navigateToOrderDetailsPage(file,orderType);
          orders.acceptOrRejectOrderInDetailsPage(orderType,action);
         
          //verifying accepted order
-         orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status2);
-         orders.navigateToOrdersListThroughAssignedOrdersLink();
-         orders.verifyPageHeading(status1);
+         orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status);
+         orders.navigateToOriginationOrdersPage();
+         orders.verifyPageHeading(heading,page);
+         orders.verifyTabSubtitle(PendingSubtitle);
          orders.verifyOrderNotPresentInTheList(file,orderType);
-         orders.navigateToInProgressOrders();
-         orders.verifyPageHeading(status2);
-         orders.verifyOrderDetailsInTheList(file,orderType,"In progress");
+         orders.navigateToInProgressOrdersTab();
+         orders.verifyTabSubtitle(progressSubtitle);
+         orders.verifyOrderDetailsInTheList(file,orderType);
      })
      
 
-     it("verify rejecting order in order details page",()=>{
+     it("verify rejecting Origination order in order details page",()=>{
 
-         var file="2222";
+         var heading="Origination Orders";
+         var page="Origination";
+         var PendingSubtitle="Origination: Pending";
+         var progressSubtitle="Origination: In Progress";
+         var file="1file";
          var orderType="Title";
-         var status1="Pending";
-         var status2="Rejected";
+         var status="Rejected";
          var action="Reject";
 
-         //Navigate to Pending orders page
-         orders.navigateToAssignedOrders();
-         orders.navigateToPendingOrders();
-         orders.verifyPageHeading(status1);
-         orders.navigateToOrderDetailsPage(file);
+         //Navigate to Orignatio Pending orders page
+         orders.navigateToOrders();
+         orders.navigateToOriginationOrdersPage();
+         orders.verifyPageHeading(heading,page);
 
-         //Reject order in order details page
+
+         //Accepting order in the order details page
+         orders.navigateToOrderDetailsPage(file,orderType);
          orders.acceptOrRejectOrderInDetailsPage(orderType,action);
          orders.clickCancelItButton();
 
         //verifying rejected order
-         orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status2);
-         orders.navigateToOrdersListThroughAssignedOrdersLink();
-         orders.verifyPageHeading(status1);
-         orders.verifyOrderNotPresentInTheList(file,orderType);
+        orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status);
+        orders.navigateToOriginationOrdersPage();
+        orders.verifyPageHeading(heading,page);
+        orders.verifyTabSubtitle(PendingSubtitle);
+        orders.verifyOrderNotPresentInTheList(file,orderType);
+        orders.navigateToInProgressOrdersTab();
+        orders.verifyTabSubtitle(progressSubtitle);
+        orders.verifyOrderNotPresentInTheList(file,orderType);
      })
+
+     it("Verify Acepting servicing order in the list",()=>{
+
+         var heading="Servicing Orders";
+         var page="Servicing";
+         var PendingSubtitle="Servicing: Submitted";
+         var progressSubtitle="Servicing: In progress";
+         var file="Loan11";
+         var action="Accept";
+         var orderType="Foreclosure";
+         var status="In Progress";
+
+
+        //Navigate to Orignatio Pending orders page
+        orders.navigateToOrders();
+        orders.navigateToServicingOrdersPage();
+        orders.verifyPageHeading(heading,page);
+
+        //Accept order in the list
+        orders.acceptOrRejectServicingOrderByName(file,action);
+
+        //Verify accepted order
+        orders.verifyTabSubtitle(PendingSubtitle);
+        orders.verifyServicingOrderNotPresentInTheList(file);
+        orders.navigateToInProgressOrdersTab();
+        orders.verifyTabSubtitle(progressSubtitle);
+        orders.verifyServicingOrderPresentInTheList(file);
+        orders.navigateToServicingOrderDetailsPage(file);
+        orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status);
+     })
+
+     it("Verify Rejecting a Servicing order in the list",()=>{
+
+         var heading="Servicing Orders";
+         var page="Servicing";
+         var PendingSubtitle="Servicing: Submitted";
+         var progressSubtitle="Servicing: In progress";
+         var file="45656";
+         var action="Reject";
+
+        //Navigate to Orignatio Pending orders page
+        orders.navigateToOrders();
+        orders.navigateToServicingOrdersPage();
+        orders.verifyPageHeading(heading,page);
+
+        //Accept order in the list
+        orders.acceptOrRejectServicingOrderByName(file,action);
+
+        //Verify rejected order
+        orders.verifyTabSubtitle(PendingSubtitle);
+        orders.verifyServicingOrderNotPresentInTheList(file);
+        orders.navigateToInProgressOrdersTab();
+        orders.verifyTabSubtitle(progressSubtitle);
+     })
+
+     it("Verify Accepting a Servicing order in the order details page",()=>{
+
+        var heading="Servicing Orders";
+        var page="Servicing";
+        var PendingSubtitle="Servicing: Submitted";
+        var progressSubtitle="Servicing: In progress";
+        var orderType="Foreclosure";
+        var file="34343";
+        var action="Accept";
+        var status="In Progress";
+
+       //Navigate to Orignation Pending orders page
+       orders.navigateToOrders();
+       orders.navigateToServicingOrdersPage();
+       orders.verifyPageHeading(heading,page);
+       
+       //Navigate to order details page
+       orders.navigateToServicingOrderDetailsPage(file);
+
+       //Accept the foreclosure order in the order details page
+       orders.acceptOrRejectOrderInDetailsPage(orderType,action);
+
+       //Verify accepted order
+       orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status);
+       orders.navigateToServicingOrdersPage();
+       orders.verifyPageHeading(heading,page);
+       orders.verifyTabSubtitle(PendingSubtitle);
+       orders.verifyServicingOrderNotPresentInTheList(file);
+       orders.navigateToInProgressOrdersTab();
+       orders.verifyTabSubtitle(progressSubtitle);
+       orders.verifyServicingOrderPresentInTheList(file);
+     })
+
+     it("Verify rejecting a Servicing order in the order details page",()=>{
+
+        var heading="Servicing Orders";
+        var page="Servicing";
+        var PendingSubtitle="Servicing: Submitted";
+        var progressSubtitle="Servicing: In progress";
+        var orderType="Foreclosure";
+        var file="Loan@1";
+        var action="Reject";
+        var status="Rejected";
+
+       //Navigate to Orignation Pending orders page
+       orders.navigateToOrders();
+       orders.navigateToServicingOrdersPage();
+       orders.verifyPageHeading(heading,page);
+       
+       //Navigate to order details page
+       orders.navigateToServicingOrderDetailsPage(file);
+
+       //Accept the foreclosure order in the order details page
+       orders.acceptOrRejectOrderInDetailsPage(orderType,action);
+       orders.clickCancelItButton();
+
+       //Verify accepted order
+       orders.verifyOrderDetailsInTheDetailsPage(file,orderType,status);
+       orders.navigateToServicingOrdersPage();
+       orders.verifyPageHeading(heading,page);
+       orders.verifyTabSubtitle(PendingSubtitle);
+       orders.verifyServicingOrderNotPresentInTheList(file);
+       orders.navigateToInProgressOrdersTab();
+       orders.verifyTabSubtitle(progressSubtitle);
+       orders.verifyServicingOrderNotPresentInTheList(file);
+     })
+
     })

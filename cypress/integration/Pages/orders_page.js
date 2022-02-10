@@ -1,63 +1,129 @@
 import selectors from '../Selectors/orders';
 export class Orders{
 
-    navigateToAssignedOrders(){
-      cy.get(selectors.assignedOrderBttnInSideBar).click();
-    }
-    navigateToPendingOrders()
+    navigateToOrders()
     {
-        cy.get(selectors.pendingBttn).click();
-        cy.wait(4000);
+      cy.get(selectors.ordersBttnInSidebar).should('exist').click();
+      cy.get(selectors.ordersBttnInSidebar).should('contain.class',"font-medium opacity-100")
     }
-    navigateToInProgressOrders()
+
+    navigateToOriginationOrdersPage()
     {
-        cy.get(selectors.inProgressBttn).click();
+        cy.get(selectors.originationOrdersBttnInSidebar).should('exist').click();
     }
-    navigateToMyFavoritesOrders()
+
+    navigateToServicingOrdersPage()
     {
-        cy.get(selectors.myFavoritesBttn).click()
+        cy.get(selectors.servicingOrdersBtnnInSidebar).should('exist').click();
     }
+    navigateToPendingOrdersTab()
+    {
+        cy.wait(2000);
+        cy.get(selectors.pendingOrdersTab).should('exist').click();
+    }
+
+    navigateToInProgressOrdersTab()
+    {
+        cy.wait(2000);
+        cy.get(selectors.inProgressOrdersTab).should('exist').click();
+    }
+
+    navigateToMyFavoritesOrdersTab()
+    {
+        cy.wait(2000);
+        cy.get(selectors.favoritesOrdersTab).should('exist').click()
+    }
+
     clickOnArchivedButton()
     {
         cy.get(selectors.archivedOrdersBttn).click();
     }
-    navigateToCompletedOrders()
+
+    navigateToCompletedOrdersTab()
     {
-        cy.get(selectors.completedOrdersBttn).click();
+        cy.get(selectors.completedOrdersTab).should('exist').click();
     }
-    acceptOrRejectOrderByNameAndType(fileName,OrderType,action)
+
+    navigateToReadyOrdersTab()
     {
-        cy.xpath('//div[@class="table-body"]/div/div/div[1][text()="'+fileName+'"]/following-sibling::div[text()="'+OrderType+'"]/following-sibling::div/div/button[text()="'+action+'"]').click();
+        cy.get(selectors.readyOrdersTab).should('exist').click();
     }
-    verifyOrderTypeInTheList(file,type)
+
+    verifyTabSubtitle(subtitle)
+    {
+        cy.xpath(selectors.OrdersTabSubtitle).should('contain.text',subtitle)
+    }
+    
+
+    verifyOriginationOrdersPageView(heading,page,subtitle)
+    {
+        this.verifyPageHeading(heading,page)
+        cy.xpath(selectors.createOrderBttn).should('exist');
+        cy.get(selectors.noOfRowsDropDown).should('exist');
+        cy.get(selectors.pendingOrdersTab).should('exist');
+        cy.get(selectors.inProgressOrdersTab).should('exist');
+        cy.get(selectors.completedOrdersTab).should('exist');
+        cy.get(selectors.favoritesOrdersTab).should('exist');
+        this.verifyTabSubtitle(subtitle);
+        cy.get(selectors.ordersSearchBar).should('exist');
+        cy.xpath(selectors.ordersList).should('exist');
+    }
+     verifyServicingOrdersPageView(heading,page,subtitle)
      {
-         cy.xpath('//div[@class="table-body"]/div/div/div[1][text()="'+file+'"]/following-sibling::div[4]').should('have.text',type);
+        this.verifyPageHeading(heading,page)
+        cy.xpath(selectors.createOrderBttn).should('exist');
+        cy.get(selectors.noOfRowsDropDown).should('exist');
+        cy.get(selectors.pendingOrdersTab).should('exist');
+        cy.get(selectors.inProgressOrdersTab).should('exist');
+        cy.get(selectors.completeServingTab).should('exist');
+        cy.get(selectors.favoritesOrdersTab).should('exist');
+        cy.get(selectors.readyOrdersTab).should('exist');
+        this.verifyTabSubtitle(subtitle);
+        cy.get(selectors.ordersSearchBar).should('exist');
+        cy.xpath(selectors.ordersList).should('exist');
      }
-     verifyOrderStatusInTheList(file,status)
-     { 
-         cy.xpath('//div[@class="table-body"]/div/div/div[1][text()="'+file+'"]/following-sibling::div[7]').should('have.text',status)
-     }
-     verifyOrderInTheList(file)
+
+     acceptOrRejectOrderByNameAndType(fileName,orderType,action)
      {
-         cy.xpath(selectors.fileNameInTheList).should('contain.text',file)
+        cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]/../td[4][text()="'+orderType+'"]/../td[7]/div/div/button[text()="'+action+'"]').should('exist').click();
      }
+
+     acceptOrRejectServicingOrderByName(fileName,action)
+     {
+        cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]/../td[5]/div/div/button[text()="'+action+'"]').should('exist').click();
+     }
+     
+     verifyServicingOrderPresentInTheList(file)
+     {
+         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]').should('exist');
+     }
+
+     verifyServicingOrderNotPresentInTheList(file)
+     {
+         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]').should('not.exist');
+     }
+
+     navigateToServicingOrderDetailsPage(file)
+     {
+        cy.xpath('//tbody/tr/td[1][text()="'+file+'"]').should('exist').click();
+     }
+
      verifyOrderNotPresentInTheList(file,orderType)
      {
-         cy.xpath('//div[@class="table-body"]/div/div/div[1][text()="'+file+'"]/following-sibling::div[4][text()="'+orderType+'"]').should('not.exist')
+         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]/../td[4][text()="'+orderType+'"]').should('not.exist');
      }
-     verifyOrderDetailsInTheList(file,type,status)
+     verifyOrderDetailsInTheList(file,orderType)
      {
-         this.verifyOrderInTheList(file);
-         this.verifyOrderTypeInTheList(file,type);
-         this.verifyOrderStatusInTheList(file,status);
+         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]/../td[4][text()="'+orderType+'"]').should('exist');
      }
-     verifyPageHeading(heading)
+     verifyPageHeading(heading,page)
      {
-         cy.xpath(selectors.pageHeading).should('have.text',heading)
+         cy.xpath(selectors.pageHeading).should('have.text',heading);
+         cy.xpath('//a[text()="'+page+'"]').should('contain.class','font-medium opacity-100');
      }
-     navigateToOrderDetailsPage(file)
+     navigateToOrderDetailsPage(file,orderType)
      {
-         cy.xpath('(//div[@class="table-body"]/div/div/div[1][text()="'+file+'"])[1]').click();
+         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]/../td[4][text()="'+orderType+'"]').click();
      }
      verifyFileNameInTheDetailsPage(loanNumber)
      {
@@ -77,7 +143,6 @@ export class Orders{
     }
     verifyOrderDetailsInTheDetailsPage(file,orderType,status)
     {
-       this.verifyNavigatedToOrderDetailsPage();
        this.verifyFileNameInTheDetailsPage(file);
        this.verifyOrderStatusInOrderDetails(orderType,status);
     }
@@ -87,11 +152,22 @@ export class Orders{
     }
     clickCancelItButton()
     {
-        cy.xpath(selectors.cancelItBttn).click();
+        cy.xpath(selectors.cancelItBttn).should('exist').click();
     }
     verifystatusOfOrdersInTheList(status)
     {
         cy.xpath(selectors.orderStatusInTheList).should('contain.text',status);
+    }
+
+    selectNoOfRowsPerPage(number)
+    {
+        cy.get(selectors.noOfRowsDropDown).should('exist').click();
+        cy.xpath("//ul/li/span[text()='"+number+" per page']").click();
+    }
+
+    verifyNoOfOrdersInTheList(number)
+    {
+        cy.xpath('//tbody').children().should('have.length', number);
     }
     
     }

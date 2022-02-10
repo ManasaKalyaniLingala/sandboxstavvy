@@ -236,7 +236,6 @@ export class Files{
     {
         cy.xpath('//div[text()="'+tab+'"]').should('contain.class',"stavviz-tab-is-active");
         this.verifyFilesTabSubtitle("Files: "+tab+"");
-
     }
 
     verifyStatusTextOfFileInTheList(status)
