@@ -78,7 +78,7 @@ describe("Settings test cases" , ()=>{
          settings.verifyUpdatedOrganizationName(organization);
      })
 
-     it("Update preferred timezone",()=>{
+     it.only("Update preferred timezone",()=>{
 
         var timezone="Honolulu (GMT-10:00)";
 
@@ -96,7 +96,7 @@ describe("Settings test cases" , ()=>{
         meetings.verifyDefaultTimezone(timezone);
      })
 
-     it("Verify disabling and enabling files",()=>{
+     it.only("Verify disabling and enabling files",()=>{
 
         var transaction="Files"
 
@@ -121,7 +121,7 @@ describe("Settings test cases" , ()=>{
      })
 
 
-     it("Verify disabling and enabling Orders",()=>{
+     it.only("Verify disabling and enabling Orders",()=>{
 
         var transaction="Acknowledgement";
 

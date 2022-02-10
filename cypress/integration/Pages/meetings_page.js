@@ -253,4 +253,8 @@ export class Meetings {
        cy.xpath(selectors.addedAttendeeEmail).should('have.text',attendeeEmail)
    }
 
+   verifyTransactionType(transaction)
+   {
+       cy.xpath(selectors.transactionType).should('have.text',transaction);
+   }
 }

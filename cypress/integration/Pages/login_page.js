@@ -27,6 +27,15 @@ export class Login {
         cy.get(selectors.loginBttn).click();
     }
 
+    verifyLoginPageView()
+    {
+        cy.url().should('include', 'https://login.sandbox.stavvy.com/login?state');
+        cy.get(selectors.usernameTxtbx).should('exist');
+        cy.get(selectors.passwordTxtbx).should('exist');
+        cy.get(selectors.loginBttn).should('exist');
+        cy.get(selectors.dontRememberPasswordLink).should('exist');
+    }
+
     clickOnProfile()
     {
         cy.get(selectors.profileIcon).click();

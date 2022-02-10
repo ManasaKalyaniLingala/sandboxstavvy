@@ -63,7 +63,7 @@ describe("Header test cases" , ()=>{
         login.verifyLoginPageView();
      })
 
-     it.only("Verify help button",()=>{
+     it("Verify help button",()=>{
 
         //Hover over help button
         header.hoverOverHelpButton();

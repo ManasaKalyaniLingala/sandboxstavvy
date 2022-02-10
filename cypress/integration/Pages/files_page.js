@@ -41,7 +41,7 @@ export class Files{
     }
 
     enterPropertyAddress(address) {
-        cy.xpath(selectors.propertyAddressInputField).type(address);
+        cy.get(selectors.propertyAddressInputField).type(address);
         cy.xpath('//div[text()="'+address+'"]').click();
         cy.wait(1000);
     }
@@ -52,6 +52,16 @@ export class Files{
 
     clickContinueButton() {
         cy.xpath(selectors.continueButtion).click();
+    }
+
+    verifyContinueButtonDisabled()
+    {
+        cy.xpath(selectors.continueButtion).should('be.disabled');
+    }
+
+    verifyErrorText(errorText)
+    {
+        cy.get(selectors.errorText).should('have.text',errorText)
     }
 
     clickCreateFileButtonOnReviewOfAFile() {
@@ -71,7 +81,7 @@ export class Files{
         this.enterPropertyAddress(address);
     }
 
-    enterBorrowerAddress(firstName, lastName, email, phoneNumber, SSN, borrowerAddress) {
+    enterBorrowerDetails(firstName, lastName, email, phoneNumber, SSN, borrowerAddress) {
         cy.get(selectors.enterBorrowerFirstName).type(firstName);
         cy.get(selectors.enterBorrowerLastName).type(lastName);
         cy.get(selectors.enterBorrowerEmail).type(email);
@@ -173,47 +183,67 @@ export class Files{
     verifyFileDetailsInTheList(loanNumber,address)
     {
         cy.xpath(selectors.loanNumberInTheList).should('contain.text',loanNumber);
-        cy.xpath('//div[@class="table-body"]/div/div/div[3][text()="'+loanNumber+'"]/../div[1]/text()').should('contain.text',address);
-
+        cy.xpath('//tbody/tr/td[2][text()="'+loanNumber+'"]/preceding-sibling::td/text()').should('contain.text',address);
     }
     verifyMessage(message)
     {
         cy.get(".react-toast-notifications__toast__content").should('have.text', message)
     }
-    selectNoOfRows(numberOfRows)
-    {   cy.wait(3000);
-        cy.xpath('//select').select(numberOfRows);
+    verifyNoOfRowsDropDown()
+    {
+        cy.get(selectors.noOfRowsDropDown).should('exist');
+    }
+    selectNoOfRowsPerPage(number)
+    {
+        cy.get(selectors.noOfRowsDropDown).should('exist').click();
+        cy.xpath("//ul/li/span[text()='"+number+" per page']").click();
     }
     verifyNoOfFilesInTheList(number)
     {
-        cy.xpath('//div[@class="table-body"]').children().should('have.length', number);
+        cy.xpath('//tbody').children().should('have.length', number);
     }
     verifyPageTitle(title)
     {
         cy.xpath(selectors.filesPageTitle).should('have.text',title)
     }
-    navigateToInProgressFilesPage()
+
+
+    navigateToInProgressFilesTab()
     {
-      cy.get(selectors.inProgressBttn).click();
+        cy.wait(2000);
+        cy.get(selectors.inProgressTab).should('exist').click();
     }
-    navigateToMyFavoritesFilesPage()
+
+    navigateToMyFavoritesFilesTab()
     {
-        cy.get(selectors.myFavoritesBttn).click();
+        cy.wait(2000);
+        cy.get(selectors.favoritesTab).should('exist').click();
     }
-    navigateToCancelledFilesPage()
+
+    navigateToCancelledFilesTab()
     {
-        cy.xpath(selectors.archivedBttn).click();
-        cy.get(selectors.cancelledBtnn).click();
+        cy.wait(2000);
+        cy.get(selectors.cancelledTab).should('exist').click();
     }
-    navigateToCompletedFilesPage()
+
+    navigateToCompletedFilesTab()
     {
-        cy.xpath(selectors.archivedBttn).click();
-        cy.get(selectors.completedBttn).click();
+        cy.wait(2000);
+        cy.get(selectors.completedTab).should('exist').click();
     }
+
+    verifyNavigatedToTab(tab)
+    {
+        cy.xpath('//div[text()="'+tab+'"]').should('contain.class',"stavviz-tab-is-active");
+        this.verifyFilesTabSubtitle("Files: "+tab+"");
+
+    }
+
     verifyStatusTextOfFileInTheList(status)
     {
         cy.xpath(selectors.statusTxt).should('contain.text',status)
     }
+
     clickOnFile(file)
     {
         cy.contains(file).click();
@@ -295,16 +325,7 @@ export class Files{
     {
         cy.xpath(selectors.closerName).should('have.text',closer);
     }
-    clickReassignButton()
-    {
-        cy.xpath(selectors.reassignCloserBttn).click();
-    }
-    reassignCloser(closer)
-    {
-        this.clickReassignButton();
-        this.selectCloserFromTheDropdown(closer);
-        this.clickSaveButton();
-    }
+    
     clickAssignLoanProcessorLink()
     {
         cy.xpath(selectors.assignLoanProcessorLink).click();
@@ -323,6 +344,135 @@ export class Files{
     verifyAssignedLoanProcessor(loanProcessor)
     {
         cy.xpath(selectors.loanProcessorName).should('have.text',loanProcessor)
+    }
+
+    verifyCreateFileButton()
+    {
+        cy.get(selectors.CreateFileButton).should('exist');
+    }
+
+    verifySearchBar()
+    {
+        cy.get(selectors.fileSearchBar).should('exist');
+    }
+
+    verifyFilesTabSubtitle(subtitle)
+    {
+        cy.xpath(selectors.filesTabSubtitle).should('contain.text',subtitle)
+    }
+
+    verifyTabView()
+    {
+        this.verifyCreateFileButton();
+        this.verifyPageTitle("Files");
+        this.verifyNoOfRowsDropDown();
+        this.verifySearchBar();
+        cy.get(selectors.inProgressTab).should('exist');
+        cy.get(selectors.cancelledTab).should('exist');
+        cy.get(selectors.favoritesTab).should('exist');
+        cy.get(selectors.completedTab).should('exist');
+        cy.xpath(selectors.partyOrBorrowerColoumn).should('exist');
+        cy.xpath(selectors.fileNameColoumn).should('exist');
+        cy.xpath(selectors.closeDateColoumn).should('exist');
+        cy.xpath(selectors.ordersColoumn).should('exist');
+        cy.xpath(selectors.filesList).should('exist');
+    }
+
+    verifyMyFavoritesTabView()
+    {
+        this.verifyCreateFileButton();
+        this.verifyPageTitle("Files");
+        this.verifyNoOfRowsDropDown();
+        this.verifySearchBar();
+        cy.get(selectors.inProgressTab).should('exist');
+        cy.get(selectors.cancelledTab).should('exist');
+        cy.get(selectors.favoritesTab).should('exist');
+        cy.get(selectors.completedTab).should('exist');
+        cy.xpath(selectors.partyOrBorrowerColoumn).should('exist');
+        cy.xpath(selectors.fileNameColoumn).should('exist');
+        cy.xpath(selectors.closeDateColoumn).should('exist');
+        cy.xpath(selectors.ordersColoumn).should('exist');
+        cy.xpath(selectors.statusColoumn).should('exist');
+        cy.xpath(selectors.filesList).should('exist');
+    
+    }
+    
+
+    verifyFilesPageView()
+    {
+      this.verifyCreateFileButton();
+      this.verifyPageTitle("Files");
+      this.verifyNoOfRowsDropDown();
+      this.verifySearchBar();
+      cy.get(selectors.inProgressTab).should('exist');
+      cy.get(selectors.cancelledTab).should('exist');
+      cy.get(selectors.favoritesTab).should('exist');
+      cy.get(selectors.completedTab).should('exist');
+      this.verifyFilesTabSubtitle("Files: In Progress");
+      cy.xpath(selectors.filesList).should('exist');
+    }
+
+    verifyAddedOrderStatus(order,status)
+    {
+        cy.xpath('//div[@class="subtitle"]/../div[text()="'+order+'"]/../following-sibling::div/div/div[2]/div/div/text()').should('have.text',status)
+    }
+
+    verifyAdderOrderDueDate(order,duedate)
+    {
+        cy.xpath('//div[@class="subtitle"]/../div[text()="'+order+'"]/../following-sibling::div/div[3]/div[2]/text()').should('contain.text',duedate)
+    }
+
+    verifyAddedOrderVendor(order,vendor)
+    {
+        cy.xpath('//div[@class="subtitle"]/../div[text()="'+order+'"]/../following-sibling::div/div[5]/div[2]/text()').should('have.text',vendor)
+    }
+
+    verifyAddedOrder(order)
+    {
+        cy.xpath(selectors.addedOrderInFileDetailsPage).should('contain.text',order);
+    }
+    verifyAddedOrderInTheFileDetailsPage(order,status,duedate,vendor)
+    {
+        this.verifyAddedOrder(order);
+        this.verifyAddedOrderStatus(order,status);
+        this.verifyAdderOrderDueDate(order,duedate);
+        this.verifyAddedOrderVendor(order,vendor);
+    }
+
+    verifyFileDetailsInTheFileDetailsPage(loanNumber,loanType,address)
+    {
+    this.verifyNavigatedToFileDetailsPage();
+    this.verifyLoanNumber(loanNumber);
+    this.veifyLoanType(loanType);
+    this.verifyAddressInFileDetailsPage(address);
+    }
+
+    verifyFileAddressInTheList(fileId,address)
+    {
+        cy.xpath('//tbody/tr[@class]/td[2][text()="'+fileId+'"]//../preceding-sibling::td/text()').should('contain.text',address)
+    }
+
+    verifyBorrowerOfFileInTheList(fileId,borrower)
+    {
+        cy.xpath('//tbody/tr[@class]/td[2][text()="'+fileId+'"]//../preceding-sibling::td/div/text()').should('contain.text',borrower)
+    }
+
+    verifyAddedOrdersInTheList(fileId,orders)
+    {
+        cy.xpath('//tbody/tr[@class]/td[2][text()="'+fileId+'"]//../td[4]').should('contain.text',orders)
+    }
+
+    verifyClosingDateInTheList(fileId,closeDate)
+    {
+        cy.xpath('//tbody/tr[@class]/td[2][text()="'+fileId+'"]//../td[3]').should('have.text',closeDate);
+    }
+
+    verifyAddedFileInTheList(fileId,address,borrower,orders,closeDate)
+    {
+        this.verifyFileAddressInTheList(fileId,address);
+        this.verifyBorrowerOfFileInTheList(fileId,borrower);
+        this.verifyAddedOrdersInTheList(fileId,orders);
+        this.verifyClosingDateInTheList(fileId,closeDate);
     }
 
 

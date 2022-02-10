@@ -16,8 +16,8 @@ describe("Acknowledgment test cases" , ()=>{
 
      it("Verify approving without acknowledgment",()=>{
 
-         var document="certified_test doc4.pdf";
-         var loanNumber="Remote signing2";
+         var document="certified_document2.pdf";
+         var loanNumber="file777";
          var text="Approved";
          var status="Complete";
 
@@ -39,8 +39,8 @@ describe("Acknowledgment test cases" , ()=>{
 
      it("Verify rejecting document",()=>{
 
-         var document="certified_test doc1.pdf";
-         var loanNumber="Remote signing2";
+         var document="certified_document3.pdf";
+         var loanNumber="file910";
          var status="Rejected";
 
          //Navigate to Acknowledgement page
@@ -59,10 +59,10 @@ describe("Acknowledgment test cases" , ()=>{
      })
 
 
-     it("Verify moving document from Initial Review to Acknowledge tab by selecting Approve - Acknowledgement Required in Quality control",()=>{
+     it.only("Verify moving document from Initial Review to Acknowledge tab by selecting Approve - Acknowledgement Required in Quality control",()=>{
             
-        var document="certified_document2.pdf";
-        var loanNumber="Remote signing2";
+        var document="certified_document1.pdf";
+        var loanNumber="file367";
 
         //Navigating to Acknowledgement page
         acknowledgment.navigateToAcknowledgementPage();
@@ -276,6 +276,5 @@ describe("Acknowledgment test cases" , ()=>{
         acknowledgment.verifyDocumentInTheList(document,loanNumber);
         acknowledgment.verifyDocumentLastLocation(document,loanNumber,location);
      })
-
      
     })

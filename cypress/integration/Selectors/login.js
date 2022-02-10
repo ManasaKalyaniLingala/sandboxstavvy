@@ -4,5 +4,5 @@ export default{
     usernameTxtbx: '[name="email"]',
     passwordTxtbx: '[name="password"]',
     loginBttn: "[name='submit']",
-
+    dontRememberPasswordLink:'[class="auth0-lock-alternative-link"]',
 }

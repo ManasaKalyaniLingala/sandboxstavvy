@@ -39,5 +39,5 @@ export default {
     uploadButton:'//button[text()="Upload"]',
     documentName:'((//tbody)[2]/tr[last()]//td/div/div/text())[1]',
     addedAttendeeEmail:'(//tbody)[1]/tr[last()]/td[3]/text()',
-    
+    transactionType:'//div[@class="text-base"][2]/text()'
 }

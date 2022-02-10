@@ -12,7 +12,7 @@ describe("Files test cases" , ()=>{
         login.loginToApplication();
      })
     
-it.only("Create Purchase type File", ()=> {
+it("Create Purchase type File", ()=> {
     var loanNumber="Loan"+Math.floor(Math.random()*1000);
 
     //Navigate to Files page
@@ -21,25 +21,25 @@ it.only("Create Purchase type File", ()=> {
     //Create file
     files.clickCreateFileButton();
     files.clickPurchaseType();
-    files.enterBasicInfo(loanNumber,"01/28/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
+    files.enterBasicInfo(loanNumber,"02/19/2022","MANASA KALYANI LINGALA (manasa.lingala@qualitlabs.com)","100","23700 West Bluff Road, Channahon, IL, USA");
+
     files.enterPurchasePrice("150");
     files.clickContinueButton();
-    files.enterBorrowerAddress("jaya", "prakash", "manasa.lingala+123@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
-    files.addTitleOrder("01/29/2022","MANASA VENDOR")
-   // files.addForeclosureOrder("01/29/2022","MANASA VENDOR");
+    files.enterBorrowerDetails("Borrower", "1", "manasa.lingala+123@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
+    files.addTitleOrder("02/10/2022","MANASA VENDOR");
+    files.addForeclosureOrder("02/10/2022","MANASA VENDOR");
     files.clickContinueButton();
     files.clickCreateFileButtonOnReviewOfAFile();
 
     //Verify created file
     files.verifyMessage("Creating file...");
-    files.verifyNavigatedToFileDetailsPage();
-    files.verifyLoanNumber(loanNumber);
-    files.veifyLoanType("Purchase");
-    files.verifyAddressInFileDetailsPage("23700 West Bluff Road");
+    files.verifyFileDetailsInTheFileDetailsPage(loanNumber,"Purchase","23700 West Bluff Road, Channahon");
+    files.verifyAddedOrderInTheFileDetailsPage("Title","Pending","Today","MANASA VENDOR");
+    files.verifyAddedOrderInTheFileDetailsPage("Foreclosure","Pending","Today","MANASA VENDOR");
     files.navigateToFiles();
+    files.selectNoOfRowsPerPage("25");
     files.clickOnCloseDateSorting();
-    files.selectNoOfRows("25");
-    files.verifyFileDetailsInTheList(loanNumber,"23700 West Bluff Road, Channahon");
+    files.verifyAddedFileInTheList(loanNumber,"23700 West Bluff Road, Channahon","Borrower","Title","02/18/2022");
 })
 
 
@@ -52,24 +52,24 @@ it("create a refinance type file",()=>{
     // creating file
     files.clickCreateFileButton();
     files.clickRefinanceType();
-    files.enterBasicInfo(loanNumber,"01/28/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
+    files.enterBasicInfo(loanNumber,"02/23/2022","MANASA KALYANI LINGALA (manasa.lingala@qualitlabs.com)","100","23700 West Bluff Road, Channahon, IL, USA");
     files.clickContinueButton();
-    files.enterBorrowerAddress("jaya", "prakash", "manasa.lingala+123@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
-    files.addTitleOrder("01/28/2022","MANASA VENDOR")
-   // files.addForeclosureOrder("01/28/2022","MANASA VENDOR");
+    files.enterBorrowerDetails("jaya", "prakash", "manasa.lingala+123@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
+    files.addTitleOrder("02/10/2022","MANASA VENDOR")
+    files.addForeclosureOrder("02/10/2022","MANASA VENDOR");
     files.clickContinueButton();
     files.clickCreateFileButtonOnReviewOfAFile();
     files.verifyMessage("Creating file...");
     
     //verify created file
-    files.verifyNavigatedToFileDetailsPage();
-    files.verifyLoanNumber(loanNumber);
-    files.veifyLoanType("Refinance");
-    files.verifyAddressInFileDetailsPage("23700 West Bluff Road");
+    files.verifyMessage("Creating file...");
+    files.verifyFileDetailsInTheFileDetailsPage(loanNumber,"Refinance","23700 West Bluff Road, Channahon");
+    files.verifyAddedOrderInTheFileDetailsPage("Title","Pending","Today","MANASA VENDOR");
+    files.verifyAddedOrderInTheFileDetailsPage("Foreclosure","Pending","Today","MANASA VENDOR");
     files.navigateToFiles();
+    files.selectNoOfRowsPerPage("25");
     files.clickOnCloseDateSorting();
-    files.selectNoOfRows("25");
-    files.verifyFileDetailsInTheList(loanNumber,"23700 West Bluff Road, Channahon");
+    files.verifyAddedFileInTheList(loanNumber,"23700 West Bluff Road, Channahon","jaya prakash","Foreclosure, Title","02/20/2022");
 })
 
 
@@ -82,24 +82,23 @@ it("create a equity type file",()=>{
     //Create file
     files.clickCreateFileButton();
     files.clickEquityType();
-    files.enterBasicInfo(loanNumber,"01/28/2022","7 day verification user","100","23700 West Bluff Road, Channahon, IL, USA");
+    files.enterBasicInfo(loanNumber,"02/23/2022","MANASA KALYANI LINGALA (manasa.lingala@qualitlabs.com)","100","23700 West Bluff Road, Channahon, IL, USA");
     files.clickContinueButton();
-    files.enterBorrowerAddress("jaya", "prakash", "manasa.lingala@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
-    files.addTitleOrder("01/28/2022","MANASA VENDOR")
-   // files.addForeclosureOrder("01/30/2022","MANASA VENDOR");
+    files.enterBorrowerDetails("manasa", "kalyani", "manasa.lingala@qualitlabs.com","1234567890", "345676879", "90 Bedford Street, New York, NY, USA");
+    files.addTitleOrder("02/10/2022","MANASA VENDOR")
+    files.addForeclosureOrder("02/10/2022","MANASA VENDOR");
     files.clickContinueButton();
     files.clickCreateFileButtonOnReviewOfAFile();
 
     //Verify Created file
     files.verifyMessage("Creating file...");
-    files.verifyNavigatedToFileDetailsPage();
-    files.verifyLoanNumber(loanNumber);
-    files.veifyLoanType("Equity");
-    files.verifyAddressInFileDetailsPage("23700 West Bluff Road");
+    files.verifyFileDetailsInTheFileDetailsPage(loanNumber,"Equity","23700 West Bluff Road, Channahon");
+    files.verifyAddedOrderInTheFileDetailsPage("Title","Pending","Today","MANASA VENDOR");
+    files.verifyAddedOrderInTheFileDetailsPage("Foreclosure","Pending","Today","MANASA VENDOR");
     files.navigateToFiles();
+    files.selectNoOfRowsPerPage("25");
     files.clickOnCloseDateSorting();
-    files.selectNoOfRows("25");
-    files.verifyFileDetailsInTheList(loanNumber,"23700 West Bluff Road, Channahon");
+    files.verifyAddedFileInTheList(loanNumber,"23700 West Bluff Road, Channahon","manasa kalyani","Foreclosure, Title","02/22/2022");
 })
 
 
@@ -127,14 +126,14 @@ it.only("verify creating a file without property address",()=>{
     //Create File
     files.clickCreateFileButton();
     files.enterLoanNumber(loanNumber);
-    files.selectClosingDate("01/28/2022");
-    files.selectLoanProcessor("MANASA                                              KALYANI  LINGALA");
+    files.selectClosingDate("02/28/2022");
+    files.selectLoanProcessor("MANASA KALYANI LINGALA (manasa.lingala@qualitlabs.com)");
     files.enterLoanAmount("77");
     files.enterPurchasePrice("98");
-    files.clickContinueButton();
 
-    //Verify error text
-    files.verifyMessage("Address required");
+    //Verify Continue button is disabled and error text
+    files.verifyContinueButtonDisabled();
+    files.verifyErrorText("Valid address required");
 })
 
 
@@ -143,74 +142,115 @@ it("verify listing files by no of rows",()=>{
     files.navigateToFiles();
 
     //Select No of rows
-    files.selectNoOfRows('25');
+    files.selectNoOfRowsPerPage("5");
 
-    //Verify No of Rows
-    files.verifyNoOfFilesInTheList(25);
-
-    //Select No of rows
-    files.selectNoOfRows('5');
-
-    //Verify No of Rows
+    //Verify no of rows
     files.verifyNoOfFilesInTheList(5);
 
     //Select No of rows
-    files.selectNoOfRows('10');
+    files.selectNoOfRowsPerPage("25");
 
-    //Verify No of rows
+    //Verify no of rows
+    files.verifyNoOfFilesInTheList(25);
+
+    //Select No of rows
+    files.selectNoOfRowsPerPage("10");
+
+    //Verify no of rows
     files.verifyNoOfFilesInTheList(10);
+
 })
 
+it("Verify navigating to Files page and its view",()=>{
 
-it("Verify navigating to In Progress files",()=>{
+    //Navigate to Files page
+    files.navigateToFiles();
+
+    //Verify Files page view
+    files.verifyFilesPageView();
+})
+
+it("Verify switching between files tabs",()=>{
+
+    //Navigate to Files page
+    files.navigateToFiles();
+    files.verifyFilesPageView();
+    files.verifyNavigatedToTab("In Progress");
+
+    //Navigate to completed tab
+    files.navigateToCompletedFilesTab();
+    files.verifyNavigatedToTab("Completed");
+
+    //Navigate to Cancelled tab
+    files.navigateToCancelledFilesTab();
+    files.verifyNavigatedToTab("Cancelled");
+
+    //Navigate to Favorites tab
+    files.navigateToMyFavoritesFilesTab();
+    files.verifyNavigatedToTab("My Favorites");
+
+})
+
+it("Verify navigating to In Progress files tab and its view",()=>{
 
     //Navigate to files
     files.navigateToFiles();
 
-    //Navigate to In progress files
-    files.navigateToInProgressFilesPage();
+    //Navigate to In progress tab
+    files.navigateToInProgressFilesTab();
 
-    //Verify In Progress page
-    files.verifyPageTitle("In Progress");
-    files.verifyStatusTextOfFileInTheList("In progress");
+    //Verify navigated to In progress tab
+    files.verifyNavigatedToTab("In Progress");
+
+    //Verify In Progress tab view
+    files.verifyTabView();
+
 })
-it("Verify navigating to My favourites files",()=>{
+it("Verify navigating to My favourites files tab and its view",()=>{
 
     //Navigate to files
     files.navigateToFiles();
 
     //Navigate to My favorites files
-    files.navigateToMyFavoritesFilesPage();
+    files.navigateToMyFavoritesFilesTab();
 
     //Verify My favorites page
-    files.verifyPageTitle("My Favorites");
+    files.verifyNavigatedToTab("My Favorites");
+
+    //Verify My Favorites page view
+    files.verifyMyFavoritesTabView();
 })
 
 
-it("verify navigating to Cancelled files",()=>{
+it("verify navigating to Cancelled files tab and its view",()=>{
 
     //Navigate to files
     files.navigateToFiles();
 
     //Navigate to Cancelled files
-    files.navigateToCancelledFilesPage();
+    files.navigateToCancelledFilesTab();
 
     //Verify Cancelled file page
-    files.verifyPageTitle("Cancelled");
+    files.verifyNavigatedToTab("Cancelled");
+
+    //Verify Cancelled page view
+    files.verifyTabView();
 })
 
 
-it("Verify navigating to Completed files",()=>{
+it("Verify navigating to Completed files tab and view",()=>{
 
     //Navigate to Files
     files.navigateToFiles();
 
     //Navigate to Completed files
-    files.navigateToCompletedFilesPage();
+    files.navigateToCompletedFilesTab();
 
-    //Verify Completed files page
-    files.verifyPageTitle("Completed");
-    files.verifyStatusTextOfFileInTheList("Completed");
+    //Verify navigated Completed files tab 
+    files.verifyNavigatedToTab("Completed");
+
+    //Verify Completed tab view
+    files.verifyTabView();
 })
 
 
@@ -220,7 +260,7 @@ it("Verify adding document",()=>{
     files.navigateToFiles();
 
     //Add document
-    files.clickOnFile("SN-975");
+    files.clickOnFile("SN-976");
     files.uploadDocument("title_exam (4).pdf","Purchase Contract");
     files.clickUploadButton();
 
@@ -235,55 +275,39 @@ it("verify updating Loan Number",()=>{
     files.navigateToFiles();
 
     //Update loan number
-    files.clickOnFile("file88");
-    files.updateLoanNumber("file880");
+    files.clickOnFile("SN-976");
+    files.updateLoanNumber("fileEdited");
 
     //Verify updated loan number
-    files.verifyLoanNumber("file880");
+    files.verifyLoanNumber("fileEdited");
 })
 
 
-it.only("Assign closer to file",()=>{
-    var closer="MANASA                                              KALYANI  LINGALA";
+it("Assign closer to file",()=>{
+    var closer="MANASA KALYANI LINGALA (manasa.lingala@qualitlabs.com)";
 
     //Navigate to Files
     files.navigateToFiles();
 
     //Assign closer
-    files.clickOnFile("SN-977");
+    files.clickOnFile("SN-945");
     files.assignCloser(closer);
 
     //Verify assigned closer
-    files.verifyAssignedCloserName(closer);
+    files.verifyAssignedCloserName("MANASA KALYANI LINGALA");
 })
-
-
-it("Reassign closer to file",()=>{
-    var closer=" manasa m L";
-
-    //Navigate to Files
-    files.navigateToFiles();
-
-    //Reassign closer
-    files.clickOnFile("SN-975");
-    files.reassignCloser(closer);
-
-    //Verify reassigned closer
-    files.verifyAssignedCloserName(closer);
-})
-
 
 it("assign Loan Processor",()=>{
-    var loanProcessor=" manasa m L";
+    var loanProcessor="MANASA KALYANI LINGALA (manasa.lingala@qualitlabs.com)";
 
     //Navigate to Files
     files.navigateToFiles();
 
     //Assign Loan processor
-    files.clickOnFile("SN-975")
+    files.clickOnFile("SN-945")
     files.assignLoanProcessor(loanProcessor);
 
     //Verify assigned loan procesor
-    files.verifyAssignedLoanProcessor(loanProcessor);
+    files.verifyAssignedLoanProcessor("MANASA KALYANI LINGALA");
 })
 })
