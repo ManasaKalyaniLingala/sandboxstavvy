@@ -59,7 +59,7 @@ describe("Acknowledgment test cases" , ()=>{
      })
 
 
-     it.only("Verify moving document from Initial Review to Acknowledge tab by selecting Approve - Acknowledgement Required in Quality control",()=>{
+     it("Verify moving document from Initial Review to Acknowledge tab by selecting Approve - Acknowledgement Required in Quality control",()=>{
             
         var document="certified_document1.pdf";
         var loanNumber="file367";

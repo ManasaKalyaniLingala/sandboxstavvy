@@ -78,7 +78,7 @@ describe("Settings test cases" , ()=>{
          settings.verifyUpdatedOrganizationName(organization);
      })
 
-     it.only("Update preferred timezone",()=>{
+     it("Update preferred timezone",()=>{
 
         var timezone="Honolulu (GMT-10:00)";
 
@@ -96,7 +96,7 @@ describe("Settings test cases" , ()=>{
         meetings.verifyDefaultTimezone(timezone);
      })
 
-     it.only("Verify disabling and enabling files",()=>{
+     it("Verify disabling and enabling files",()=>{
 
         var transaction="Files"
 
@@ -121,7 +121,7 @@ describe("Settings test cases" , ()=>{
      })
 
 
-     it.only("Verify disabling and enabling Orders",()=>{
+     it("Verify disabling and enabling Orders",()=>{
 
         var transaction="Acknowledgement";
 
@@ -146,7 +146,7 @@ describe("Settings test cases" , ()=>{
      })
 
 
-     it.only("Verify disabling Quality control",()=>{
+     it("Verify disabling Quality control",()=>{
 
         var length='2';
         var EligibleDocumentsTransaction ="Eligible Documents";
@@ -172,7 +172,7 @@ describe("Settings test cases" , ()=>{
         settings.verifyQualityControlTransactionNotInTheList(archivedTransaction);
      })
 
-     it.only("Verify enabling quality control",()=>{
+     it("Verify enabling quality control",()=>{
 
         var length='3';
         var EligibleDocumentsTransaction ="Eligible Documents";

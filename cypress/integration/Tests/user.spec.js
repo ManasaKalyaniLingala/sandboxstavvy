@@ -110,7 +110,7 @@ describe("Users test cases" , ()=>{
         users.verifyDeletedUserInTheList(userName);
     })
 
-    it.only("verify inviting new user with existing user's mail", ()=>{
+    it("verify inviting new user with existing user's mail", ()=>{
         var mail="manasa.lingala+7778@qualitlabs.com"
 
         //Navigating to Users page

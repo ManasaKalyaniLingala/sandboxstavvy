@@ -155,7 +155,7 @@ describe("stavvy application" , ()=>{
       eSign.verifyAddedSignerInTheList("manasa.lingala+132@qualitlabs.com");
      })
 
-     it.only("verify Cancelling a pcket", ()=>{
+     it("verify Cancelling a pcket", ()=>{
 
         //Navigate to eSign page
         eSign.clickOneSignButton();

@@ -42,7 +42,7 @@ describe("Meetings/Closings test cases" , ()=>{
          meetings.clickOnRefinanceType();
          meetings.enterFileNumber(fileId);
          meetings.selectPropertyAddress("Cape Coral, FL, USA","tree","121","91213","55");
-         meetings.enterMeetingInfo("02/10/2022","2:00 AM","Adak (GMT-10:00)");
+         meetings.enterMeetingInfo("02/15/2022","2:00 AM","Adak (GMT-10:00)");
          meetings.enterSignerInfo("manasa","kalyani","lingala","0000000000","manasa.lingala+123@qualitlabs.com");
          meetings.selectNotary("MANASA KALYANI LINGALA (manasa.lingala@qualitlabs.com)");
          meetings.clickOnCreateClosing();
@@ -78,7 +78,7 @@ describe("Meetings/Closings test cases" , ()=>{
          meetings.verifyFileIdInTheList(fileId); 
      } )
  
-     it.only("Create New modification Meeting ",()=>{
+     it("Create New modification Meeting ",()=>{
          var fileId = "file"+Math.floor(Math.random()*1000);
  
          //creating meeting

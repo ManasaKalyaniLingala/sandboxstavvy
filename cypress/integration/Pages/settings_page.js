@@ -113,14 +113,14 @@ export class Settings{
     disableFiles()
     {
       this.selectTheEnableFilesCheckBox();
-      this.verifyTextOfCheckBox("Disabled");
+      this.verifyTextOfFilesCheckBox("Disabled");
       this.clickSaveSettingsButton();
     }
 
     enableFiles()
     {
         this.selectTheEnableFilesCheckBox();
-        this.verifyTextOfCheckBox("Enabled");
+        this.verifyTextOfFilesCheckBox("Enabled");
         this.clickSaveSettingsButton();
     }
 

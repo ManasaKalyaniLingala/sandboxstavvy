@@ -117,7 +117,7 @@ it("navigate to file details page",()=>{
 })
 
 
-it.only("verify creating a file without property address",()=>{
+it("verify creating a file without property address",()=>{
     var loanNumber="Loan"+Math.floor(Math.random()*1000);
 
     //Navigate to Files page
