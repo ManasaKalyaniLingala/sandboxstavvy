@@ -42,7 +42,7 @@ export class Users{
 
     selectNotaryOptionForUser()
     {
-        cy.get(selectors.notaryCheckbx).click();
+        cy.xpath(selectors.notaryCheckbx).click();
     }
 
     selectAdminRole()
@@ -63,11 +63,7 @@ export class Users{
     clickInviteUsers()
     {
         cy.get(selectors.inviteUsersBttn).click();
-    }
-
-    clickOnUserNameFromTheList()
-    {
-        cy.xpath(selectors.userNameBttn).click();
+        cy.wait(3000);
     }
 
     clickOnDeleteUserButton()
@@ -91,7 +87,7 @@ export class Users{
 
     verifyMessageText(messageText)
     {
-        cy.get(".react-toast-notifications__toast__content").should('have.text',messageText)
+        cy.get(".react-toast-notifications__toast__content").should('contain.text',messageText)
         cy.wait(5000);
     } 
 
@@ -105,7 +101,8 @@ export class Users{
     }
     searchUser(userName)
     {
-     cy.get(selectors.searchUser).type(userName);
+     cy.get(selectors.searchUser).clear().type(userName);
+     cy.wait(3000);
     }
     verifyUserRole(role)
     {
@@ -115,10 +112,17 @@ export class Users{
     {
         cy.xpath('//div[4]/div/div/div/div/div/input').should('not.have.text',txt);
     }
-    verifyNotaryCheckBoxIsChecked()
+    verifyNotaryCheckBoxIsSelected()
     {
-        cy.get(selectors.notaryCheckBox).should('be.checked')
+        cy.get(selectors.notaryCheckBox).should('be.checked');
     }
+
+    verifyNotaryCheckBoxIsDeselected()
+    {
+        cy.get(selectors.notaryCheckBox).should('not.be.checked');
+    }
+
+
     copyAndPasteEmail()
     {
         cy.xpath('(//h3//text())[1]').then(($temp)=>{
@@ -127,11 +131,11 @@ export class Users{
     }
     clickOnUserName(userName)
     {
-        cy.xpath('//div[text()="'+userName+'"]').click();
+        cy.xpath('//div[text()="'+userName+'"]').should('exist').click();
     }
     verifyDeletedUserInTheList(userName)
     {
-        cy.xpath('//div/text()').should('not.have.text',userName);
+        cy.xpath('//div[text()="'+userName+'"]').should('not.exist');
     }
     copyMailAndPasteInMail()
     {
@@ -141,11 +145,55 @@ export class Users{
     this.clickOnInviteUser();
     this.enterEmail(`${txt}`)});
     }
-    navigateToManageUserPage(mailId)
+
+   saveUserAndVerifyUserRole(role)
     {
-        cy.contains(mailId).click();
+        cy.xpath('(//h3//text())[1]').then(($temp)=>{
+            var mail = $temp.text();
+
+            this.clickSaveUserButton();
+            this.verifyMessageText("User has been updated!");
+            this.verifyUserRoleInTheList(mail,role);
+            this.navigateToManageUserPage(mail);
+            this.verifyUserRole(role);
+        })
+    }
+    navigateToManageUserPage(mail)
+    {
+        cy.xpath('//tr/td/div/div[2]/div[2][text()="'+mail+'"]').should('exist').click();
     }
 
+    clickOnUserByRole(role)
+    {
+        cy.xpath('(//td/p[text()="'+role+'"])[1]').should('exist').click();
+    }
+
+    clickOnUser()
+    {
+        cy.xpath(selectors.userRole).should('exist').click();
+    }
+
+    clickSetUserRoleDropdown()
+    {
+        cy.get(selectors.selectRoleDropDown).should('exist').click();
+    }
+
+    clickSaveUserButton()
+    {
+        cy.xpath(selectors.saveUserBttn).should('exist').click();
+    }
+
+    verifyUserRoleInTheList(email,role)
+    {
+        cy.xpath('//tr/td/div/div[2]/div[2][text()="'+email+'"]/../../../following-sibling::td/p').should('have.text',role)
+    }
+
+    clickOnAnyUserFromTheList()
+    {
+        cy.xpath(selectors.user).should('exist').click();
+    }
+
+    
 
 
 }

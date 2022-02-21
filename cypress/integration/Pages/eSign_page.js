@@ -5,6 +5,7 @@ export class ESign {
     clickOneSignButton()
     {
         cy.get(selectors.eSignBttn).click();
+        cy.wait(3000);
     }
     clickOnCreateNeweSignButton()
     {
@@ -74,52 +75,30 @@ export class ESign {
     {
         cy.xpath(selectors.addSignerButton).click();
     }
-    addSigner1Info(firstName,middleName,lastName,email)
+    addSignerInfo(firstName,middleName,lastName,email)
     {
-        this.enterSigner1FirstName(firstName);
-        this.enterSigner1MiddleName(middleName);
-        this.enterSigner1LastName(lastName);
-        this.enterSigner1Email(email);
+        this.enterSignerFirstName(firstName)
+        this.enterSignerMiddleName(middleName);
+        this.enterSignerLastName(lastName);
+        this.enterSignerEmail(email);
     }
-    enterSigner1FirstName(firstName)
+    enterSignerFirstName(firstName)
     {
-        cy.xpath(selectors.firstNameOfFirstSignerTxtBx).type(firstName);
+        cy.xpath(selectors.firstNameOfSignerTxtBx).type(firstName);
     }
-    enterSigner1MiddleName(middleName)
+    enterSignerMiddleName(middleName)
     {
-        cy.xpath(selectors.middleNameOfFirstSignerTxtBx).type(middleName);
+        cy.xpath(selectors.middleNameOfSignerTxtBx).type(middleName);
     }
-    enterSigner1LastName(lastName)
+    enterSignerLastName(lastName)
     {
-        cy.xpath(selectors.lastNameOfFirstSignerTxtBx).type(lastName);
+        cy.xpath(selectors.lastNameOfSignerTxtBx).type(lastName);
     }
-    enterSigner1Email(email)
+    enterSignerEmail(email)
     {
-        cy.xpath(selectors.emailOfFirstSignerTxtBx).type(email);
+        cy.xpath(selectors.emailOfSignerTxtBx).type(email);
     }
-    addSigner2Info(firstName,middleName,lastName,email)
-    {
-        this.enterSigner2FirstName(firstName);
-        this.enterSigner2MiddleName(middleName);
-        this.enterSigner2LastName(lastName);
-        this.enterSigner2Email(email);
-    }
-    enterSigner2FirstName(firstName)
-    {
-        cy.xpath(selectors.firstNameOfSecondSignerTxtBx).type(firstName);
-    }
-    enterSigner2MiddleName(middleName)
-    {
-        cy.xpath(selectors.middleNameOfSecondSignerTxtBx).type(middleName);
-    }
-    enterSigner2LastName(lastName)
-    {
-        cy.xpath(selectors.lastNameOfSecondSignerTxtBx).type(lastName);
-    }
-    enterSigner2Email(email)
-    {
-        cy.xpath(selectors.emailOfSecondSignerTxtBx).type(email);
-    }
+    
     clickOnBackButton()
     {
         cy.xpath(selectors.backBttn);
@@ -251,16 +230,13 @@ export class ESign {
     }
     verifyAddedSigner(mailIdOfSigner)
     {
-        cy.xpath('//*/div/div[2]/div/span/text()').should('have.text',mailIdOfSigner)
+        cy.xpath('//*/div/div[2]/div/span/text()').should('have.text',mailIdOfSigner);
     }
     clickOnAddDocument()
     {
         cy.xpath(selectors.addDocument).click();
     }
-    clickUploadButton()
-    {
-        cy.xpath(selectors.uploadButton).click();
-    }
+    
     clickOnSignerEditButton()
     {
         cy.xpath(selectors.signerEditBttn).click()
@@ -305,10 +281,11 @@ export class ESign {
     {
         cy.xpath(selectors.verifyPacketInTheList).should('have.text',packetTitle);
     }
-    verifyPacketStatusInTheList(status)
+    verifyPacketStatusInTheList(packetTitle,status)
     {
-        cy.xpath(selectors.packetStatusInTheList).should('have.text',status);
+        cy.xpath('//tr/td[text()="'+packetTitle+'"]/following-sibling::td[3]/div/text()').should('have.text',status);
     }
+
     verifyPacketStatusInDetailsPage(status)
     {
         cy.xpath(selectors.packetStatusInEsignDetailsPage).should('have.text',status);
@@ -320,6 +297,18 @@ export class ESign {
     verifyPacketNameInDetailsPage(packetTitle)
     {
         cy.xpath(selectors.packetTitleIneSignDetailsPage).should('have.text',packetTitle);
+    }
+
+    verifyCancelledPacketInTheList(status)
+    {
+
+        cy.xpath(selectors.packetTitleIneSignDetailsPage).then(($res)=>{
+
+            var packetTitle=$res.text();
+            this.clickOneSignLink();
+            this.searcPacket(packetTitle)
+            this.verifyPacketStatusInTheList(packetTitle,status);
+        })
     }
     
     creatingNewESignWithJustMeOption(packetTitle,documentName)
@@ -341,6 +330,7 @@ export class ESign {
         this.clickOnReviewPacketDetails();
         this.clickOnSaveAndExitButton();
     }
+
     creatingNewESignWithJustOtherOption(packetTitle,DocumentName,firstName,middleName,lastName,email)
     {   
         this.clickOneSignButton();
@@ -352,7 +342,7 @@ export class ESign {
         this.selectJustOthers();
         this.clickNextButton();
         cy.wait(1000)
-        this.addSigner1Info(firstName,middleName,lastName,email);
+        this.addSignerInfo(firstName,middleName,lastName,email);
         this.clickNextButton();
         cy.wait(5000);
          cy.xpath("//*[text()='Full Name']").drag('[class="react-pdf__Page"]')
@@ -362,6 +352,13 @@ export class ESign {
          this.clickOnSaveAndSendNow();
         this.clickDone();
     }
+
+    refreshESignListPage()
+    {
+        cy.visit('https://connect.sandbox.stavvy.com/esign');
+
+    }
+
     createNewEsignWithMeAndOthers(packetTitle,DocumentName,firstName,middleName,lastName,email)
     {
         this.clickOneSignButton();
@@ -375,7 +372,7 @@ export class ESign {
         cy.wait(1000)
         //this.clickOnAddSignerButton();
         this.clickOnaddSignerBttn();
-        this.addSigner2Info(firstName,middleName,lastName,email);
+        this.addSignerInfo(firstName,middleName,lastName,email);
         this.clickNextButton();
         cy.wait(5000)
          cy.xpath("//*[text()='Full Name']").drag('[class="react-pdf__Page"]')
@@ -417,6 +414,7 @@ export class ESign {
     clickDone()
     {
         cy.xpath(selectors.doneBttn).click();
+        cy.wait(3000);
     }
     clickViewPacketDetails()
     {
@@ -436,7 +434,7 @@ export class ESign {
     }
     searcPacket(packetTitle)
     {
-        cy.xpath(selectors.searchPacketTxBx).type(packetTitle);
+        cy.get(selectors.searchPacketTxBx).type(packetTitle);
     }
     verifyAddedSignerInTheList(signerMail)
     {
@@ -446,5 +444,53 @@ export class ESign {
     {
         cy.xpath(selectors.addedDocName).should('have.text',documentName)
     }
+    clickPacketStatusDropDownAndSelectValue(value)
+    {
+        cy.get(selectors.statusDropdown).should('exist').click();
+        this.selectValueFromDropDown(value);
+        cy.wait(3000);
+    }
 
+    selectValueFromDropDown(value)
+    {
+        cy.xpath('//div/ul/li/span[text()="'+value+'"]').should('exist').click();
+    }
+
+    deleteAndVerifyDeletedSigner()
+    {
+        cy.xpath(selectors.signerMailOfEditButton).then((mail)=>{
+            var email=mail.text();
+        this.clickEditSignerBttn();
+        this.clickOnDelete();
+        this.clickOnRemoveSignerButton();
+
+        this.verifyDeletedSigner(email)
+        })
+    }
+
+
+    selectPacketFromTheList()
+   {
+    cy.xpath('//tbody/tr')
+    .then(($li) => {
+      const items = $li.toArray()
+      return Cypress._.sample(items)
+    })
+    .then(($li) => {
+      expect(Cypress.dom.isJquery($li), 'jQuery element').to.be.true
+      cy.log(`you picked "${$li.text()}"`).click();
+      cy.wait(3000);
+      this.verifyNavigatedToPacketDetailsPage();
+    })
+   }
+
+   verifyNavigatedToPacketDetailsPage()
+   {
+       cy.xpath(selectors.packetDetailsPage).should('exist');
+   }
+
+   clickEditSignerBttn()
+   {
+       cy.xpath(selectors.editSignerButton).should('exist').click();
+   }
 }

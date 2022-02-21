@@ -13,5 +13,6 @@ lastNameTxBx:'[placeholder="Last name"]',
 emailTxBx:'[placeholder="Email"]',
 inviteVendorBttn:'//button[text()="Invite Vendor"]',
 errorText:'//p[@class="error-text"]/text()',
-domainTxt:'//tr/td[1]/span[2]/text()'
+domainTxt:'//tr/td[1]/span[2]/text()',
+details:'(//tr/td[4]/span[text()="DETAILS"])[1]',
 }

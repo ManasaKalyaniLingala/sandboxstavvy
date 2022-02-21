@@ -8,10 +8,9 @@ emailTxbx: "[name='email']",
 roleDropdownBttn: "[placeholder='Role']",
 adminRoleBttn: "[title='Admin']",
 userRoleBttn: "[title='User']",
-notaryCheckbx: "[data-icon='square']",
+notaryCheckbx: "(//div[contains(@class,'h-8 text-sm')]//span)[2]/*",
 addUserBttn: "//*[text()='+ Add user']",
 inviteUsersBttn: "[data-testid='invite-users-btn']",
-userNameBttn: '(//*[contains(@class,"user-basic columns")])[3]',
 deleteUserBttn:'//*[text()="Delete User"]',
 manageUserCloseBttn: "[class='close']",
 errorText:"[class='error-text']",
@@ -21,7 +20,11 @@ userStatus:'(//td[2]/p/text())',
 notaryCheckBox:'[type="checkbox"]',
 userRole:'//input[@value="User"]',
 filterByNotaryBttn:'//input[@placeholder="My meetings"]',
-
+adminUser:'(//td/p[text()="Admin"])[1]',
+user:'//tr/td[1]',
+user:'(//td/p[text()="User"])[1]',
+selectRoleDropDown:'[placeholder="Select role"]',
+saveUserBttn:'//button[text()="Save User"]'
 
 
 }

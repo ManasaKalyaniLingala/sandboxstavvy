@@ -77,9 +77,13 @@ export class Vendors{
    {
        cy.xpath('(//tr/td/span[text()="'+vendorDomain+'"]/..)/following-sibling::td/text()').should('have.text',date);
    }
-   clickOnDetailsOfVendor(vendorName)
+   clickOnDetailsOfVendorAndVerifyVendorName()
    {
-       cy.xpath('(//tr/td/span[text()="'+vendorName+'"]/..)/following-sibling::td[3]/span').click();
+       cy.xpath('(//tr/td[4]/span[text()="DETAILS"]/../../td[1]/span/text())[1]').then((text)=>{
+           var vendorName=text.text()
+           cy.xpath(Selectors.details).should('exist').click();
+           this.verifyVendorNameInDetailsPage(vendorName);
+       })
    }
    CopyDomainAndEnterInVendorDoamin()
    {
