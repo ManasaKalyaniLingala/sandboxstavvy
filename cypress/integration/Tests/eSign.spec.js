@@ -186,7 +186,7 @@ describe("stavvy application" , ()=>{
         eSign.selectPacketFromTheList();
 
         //Delete and verify deleted signer
-        eSign.deleteAndVerifyDeletedSigner()
+        eSign.deleteAndVerifyDeletedSigner();
 
       })
     

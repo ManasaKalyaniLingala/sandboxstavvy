@@ -479,7 +479,7 @@ export class ESign {
     .then(($li) => {
       expect(Cypress.dom.isJquery($li), 'jQuery element').to.be.true
       cy.log(`you picked "${$li.text()}"`).click();
-      cy.wait(3000);
+      cy.wait(5000);
       this.verifyNavigatedToPacketDetailsPage();
     })
    }

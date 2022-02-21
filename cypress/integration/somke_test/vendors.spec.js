@@ -15,7 +15,6 @@ describe("Vendor test cases" , ()=>{
      })
 
 
-
      it("verify inviting new vendor", ()=>{
 
         var domain=faker.name.firstName()+".com";
@@ -41,7 +40,6 @@ describe("Vendor test cases" , ()=>{
      })
 
 
-
      it("verify inviting new vendor with the existing domain",()=>{
 
         var vendorName=faker.name.findName();
@@ -61,8 +59,7 @@ describe("Vendor test cases" , ()=>{
      })
 
 
-
-     it("verify inviting new vendor with the existing vendor mail",()=>{
+     it.only("verify inviting new vendor with the existing vendor mail",()=>{
 
         var domain=faker.name.firstName()+".com";
         var vendorName=faker.name.findName();
@@ -93,108 +90,16 @@ describe("Vendor test cases" , ()=>{
      })
 
 
-
      it("verify navigating to details of connected org",()=>{
 
-        //Navigate to Organizations
-        vendors.clickOnOrganizations();
+         //Navigate to Organizations
+         vendors.clickOnOrganizations();
 
-        //Navigate to Vendor details
-        vendors.clickOnDetailsOfVendorAndVerifyVendorName();
+         //Navigate to Vendor details
+         vendors.clickOnDetailsOfVendorAndVerifyVendorName();
 
-        //Verify details page
-        vendors.verifyRejectConnectionButtonPresentAndDisbaled();
+         //Verify details page
+         vendors.verifyRejectConnectionButtonPresentAndDisbaled();
      })
-
-
-
-     it("Verify inviting new vendor without domain",()=>{
-
-        //Navigate to Organizations
-        vendors.clickOnOrganizations();
-
-        //Invite vendor
-        vendors.clickOnInviteNewVendor();
-        vendors.verifyNextButtonIsDisabled();
-      })
-
-
-
-    it("Verify inviting new vendor without vendor detail",()=>{
-
-      var domain=faker.name.findName();
-
-     //Navigate to Organizations
-     vendors.clickOnOrganizations();
-
-     //Invite vendor
-     vendors.clickOnInviteNewVendor();
-     vendors.enterVendorDomain(domain);
-     vendors.clickOnNextButton();
-     vendors.verifyInviteVendorIsDisabled();
-    })
-
-
-    it("Verify inviting vendor without vendor's email",()=>{
-
-      var domain=faker.name.findName();
-      var firstName=faker.name.firstName();
-      var middleName=faker.name.middleName();
-      var lastName=faker.name.lastName();
-      var vendorName=faker.name.findName();
-
-      //Navigate to Organizations
-      vendors.clickOnOrganizations();
-
-      //Invite vendor
-      vendors.clickOnInviteNewVendor();
-      vendors.enterVendorDomain(domain);
-      vendors.clickOnNextButton();
-      vendors.enterVendorName(vendorName);
-      vendors.enterFirstName(firstName);
-      vendors.enterMiddleName(middleName);
-      vendors.enterLastName(lastName);
-      vendors.verifyInviteVendorIsDisabled();
-    })
-
-
-
-    it("Verify inviting vendor with an improper vendor's email",()=>{
-
-      var domain=faker.name.findName();
-      var firstName=faker.name.firstName();
-      var middleName=faker.name.middleName();
-      var lastName=faker.name.lastName();
-      var vendorName=faker.name.findName();
-      var email=faker.name.findName();
-
-      //Navigate to Organizations
-      vendors.clickOnOrganizations();
-      
-      //Invite vendor
-      vendors.clickOnInviteNewVendor();
-      vendors.enterVendorDomain(domain);
-      vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email);
-      vendors.clickOnInviteVendor();
-      vendors.verifyErrorText('Please enter a valid email address');
-    })
-
-
-
-    it("Verify inviting new vendor without vendor name credentials",()=>{
-      
-      var domain=faker.name.findName();
-      var email=faker.name.findName();
-
-      //Navigate to Organizations
-      vendors.clickOnOrganizations();
-
-      //Invite vendor
-      vendors.clickOnInviteNewVendor();
-      vendors.enterVendorDomain(domain);
-      vendors.clickOnNextButton();
-      vendors.enterVendoMail(email);
-      vendors.verifyInviteVendorIsDisabled();
-    })
 
     })

@@ -203,7 +203,7 @@ export class Meetings {
     .then(($li) => {
       expect(Cypress.dom.isJquery($li), 'jQuery element').to.be.true
       cy.log(`you picked "${$li.text()}"`).click();
-    cy.xpath('//div[4]/div[1]/div/div/div/div/div/input').should('have.value')})
+    })
    }
    verifyFileIdInTheList(fileId)
    {

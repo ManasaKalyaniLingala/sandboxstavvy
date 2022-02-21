@@ -47,6 +47,10 @@ export class Vendors{
     {
         cy.xpath(Selectors.nextBttn).should('be.disabled');
     }
+    verifyInviteVendorIsDisabled()
+    {
+        cy.xpath(Selectors.inviteVendorBttn).should('be.disabled')
+    }
     clickOnBackButton()
     {
         cy.xpath(Selectors.backBttn).click()
