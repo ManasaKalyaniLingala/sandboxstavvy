@@ -34,13 +34,17 @@ export class ESign {
     {
         cy.get(selectors.selectJustOthersBttn).click();
     }
-    clickOnUploadDocuments(DocumentName)
+    clickOnUploadDocuments(documentName)
     {
-        cy.get(selectors.uploadDocumentsBttn).attachFile(DocumentName);
+        cy.get(selectors.uploadDocumentsBttn).attachFile(documentName);
     }
     clickNextButton()
     {
         cy.xpath(selectors.nextBttn).click();
+    }
+    clickUploadButton()
+    {
+        cy.xpath(selectors.uploadButton).should('exist').click();
     }
     selectJustMeOption()
     {
@@ -200,10 +204,7 @@ export class ESign {
     {
         cy.get(selectors.packetTitle).trigger('mouseover');
     }
-    editPacketTitle(editedTitle)
-    {
-        cy.get(selectors.editPacketTitle).clear().type(editedTitle)
-    }
+    
     clickCancelButton()
     {
         cy.xpath(selectors.cancelBtnn);
@@ -265,14 +266,12 @@ export class ESign {
     {
         cy.xpath(selectors.editAnnotationsBttn).click();
     }
-    clickOnRemoveDocument()
+    clickRemoveDocument()
     {
-    cy.xpath(selectors.removeDocument).click();
+       cy.xpath(selectors.removeDocument).click();
+       cy.xpath(selectors.removeDocumentBttn).click();
     }
-    clickOnRemoveDocumentButton()
-    {
-        cy.xpath(selectors.removeDocumentBttn).click();
-    }
+
     clickOnSaveButton()
     {
         cy.xpath(selectors.saveBttn).click();
@@ -331,13 +330,13 @@ export class ESign {
         this.clickOnSaveAndExitButton();
     }
 
-    creatingNewESignWithJustOtherOption(packetTitle,DocumentName,firstName,middleName,lastName,email)
+    creatingNewESignWithJustOtherOption(packetTitle,documentName,firstName,middleName,lastName,email)
     {   
         this.clickOneSignButton();
         this.clickOnCreateNeweSignButton();
         this.enterPacketTitle(packetTitle);
         this.clickNextButton();
-        this.clickOnUploadDocuments(DocumentName);
+        this.clickOnUploadDocuments(documentName);
         cy.wait(1000)
         this.selectJustOthers();
         this.clickNextButton();
@@ -359,13 +358,13 @@ export class ESign {
 
     }
 
-    createNewEsignWithMeAndOthers(packetTitle,DocumentName,firstName,middleName,lastName,email)
+    createNewEsignWithMeAndOthers(packetTitle,documentName,firstName,middleName,lastName,email)
     {
         this.clickOneSignButton();
         this.clickOnCreateNeweSignButton();
         this.enterPacketTitle(packetTitle);
         this.clickNextButton();
-        this.clickOnUploadDocuments(DocumentName);
+        this.clickOnUploadDocuments(documentName);
         cy.wait(1000)
         this.selectJustMeAndOthers();
         this.clickNextButton();
@@ -446,6 +445,7 @@ export class ESign {
     }
     clickPacketStatusDropDownAndSelectValue(value)
     {
+        cy.wait(2000)
         cy.get(selectors.statusDropdown).should('exist').click();
         this.selectValueFromDropDown(value);
         cy.wait(3000);
@@ -492,5 +492,23 @@ export class ESign {
    clickEditSignerBttn()
    {
        cy.xpath(selectors.editSignerButton).should('exist').click();
+   }
+
+   clickEditButtonOfDocument(document)
+   {
+       cy.xpath('//div[text()="Documents"]/../following-sibling::div/div/table/tbody/tr/td[1][text()="'+document+'"]/following-sibling::td[3]/div').should('exist').click();
+   }
+
+   verifyDeletedDocument(document)
+   {
+       cy.xpath('//tbody/tr/td[1][text()="'+document+'"]').should('not.exist');
+   }
+
+   editPacketTitle(packetName)
+   {
+       cy.xpath(selectors.packetTitleEditBttn).should('exist').realHover();
+       cy.xpath(selectors.packetTitleEditBttn).should('exist').realClick();
+       cy.get(selectors.editPacketTitleTxBx).clear().type(packetName);
+
    }
 }

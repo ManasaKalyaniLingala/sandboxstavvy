@@ -103,7 +103,7 @@ describe("stavvy application" , ()=>{
 
       it("upload document to  an eSign", ()=>{
 
-        var document="title_exam (4).pdf";
+         var document="title_exam (4).pdf";
          var value="Ready To Sign";
 
          //Navigate to eSign page
@@ -114,10 +114,36 @@ describe("stavvy application" , ()=>{
          eSign.selectPacketFromTheList();
          eSign.clickOnAddDocument();
          eSign.clickOnUploadDocuments(document)
-        // eSign.uploDocumentInESignDetailsPage('E:\sandboxstavvy\cypress\fixtures\title_exam (4).pdf')
 
          //Verify added document
          eSign.verifyAddedDocumentInTheList(document);
+       })
+
+
+       it("Verify deleting added document",()=>{
+
+         var document="test doc6.pdf";
+         var value="Ready To Sign";
+
+         //Navigate to eSign page
+         eSign.clickOneSignButton();
+
+         //Upload document
+         eSign.clickPacketStatusDropDownAndSelectValue(value);
+         eSign.selectPacketFromTheList();
+         eSign.clickOnAddDocument();
+         eSign.clickOnUploadDocuments(document);
+         eSign.clickUploadButton();
+
+         //Verify added document
+         eSign.verifyAddedDocumentInTheList(document);
+
+         //Remove document
+         eSign.clickEditButtonOfDocument(document);
+         eSign.clickRemoveDocument();
+
+         //Verify removed document
+         eSign.verifyDeletedDocument(document);
        })
 
 
@@ -187,7 +213,6 @@ describe("stavvy application" , ()=>{
 
         //Delete and verify deleted signer
         eSign.deleteAndVerifyDeletedSigner();
-
       })
     
 
@@ -218,7 +243,7 @@ describe("stavvy application" , ()=>{
 
 
 
-      it("verify Cancelling a pcket", ()=>{
+      it("verify Cancelling a packet", ()=>{
 
         var value="Ready To Sign";
         var status="Cancelled";
@@ -236,4 +261,5 @@ describe("stavvy application" , ()=>{
         eSign.verifyPacketStatusInDetailsPage(status);
         eSign.verifyCancelledPacketInTheList(status);
      })
+
 })

@@ -184,7 +184,7 @@ describe("Vendor test cases" , ()=>{
     it("Verify inviting new vendor without vendor name credentials",()=>{
       
       var domain=faker.name.findName();
-      var email=faker.name.findName();
+      var email=faker.internet.email();
 
       //Navigate to Organizations
       vendors.clickOnOrganizations();

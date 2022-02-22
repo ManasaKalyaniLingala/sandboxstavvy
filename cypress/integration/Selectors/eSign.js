@@ -85,4 +85,9 @@ export default {
     editSignerButton:'(//div[text()="Signers"]/../following-sibling::div/div/span[2]/div/div/div)[1]',
     signerMailOfEditButton:'(//div[text()="Signers"]/../following-sibling::div/div/span/text()[3])[1]',
     uploadDocInESignDetailsPage:"//div[@data-testid='drop-target']//label[1]",
+    editDocumentButton:'//div[text()="Documents"]/../following-sibling::div/div/table/tbody/tr/td[4]/div',
+    documentName:'//div[text()="Documents"]/../following-sibling::div/div/table/tbody/tr/td[1]/text()',
+    documentList:'//tbody/tr/td[1]',
+    packetTitleEditBttn:'//h3/div/span/*',
+    editPacketTitleTxBx:'[name="Editable input"]',
 }
