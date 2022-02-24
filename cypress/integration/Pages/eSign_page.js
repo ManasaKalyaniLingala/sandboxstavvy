@@ -506,8 +506,8 @@ export class ESign {
 
    editPacketTitle(packetName)
    {
-       cy.xpath(selectors.packetTitleEditBttn).should('exist').realHover();
-       cy.xpath(selectors.packetTitleEditBttn).should('exist').realClick();
+       cy.xpath(selectors.packetTitleEditBttn).should('exist').realHover().and.click();
+      // cy.xpath(selectors.packetTitleEditBttn).should('exist').realClick();
        cy.get(selectors.editPacketTitleTxBx).clear().type(packetName);
 
    }

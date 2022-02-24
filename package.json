@@ -4,7 +4,8 @@
   "description": "Testcases for sandbox environment.",
   "main": "index.js",
   "dependencies": {
-    "cypress-real-events": "^1.6.0"
+    "cypress-real-events": "^1.6.0",
+    "json-faker": "^1.1.2"
   },
   "devDependencies": {
     "@4tw/cypress-drag-drop": "^2.1.0",

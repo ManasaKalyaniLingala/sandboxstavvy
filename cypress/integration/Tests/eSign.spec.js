@@ -3,7 +3,6 @@
 import { Login } from "../Pages/login_page";
 import { ESign } from "../Pages/eSign_page";
 
-
 const { faker } = require('@faker-js/faker');
 const login = new Login();
 const eSign = new ESign();
@@ -261,5 +260,17 @@ describe("stavvy application" , ()=>{
         eSign.verifyPacketStatusInDetailsPage(status);
         eSign.verifyCancelledPacketInTheList(status);
      })
+     it.only("Verify editing packet title",()=>{
 
+      var value="Draft";
+
+      //Navigate to eSign page
+      eSign.clickOneSignButton();
+      eSign.clickPacketStatusDropDownAndSelectValue(value);
+      eSign.selectPacketFromTheList();
+
+      //Edit packet title
+      eSign.editPacketTitle("new name");
+
+     })
 })
