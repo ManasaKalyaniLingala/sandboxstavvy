@@ -48,11 +48,11 @@ describe('api test cases',()=>{
         var streetNumber=""+Math.floor(Math.random()*10);
         var streetName=faker.address.streetName()
         var addressUnit=""+Math.floor(Math.random()*1);
-        var city=faker.address.city()
-        var county=faker.address.county()
-        var state=faker.address.state()
-        var postalCode=faker.address.zipCode()
-        var country="US"
+        var city=faker.address.city();
+        var county=faker.address.county();
+        var state="NY";
+        var postalCode=faker.address.zipCode();
+        var country="US";
         
 
 
@@ -78,8 +78,8 @@ describe('api test cases',()=>{
         var streetName=faker.address.streetName()
         var addressUnit=""+Math.floor(Math.random()*1);
         var city=faker.address.city()
-        var county=faker.address.county()
-        var state=faker.address.state()
+        var county="US"
+        var state="NY"
         var postalCode=faker.address.zipCode()
         var country="US"
         
@@ -104,11 +104,11 @@ describe('api test cases',()=>{
         var transactionSide="buy_side";
         var loanType="purchase";
         var streetNumber=""+Math.floor(Math.random()*10);
-        var streetName=faker.address.streetName()
+        var streetName=faker.address.streetName();
         var addressUnit=""+Math.floor(Math.random()*1);
-        var city=faker.address.city()
-        var county=faker.address.county()
-        var state=faker.address.state()
+        var city=faker.address.city();
+        var county="US"
+        var state="NY";
         var postalCode=faker.address.zipCode()
         var country="US"
         
@@ -134,12 +134,12 @@ describe('api test cases',()=>{
         var transactionSide="buy_side";
         var loanType="modification";
         var streetNumber=""+Math.floor(Math.random()*10);
-        var streetName=faker.address.streetName()
+        var streetName=faker.address.streetName();
         var addressUnit=""+Math.floor(Math.random()*1);
-        var city=faker.address.city()
-        var county=faker.address.county()
-        var state=faker.address.state()
-        var postalCode=faker.address.zipCode()
+        var city=faker.address.city();
+        var county="US"
+        var state="NY";
+        var postalCode=faker.address.zipCode();
         var country="US"
         
 

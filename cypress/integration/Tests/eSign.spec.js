@@ -100,7 +100,7 @@ describe("stavvy application" , ()=>{
 
 
 
-      it("upload document to  an eSign", ()=>{
+      it.only("upload document to  an eSign", ()=>{
 
          var document="title_exam (4).pdf";
          var value="Ready To Sign";
@@ -260,17 +260,5 @@ describe("stavvy application" , ()=>{
         eSign.verifyPacketStatusInDetailsPage(status);
         eSign.verifyCancelledPacketInTheList(status);
      })
-     it.only("Verify editing packet title",()=>{
-
-      var value="Draft";
-
-      //Navigate to eSign page
-      eSign.clickOneSignButton();
-      eSign.clickPacketStatusDropDownAndSelectValue(value);
-      eSign.selectPacketFromTheList();
-
-      //Edit packet title
-      eSign.editPacketTitle("new name");
-
-     })
+    
 })
