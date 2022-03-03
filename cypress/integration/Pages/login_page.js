@@ -1,11 +1,16 @@
 import selectors from "../Selectors/login"
+const sandboxData = require("../../fixtures/sandbox_data.json")
+const devData=require("../../fixtures/dev_data.json")
+
+var testdata=sandboxData
+
 export class Login {
 
     navigateToUrl(){
-        cy.visit(selectors.url);
+        cy.visit('/');
     }
 
-    loginToApplication(username="manasa.lingala@qualitlabs.com",password="16c31a0_486")
+    loginToApplication(username=testdata.username,password=testdata.password)
     {
         this.enterUserName(username);
         this.enterPassword(password);

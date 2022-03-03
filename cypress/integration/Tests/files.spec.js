@@ -42,6 +42,7 @@ it("Create Purchase type File", ()=> {
     files.clickCreateFileButton();
     files.clickPurchaseType();
     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.selectLoanProcessor();
     files.enterPurchasePrice(purchaseAmount);
     files.clickContinueButton();
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
@@ -85,6 +86,7 @@ it("create a refinance type file",()=>{
     files.clickCreateFileButton();
     files.clickRefinanceType();
     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.selectLoanProcessor();
     files.clickContinueButton();
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     files.addTitleOrder();
@@ -127,6 +129,7 @@ it("create a equity type file",()=>{
     files.clickCreateFileButton();
     files.clickEquityType();
     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.selectLoanProcessor();
     files.clickContinueButton();
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     files.addTitleOrder();
@@ -139,6 +142,32 @@ it("create a equity type file",()=>{
     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
+})
+
+it.only("Verify creating file without assigning loan processor",()=>{
+    
+
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
+    var loanAmount=Math.floor(Math.random()*1000);
+    var address=1+Math.floor(Math.random())*100;
+    var purchaseAmount=Math.floor(Math.random()*1000);
+    var streetName=faker.address.streetName();
+    var streetNumber=address;
+    var city=faker.address.cityName();
+    var postalCode=faker.address.zipCode();
+
+    //Navigate to Files page
+    files.navigateToFiles();
+
+    //Create file
+    files.clickCreateFileButton();
+    files.clickPurchaseType();
+    files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.enterPurchasePrice(purchaseAmount);
+
+    //Verify creting file
+    files.verifyContinueButtonDisabled();
+    files.verifyErrorText('Select assigned user for file');
 })
 
 
@@ -361,5 +390,91 @@ it("assign Loan Processor",()=>{
 
     //Verify assigned loan procesor
     files.verifyAssignedLoanProcessor(loanProcessorName);
+  })
+
+it("Verify archiving file",()=>{
+
+    var status="Complete"
+
+    //Navigate to files
+    files.navigateToFiles();
+
+    //Archive File
+    files.navigateToFileDetailsPage();
+    files.archiveThefile();
+
+    //Verify archived file
+    files.verifyFileStatusInFileDetailsPage(status);
+    files.navigateToFiles();
+    files.verifyNotPresentInTheList();
+ })
+
+it("Verify reopening archived file",()=>{
+
+    var status="In Progress"
+
+    //Navigate to files
+    files.navigateToFiles();
+
+    //Reopen archived files.
+    files.navigateToCompletedFilesTab();
+    files.navigateToFileDetailsPage();
+    files.reopenTheArchivedFile();
+
+    //Verify reopened file
+    files.verifyFileStatusInFileDetailsPage(status);
 })
+
+it("Verify adding orders in file details page",()=>{
+
+    var fileType="Equity";
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
+    var loanAmount=Math.floor(Math.random()*1000);
+    var address=1+Math.floor(Math.random())*100;
+    var streetName=faker.address.streetName();
+    var streetNumber=address;
+    var city=faker.address.cityName();
+    var postalCode=faker.address.zipCode();
+    var borrowerFirstName=faker.name.firstName();
+    var borrowerLastName=faker.name.lastName();
+    var borrowerEmail=faker.internet.email();
+    var borrowerPhone=faker.phone.phoneNumber();
+    var borrowerSSN=faker.phone.phoneNumber();
+    var propertyAddress=streetNumber+" "+streetName+", "+city;
+    var titleOrder="Title";
+    var status="Pending";
+    var foreclosureOrder="Foreclosure";
+    var settlementOrder="Settlement"
+
+    //Navigate to Files page
+    files.navigateToFiles();
+
+    //Create file
+    files.clickCreateFileButton();
+    files.clickEquityType();
+    files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.clickContinueButton();
+    files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
+    files.addTitleOrder();
+    files.clickContinueButton();
+    files.clickCreateFileButtonOnReviewOfAFile();
+
+    //Verify created file
+    files.verifyMessage("Creating file...");
+    files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
+    files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
+
+    //Add order in File details page
+    files.clickAddOrderButton();
+    files.selectForeclosurOrder();
+    files.selectSettlementOrder();
+    files.addSettlementOrder();
+    files.addForeclosureOrder();
+    files.clickSubmitOrderButton();
+
+    //Verify added orders in details page
+    files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
+    files.verifyAddedOrderInTheFileDetailsPage(settlementOrder,status);
+})
+
 })

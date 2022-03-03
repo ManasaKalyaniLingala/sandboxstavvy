@@ -80,5 +80,13 @@ export default{
     city:'[name="City"]',
     postalCode: '[name="ZIP Code"]',
     addressUnit:'[name="Unit/Apt"]', 
-    firstFileInTheList:'//tbody/tr[1]/td[2]'
+    firstFileInTheList:'//tbody/tr[1]/td[2]',
+    actionsDropdown:'//button[text()="Actions"]',
+    archiveFileBttn:'[title="Archive file"]',
+    fileStatusInDetailsPage:'//div[@class="mb-4"]/div/text()',
+    nextButton:'//div[text()="Next"]',
+    lastPageNumber:'//div[@class="flex whitespace-nowrap"]/span[last()]/text()',
+    reopenFileBttn:'[title="Reopen file"]',
+    addOrderBttn:'//button[text()="+ Add order"]',
+    submitOrderBttn:'//div/button[text()="Submit Order"]'
 }

@@ -37,7 +37,6 @@ export class ESign {
     clickOnUploadDocuments(documentName)
     {
         cy.get(selectors.uploadDocumentsBttn).attachFile(documentName);
-        this.clickUploadButton();
     }
     clickNextButton()
     {
@@ -356,7 +355,7 @@ export class ESign {
 
     refreshESignListPage()
     {
-        cy.visit('https://connect.sandbox.stavvy.com/esign');
+        cy.reload();
 
     }
 

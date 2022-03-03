@@ -1,3 +1,4 @@
+
 import selectors from "../Selectors/files"
 export class Files{
     navigateToFiles() {
@@ -83,7 +84,7 @@ export class Files{
 
     pickDate()
    {
-       cy.xpath('//tbody/tr[last()]/td[last()]').click();
+       cy.xpath('(//tbody/tr[last()]/td[last()])[last()]').click();
    }
 
     clickContinueButton() {
@@ -111,8 +112,7 @@ export class Files{
     enterBasicInfo(loanNumber, loanAmount, address,streetNumber,streetName,city,postalCode) {
     
         this.enterLoanNumber(loanNumber);
-        this.selectClosingDate()
-        this.selectLoanProcessor();
+        this.selectClosingDate();
         this.enterLoanAmount(loanAmount);
         this.enterPropertyAddress(address);
         this.enterStreetNumber(streetNumber);
@@ -133,11 +133,17 @@ export class Files{
         //cy.get(selectors.enterBorrowerAddress).type(borrowerAddress);
         this.clickContinueButton();
     }
-    addSettlementOrder(date,vendorName)
+    addSettlementOrder()
     {
       this.selectSettlementOrder();
-      this.enterSettlementDate(date);
-      this.selectSettlementVendorFromTheList(vendorName);
+      this.enterSettlementDate();
+      this.selectSettlementVendorFromTheList()
+    }
+
+    addSettlementOrderInFileDetailsPage()
+    {
+        this.enterSettlementDate();
+        this.selectSettlementVendorFromTheList();
     }
     selectSettlementOrder()
     {
@@ -145,12 +151,13 @@ export class Files{
     }
     enterSettlementDate(date)
     {
-        cy.xpath(selectors.settlementDateBttn).click().type(date)
+        cy.xpath(selectors.settlementDateBttn).click();
+        this.pickDate()
     }
     selectSettlementVendorFromTheList(vendorName)
     {
        cy.xpath(selectors.settlementVendorDropdown).click();
-       cy.xpath('//ul/li[@title="'+vendorName+'"]').click();
+       this.selectVendor()
     }
     addTitleOrder()
     {
@@ -158,6 +165,13 @@ export class Files{
         this.enterTitleDueDate();
         this.selectTitleVendorFromTheList();
     }
+
+    addTitleOrderInFileDetailsPage()
+    {
+        this.enterTitleDueDate();
+        this.selectTitleVendorFromTheList();
+    }
+
     selectTitleOrder()
     {
         cy.xpath(selectors.titleOrderBttn).should('exist').click();
@@ -189,6 +203,11 @@ export class Files{
     addForeclosureOrder()
     {
         this.selectForeclosurOrder();
+        this.enterForeclosureDueDate();
+        this.selectForeclosureServicerFromTheList();
+    }
+    addForeclosureOrderInFileDetailsPage()
+    {
         this.enterForeclosureDueDate();
         this.selectForeclosureServicerFromTheList();
     }
@@ -297,6 +316,7 @@ export class Files{
     {
         cy.wait(2000);
         cy.get(selectors.completedTab).should('exist').click();
+        cy.wait(4000);
     }
 
     verifyNavigatedToTab(tab)
@@ -322,7 +342,9 @@ export class Files{
     navigateToFileDetailsPage()
     {
         this.copyFileName()
-        
+        cy.get('@file name').then((res)=>{
+            cy.log(res.text())
+        })
         cy.xpath(selectors.firstFileInTheList).click();
         
     }
@@ -418,7 +440,7 @@ export class Files{
     }
     verifyAssignedLoanProcessor(loanProcessor)
     {
-        cy.xpath(selectors.loanProcessorName).should('have.text',loanProcessor)
+        cy.xpath(selectors.loanProcessorName).should('have.text',loanProcessor);
     }
 
     verifyCreateFileButton()
@@ -547,6 +569,47 @@ export class Files{
         this.verifyAddedOrdersInTheList(fileId,orders);
         this.verifyClosingDateInTheList(fileId,closeDate);
     }
+
+    clickActionsDropdwon()
+    {
+        cy.xpath(selectors.actionsDropdown).should('exist').click();
+    }
+
+    archiveThefile()
+    {
+        this.clickActionsDropdwon();
+        cy.get(selectors.archiveFileBttn).should('exist').click();
+    }
+
+    verifyFileStatusInFileDetailsPage(status)
+    {
+        cy.xpath(selectors.fileStatusInDetailsPage).should('have.text',status)
+    }
+
+    verifyNotPresentInTheList()
+    {
+        cy.get('@file name').then((res)=>{
+            var file=res.text()
+            cy.xpath('//tbody/tr/td[2][text()="'+file+'"]').should('not.exist');
+        })
+    }
+
+    reopenTheArchivedFile()
+    {
+        this.clickActionsDropdwon();
+        cy.get(selectors.reopenFileBttn).should('exist').click();
+    }
+
+    clickAddOrderButton()
+    {
+        cy.xpath(selectors.addOrderBttn).should('exist').click();
+    }
+
+    clickSubmitOrderButton()
+    {
+        cy.xpath(selectors.submitOrderBttn).should('be.enabled').click()
+    }
+
 
 }
 

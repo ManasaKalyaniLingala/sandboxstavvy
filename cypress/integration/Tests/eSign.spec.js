@@ -15,7 +15,7 @@ describe("stavvy application" , ()=>{
 
     
 
-     it("Create new eSign with Just Others", ()=>{
+     it.only("Create new eSign with Just Others", ()=>{
 
          var packetTitle=faker.name.findName();
          var firstName=faker.name.firstName();
@@ -100,7 +100,7 @@ describe("stavvy application" , ()=>{
 
 
 
-      it.only("upload document to  an eSign", ()=>{
+      it("upload document to  an eSign", ()=>{
 
          var document="title_exam (4).pdf";
          var value="Ready To Sign";
