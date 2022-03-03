@@ -16,7 +16,7 @@ export class Settings{
     updateFirstName(name)
     {
         cy.xpath(Selectors.firstName).realHover();
-        cy.xpath(Selectors.firstNameEditBttn).click();
+        cy.xpath(Selectors.firstNameEditBttn).click({force:true});
         cy.get(Selectors.inputTextBx).clear().type(name);
         cy.get(Selectors.saveIconBttn).click();
     }
@@ -29,7 +29,7 @@ export class Settings{
     updateMiddleName(name)
     {
         cy.xpath(Selectors.middleName).realHover();
-        cy.xpath(Selectors.middleNameEditBttn).click();
+        cy.xpath(Selectors.middleNameEditBttn).click({force:true});
         cy.get(Selectors.inputTextBx).clear().type(name);
         cy.get(Selectors.saveIconBttn).click();
     }

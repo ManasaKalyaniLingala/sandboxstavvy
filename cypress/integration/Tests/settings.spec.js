@@ -4,6 +4,8 @@ import { Login } from "../Pages/login_page";
 import { Settings } from "../Pages/settings_page";
 import { Meetings } from "../Pages/meetings_page";
 
+const { faker } = require('@faker-js/faker');
+
 const login = new Login();
 const settings=new Settings();
 const meetings=new Meetings();
@@ -17,7 +19,7 @@ describe("Settings test cases" , ()=>{
 
      it("Updating first name",()=>{
          
-         var firstName="First name";
+         var firstName=faker.name.firstName()
          
         //Navigate to settings
          settings.clickOnProfileIcon();
@@ -33,7 +35,7 @@ describe("Settings test cases" , ()=>{
 
      it("Updating middle name",()=>{
 
-         var middleName="middle name";
+         var middleName=faker.name.middleName();
 
         //Navigate to settings
          settings.clickOnProfileIcon();
@@ -49,7 +51,7 @@ describe("Settings test cases" , ()=>{
 
      it("Updating last name",()=>{
 
-         var lastName="last name";
+         var lastName=faker.name.lastName()
 
         //Navigate to settings
          settings.clickOnProfileIcon();
@@ -65,7 +67,7 @@ describe("Settings test cases" , ()=>{
 
      it("Update organization name",()=>{
 
-         var organization="QUALITLABS";
+         var organization=faker.name.findName()
 
         //Navigate to settings
          settings.clickOnProfileIcon();
