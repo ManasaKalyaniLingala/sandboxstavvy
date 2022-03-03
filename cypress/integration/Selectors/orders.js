@@ -21,6 +21,9 @@ export default{
     assignedOrdersLinkInOrderDetails:'//span[text()="Assigned Orders"]',
     cancelItBttn:'//button[text()="Yes, cancel it"]',
     orderStatusInTheList:'//div[@class="table-body"]/div/div/div[8]',
+    orderTypeInTheList:'//tbody/tr[1]/td[4]/text()',
+    fileNameInTheList:'//tbody/tr[1]/td[1]/text()',
+    fileInTheList:'//tbody/tr[1]',
 
     }
     

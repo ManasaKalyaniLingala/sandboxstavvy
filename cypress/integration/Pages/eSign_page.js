@@ -37,6 +37,7 @@ export class ESign {
     clickOnUploadDocuments(documentName)
     {
         cy.get(selectors.uploadDocumentsBttn).attachFile(documentName);
+        this.clickUploadButton();
     }
     clickNextButton()
     {
@@ -305,6 +306,7 @@ export class ESign {
 
             var packetTitle=$res.text();
             this.clickOneSignLink();
+            this.refreshESignListPage();
             this.searcPacket(packetTitle)
             this.verifyPacketStatusInTheList(packetTitle,status);
         })

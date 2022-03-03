@@ -23,9 +23,19 @@ export class Files{
         cy.get(selectors.purachaseLoanType).click()
     }
 
-    selectLoanProcessor(loanProcessor) {
+    selectLoanProcessor() {
         cy.xpath(selectors.clickLoanProcessorDropDown).click()
-        cy.xpath('//li//span[text()="'+loanProcessor+'"]').click();
+       cy.xpath('//div/ul/li')
+       .should('have.length.gt', 3)
+       .then(($li) => {
+        const items = $li.toArray()
+        return Cypress._.sample(items)
+        })
+       .then(($li) => {
+      expect(Cypress.dom.isJquery($li), 'jQuery element').to.be.true
+      cy.log(`you picked "${$li.text()}"`).click();
+    })
+   
     }
 
     enterLoanNumber(loanNumber) {
@@ -42,13 +52,39 @@ export class Files{
 
     enterPropertyAddress(address) {
         cy.get(selectors.propertyAddressInputField).type(address);
-        cy.xpath('//div[text()="'+address+'"]').click();
-        cy.wait(1000);
+        cy.wait(200);
+        cy.xpath('//div[@class="stavviz-dropdown relative flex"]/div[2]/ul/li[2]').click();
+        cy.wait(5000);
     }
 
-    selectClosingDate(date) {
-        cy.xpath('(//input[@placeholder="MM/DD/YYYY"])[1]').type(date);
+    enterStreetNumber(streetNumber)
+    {
+        cy.get(selectors.streetNumber).clear().type(streetNumber);
     }
+
+    enterStreetName(streetName)
+    {
+        cy.get(selectors.streetName).clear().type(streetName);
+    }
+
+    enterPostalCode(postalCode){
+        cy.get(selectors.postalCode).clear().type(postalCode)
+    }
+
+    enterCity(city)
+    {
+        cy.get(selectors.city).clear().type(city)
+    }
+
+    selectClosingDate() {
+        cy.xpath('(//input[@placeholder="MM/DD/YYYY"])[1]').should('exist').click();
+        this.pickDate()
+    }
+
+    pickDate()
+   {
+       cy.xpath('//tbody/tr[last()]/td[last()]').click();
+   }
 
     clickContinueButton() {
         cy.xpath(selectors.continueButtion).click();
@@ -72,16 +108,21 @@ export class Files{
         cy.xpath('//div[text()="'+address+'"]').click();
     }
 
-    enterBasicInfo(loanNumber, settlementClosingDate, loanProcessor, loanAmount, address) {
+    enterBasicInfo(loanNumber, loanAmount, address,streetNumber,streetName,city,postalCode) {
     
         this.enterLoanNumber(loanNumber);
-        this.selectClosingDate(settlementClosingDate);
-        this.selectLoanProcessor(loanProcessor);
+        this.selectClosingDate()
+        this.selectLoanProcessor();
         this.enterLoanAmount(loanAmount);
         this.enterPropertyAddress(address);
+        this.enterStreetNumber(streetNumber);
+        this.enterStreetName(streetName);
+        this.enterCity(city);
+        this.enterPostalCode(postalCode);
     }
 
-    enterBorrowerDetails(firstName, lastName, email, phoneNumber, SSN, borrowerAddress) {
+    enterBorrowerDetails(firstName, lastName, email, phoneNumber, SSN)
+     {
         cy.get(selectors.enterBorrowerFirstName).type(firstName);
         cy.get(selectors.enterBorrowerLastName).type(lastName);
         cy.get(selectors.enterBorrowerEmail).type(email);
@@ -89,8 +130,7 @@ export class Files{
         cy.xpath(selectors.enterPhoneNumberOfBorrower).type(phoneNumber);
         cy.xpath(selectors.enterSSNOfBorrower).clear();
         cy.xpath(selectors.enterSSNOfBorrower).type(SSN);
-        cy.get(selectors.enterBorrowerAddress).type(borrowerAddress);
-        cy.xpath('//div[text()="'+borrowerAddress+'"]').click();
+        //cy.get(selectors.enterBorrowerAddress).type(borrowerAddress);
         this.clickContinueButton();
     }
     addSettlementOrder(date,vendorName)
@@ -112,43 +152,59 @@ export class Files{
        cy.xpath(selectors.settlementVendorDropdown).click();
        cy.xpath('//ul/li[@title="'+vendorName+'"]').click();
     }
-    addTitleOrder(date,vendorName)
+    addTitleOrder()
     {
         this.selectTitleOrder();
-        this.enterTitleDueDate(date);
-        this.selectTitleVendorFromTheList(vendorName);
+        this.enterTitleDueDate();
+        this.selectTitleVendorFromTheList();
     }
     selectTitleOrder()
     {
-        cy.xpath(selectors.titleOrderBttn).click();
+        cy.xpath(selectors.titleOrderBttn).should('exist').click();
     }
-    enterTitleDueDate(date)
+    enterTitleDueDate()
     {
-        cy.xpath(selectors.titleDateBttm).type(date);
+        cy.xpath(selectors.titleDateBttm).should('exist').click();
+        this.pickDate();
     }
-    selectTitleVendorFromTheList(vendorName)
+    selectTitleVendorFromTheList()
     {
-        cy.xpath(selectors.titleVendorDropdown).click();
-        cy.xpath('//ul/li[@title="'+vendorName+'"]').click();
+        cy.xpath(selectors.titleVendorDropdown).should('exist').click();
+        this.selectVendor();
     }
-    addForeclosureOrder(date,vendorName)
+
+    selectVendor()
+    {
+        cy.xpath('//div/ul/li')
+       .should('have.length.gt', 3)
+       .then(($li) => {
+        const items = $li.toArray()
+        return Cypress._.sample(items)
+        })
+       .then(($li) => {
+      expect(Cypress.dom.isJquery($li), 'jQuery element').to.be.true
+      cy.log(`you picked "${$li.text()}"`).click();
+    })
+    }
+    addForeclosureOrder()
     {
         this.selectForeclosurOrder();
-        this.enterForeclosureDueDate(date);
-        this.selectForeclosureServicerFromTheList(vendorName);
+        this.enterForeclosureDueDate();
+        this.selectForeclosureServicerFromTheList();
     }
     selectForeclosurOrder()
     {
-        cy.xpath(selectors.foreclosureOrderBttn).click();
+        cy.xpath(selectors.foreclosureOrderBttn).should('exist').click();
     }
-    enterForeclosureDueDate(date)
+    enterForeclosureDueDate()
     {
-        cy.xpath(selectors.foreclosureDateBttn).type(date);
+        cy.xpath(selectors.foreclosureDateBttn).should('exist').click();
+        this.pickDate();
     }
-    selectForeclosureServicerFromTheList(vendorName)
+    selectForeclosureServicerFromTheList()
     {
-        cy.xpath(selectors.servicerDropdown).click();
-        cy.xpath('//ul/li[@title="'+vendorName+'"]').click();  
+        cy.xpath(selectors.servicerDropdown).should('exist').click();
+        this.selectVendor();
     }
     selectAppraisalOrder()
     {
@@ -167,10 +223,21 @@ export class Files{
     {
       cy.xpath(selectors.loanTypeTxt).should('have.text',loanType)
     }
+
     verifyLoanNumber(loanNumber)
     {
-       cy.xpath(selectors.loanNumberText).should('have.text',loanNumber)
+        cy.xpath(selectors.loanNumberText).should('have.text',loanNumber);
     }
+
+    verifyLoanNumberInDetailsPage()
+    {
+        cy.get('@file name').then((res)=>{
+            cy.log(res.text())
+           var loanNumber=res.text();
+            cy.xpath(selectors.loanNumberText).should('have.text',loanNumber)
+        })
+    }
+    
     verifyAddressInFileDetailsPage(address)
     {
         cy.xpath(selectors.addressTextInFileDetailsPage).should('contain.text',address);
@@ -247,12 +314,24 @@ export class Files{
     {
         cy.contains(file).click();
     }
-    uploadDocument(document,documentType)
+    copyFileName()
+     {
+         cy.xpath('//tbody/tr[1]/td[2]/text()').as('file name');
+     }
+
+    navigateToFileDetailsPage()
+    {
+        this.copyFileName()
+        
+        cy.xpath(selectors.firstFileInTheList).click();
+        
+    }
+    uploadDocument(document)
     {
         this.clickDocumentsButton();
         this.clickAddDocumentButton();
         this.attachDocument(document);
-        this.selectDocumentType(documentType);
+        this.selectDocumentType();
     }
     clickDocumentsButton()
     {
@@ -270,15 +349,12 @@ export class Files{
     {
         cy.xpath(selectors.uploadButton).click();
     }
-    selectDocumentType(documentType)
+    selectDocumentType()
     {
         cy.get(selectors.selectDocumentTypeDropDown).click();
-        cy.xpath('//ul/li/span[text()="'+documentType+'"]').click();
+        this.selectVendor();
     }
-    selectVendor()
-    {
-        cy.get(selectors.sharedWithDropDown).click();
-    }
+    
     verifyAddedDocumentInTheList(documentName)
     {
         cy.xpath(selectors.addedDocumentName).should('have.text',documentName);
@@ -430,12 +506,10 @@ export class Files{
     {
         cy.xpath(selectors.addedOrderInFileDetailsPage).should('contain.text',order);
     }
-    verifyAddedOrderInTheFileDetailsPage(order,status,duedate,vendor)
+    verifyAddedOrderInTheFileDetailsPage(order,status)
     {
         this.verifyAddedOrder(order);
         this.verifyAddedOrderStatus(order,status);
-        this.verifyAdderOrderDueDate(order,duedate);
-        this.verifyAddedOrderVendor(order,vendor);
     }
 
     verifyFileDetailsInTheFileDetailsPage(loanNumber,loanType,address)
@@ -473,7 +547,6 @@ export class Files{
         this.verifyAddedOrdersInTheList(fileId,orders);
         this.verifyClosingDateInTheList(fileId,closeDate);
     }
-
 
 }
 

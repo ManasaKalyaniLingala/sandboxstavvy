@@ -19,6 +19,7 @@ export default {
     createClosingBttn: '[data-testid="review-create-meeting-btn"]',
     streetName: '[name="Street name"]',
     streetNumber: '[name="Street no."]',
+    city:'[name="City"]',
     postalCode: '[name="ZIP Code"]',
     addressUnit:'[name="Unit/Apt"]',
     closingsBttn:"//*[text()='Closings']",
@@ -36,8 +37,13 @@ export default {
     addAttendeeBttn:'//button[text()="+ Add attendee"]',
     addAttendeeBttnInMeetingInfoPage:'//button[text()="Add attendee"]',
     uploadDocumentField:'#upload-doc',
-    uploadButton:'//button[text()="Upload"]',
+    uploadButton:"(//div[contains(@class,'stavviz-button-row text-right')]//button)[3]",
     documentName:'((//tbody)[2]/tr[last()]//td/div/div/text())[1]',
     addedAttendeeEmail:'(//tbody)[1]/tr[last()]/td[3]/text()',
-    transactionType:'//div[@class="text-base"][2]/text()'
+    transactionType:'//div[@class="text-base"][2]/text()',
+    addressTextInMeetingDetailsPage:'//h3/div/text()',
+    nextArrowButton:'[data-icon="long-arrow-right"]',
+    loanNumberInList:'//div/div[1]/div[1][@class="flex flex-row"]/p[2]/text()',
+    meetingCardInList:'//div[@data-testid="meeting-card"][1]',
+    firstMeetingLoanNumber:'(//div/div[1]/div[1][@class="flex flex-row"]/p[2]/text())[1]',
 }

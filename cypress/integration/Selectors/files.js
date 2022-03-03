@@ -74,6 +74,11 @@ export default{
     closeDateColoumn:'//tr[@class="relative"]/th/span[text()="Close Date"]',
     ordersColoumn:'//tr[@class="relative"]/th/span[text()="Orders"]',
     statusColoumn:'//tr[@class="relative"]/th/span[text()="Status"]',
-    errorText:'[class="error-text mb-4"]'
-
+    errorText:'[class="error-text mb-4"]',
+    streetName: '[name="Street name"]',
+    streetNumber: '[name="Street no."]',
+    city:'[name="City"]',
+    postalCode: '[name="ZIP Code"]',
+    addressUnit:'[name="Unit/Apt"]', 
+    firstFileInTheList:'//tbody/tr[1]/td[2]'
 }

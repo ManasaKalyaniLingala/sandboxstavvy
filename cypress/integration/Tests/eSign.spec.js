@@ -56,7 +56,7 @@ describe("stavvy application" , ()=>{
          eSign.verifyPacketNameInDetailsPage(packetTitle);
          eSign.verifyPacketStatusInDetailsPage(status);
          eSign.clickOneSignLink();
-         eSign.refreshESignListPage()
+         eSign.refreshESignListPage();
          eSign.verifyPacketStatusInTheList(packetTitle,status);
          })
 

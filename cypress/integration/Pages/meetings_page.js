@@ -34,54 +34,59 @@ export class Meetings {
         cy.get(selectors.fileNumberTxBx).type(fileNumber);
     }
 
-    selectPropertyAddress(address,streetName,streetNumber,postalCode,addressUnit)
+    selectPropertyAddress(address,streetNumber,streetName,city,postalCode)
     {
         this.enterPropertyInformation(address);
-        this.enterStreetName(streetName);
         this.enterStreetNumber(streetNumber);
-        this.enterPostalCode(postalCode);
-        this.enterAddressUnit(addressUnit);
+        this.enterStreetName(streetName);
+        this.enterCity(city);
+        this.enterPostalCode(postalCode);   
     }
 
     enterPropertyInformation(address)
     {
         cy.get(selectors.propertyAddressTextbx).type(address);
-        cy.xpath('//div[text()="'+ address +'"]').click();
+        cy.wait(200);
+        cy.xpath('//div[@class="stavviz-dropdown relative flex"]/div[2]/ul/li[2]').click();
         cy.wait(5000);
     }
 
-    enterStreetNumber(streetNumber){
-        cy.get(selectors.streetNumber).type(streetNumber);
+    enterStreetNumber(streetNumber)
+    {
+        cy.get(selectors.streetNumber).clear().type(streetNumber);
     }
 
-    enterStreetName(streetName){
-        cy.get(selectors.streetName).type(streetName);
+    enterStreetName(streetName)
+    {
+        cy.get(selectors.streetName).clear().type(streetName);
     }
 
     enterPostalCode(postalCode){
-        cy.get(selectors.postalCode).type(postalCode)
-    }
-    enterAddressUnit(addressUnit)
-    {
-        cy.get(selectors.addressUnit).type(addressUnit);
+        cy.get(selectors.postalCode).clear().type(postalCode)
     }
 
-    enterMeetingInfo(date,time,timeZone)
+    enterCity(city)
     {
-        this.selectMeetingDate(date);
-        this.selectStartime(time);
-        this.selectTimeZone(timeZone);
+        cy.get(selectors.city).clear().type(city)
     }
 
-    selectMeetingDate(date)
+    enterMeetingInfo()
     {
-        cy.get(selectors.meetingDate).type(date);
+        this.selectMeetingDate();
+        this.selectStartime();
+        this.selectTimeZone();
     }
 
-    selectStartime(time)
+    selectMeetingDate()
+    {
+        cy.get(selectors.meetingDate).click();
+        this.pickDate();
+    }
+
+    selectStartime()
     {
         cy.xpath(selectors.startTime).click();
-        cy.xpath('//li//span[text()="' + time + '"]').click();
+        cy.xpath('//div/ul/li[4]').click();
     }
 
     verifyDefaultTimezone(timezone)
@@ -89,10 +94,10 @@ export class Meetings {
         cy.get(selectors.defaultTimeZoneText).should('have.value',timezone)
     }
 
-    selectTimeZone(timeZone)
+    selectTimeZone()
     {
         cy.xpath(selectors.timeZone).click();
-        cy.xpath('//li//span[text()="' + timeZone+ '"]').click();
+        cy.xpath('//div/ul/li[4]').click();
     }
 
     selectNotary(notary)
@@ -145,20 +150,39 @@ export class Meetings {
     }
     verifyNavigatedToClosingDetailsPage()
     {
-        cy.xpath(selectors.closingDetailsPage).should('have.text',"Closing Detail")
+        cy.xpath(selectors.closingDetailsPage).should('have.text',"Closing Detail");
     }
-    navigatingToClosingDetailsPage(fileID)
+    copyTheLoanNumber()
     {
-        cy.xpath('(//*[text()="'+fileID+'"])[1]').click();
-   }
+        cy.xpath(selectors.firstMeetingLoanNumber).as('loan number');
+    }
+    navigatingToClosingDetailsPage()
+    {
+        cy.xpath(selectors.meetingCardInList).should('exist').click();
+    }
+        
    verifyPopupMessage(message)
    {
     cy.get(".react-toast-notifications__toast__content").should('have.text', message)
    }
-   verifyFileId(fileId)
+   verifyFileIdInMeetingDetailsPage()
    {
-       cy.xpath(selectors.fileId).should('have.text',fileId);
+       cy.get('@loan number').then((res)=>{
+            var fileId=res.text()
+            cy.xpath(selectors.fileId).should('have.text',fileId);
+       })
    }
+
+   copyTheOrderTypeInDetailsPage()
+   {
+       cy.xpath('(//button[text()="Accept"])[1]/../../../div[1]/div/text()').as('order type in details page');
+   }
+    verifyFileId(fileId)
+  {
+    cy.xpath(selectors.fileId).should('have.text',fileId);
+  }
+    
+   
    navigatingToClosingsPage()
    {
        cy.xpath(selectors.closingsLink).click();
@@ -205,10 +229,8 @@ export class Meetings {
       cy.log(`you picked "${$li.text()}"`).click();
     })
    }
-   verifyFileIdInTheList(fileId)
-   {
-       cy.contains(fileId);
-   }
+   
+
    filterTheMeetingsBy(notary)
    {
        cy.get(selectors.filterByNotaryDropdown).click();
@@ -223,12 +245,13 @@ export class Meetings {
    {
        cy.xpath(selectors.addAttendeeBttn).click();
    }
-   attachDocument(document){
+   attachDocument(document)
+   {
        cy.get(selectors.uploadDocumentField).attachFile(document);
    }
    clickUploadButton()
    {
-       cy.xpath(selectors.uploadButton).click();
+       cy.xpath(selectors.uploadButton).should('exist').realClick();
    }
    uploadDocument(document)
    {
@@ -257,4 +280,19 @@ export class Meetings {
    {
        cy.xpath(selectors.transactionType).should('have.text',transaction);
    }
+
+   pickDate()
+   {
+       cy.xpath('//tbody/tr[last()]/td[last()]').click();
+   }
+
+   verifyAddressInMeetingDetailsPage(address)
+   {
+       cy.xpath(selectors.addressTextInMeetingDetailsPage).should('contain.text',address);
+   }
+  
+clickMeeting(fileId)
+{
+    cy.contains(fileId).click();
+}
 }

@@ -24,7 +24,7 @@ export class Orders{
 
     navigateToInProgressOrdersTab()
     {
-        cy.wait(2000);
+        cy.wait(4000);
         cy.get(selectors.inProgressOrdersTab).should('exist').click();
     }
 
@@ -88,50 +88,125 @@ export class Orders{
         cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]/../td[4][text()="'+orderType+'"]/../td[7]/div/div/button[text()="'+action+'"]').should('exist').click();
      }
 
-     acceptOrRejectServicingOrderByName(fileName,action)
+     acceptOrRejectOrder(action)
      {
-        cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]/../td[5]/div/div/button[text()="'+action+'"]').should('exist').click();
+         this.copyFileName();
+         this.copyOrderType();
+         cy.get('@file name').then((res)=>{
+            var fileName=res.text();
+            cy.log(fileName);
+         })
+            cy.get('@order type').then((response)=>{
+                var orderType=response.text()
+                cy.log(orderType)
+            })
+         cy.xpath('//tbody/tr[1]/td[last()]/div/div/button[text()="'+action+'"]').should('exist').click();
      }
+
+     copyOrderType()
+     {
+         cy.xpath(selectors.orderTypeInTheList).as('order type');
+     }
+
+     copyFileName()
+     {
+         cy.xpath(selectors.fileNameInTheList).as('file name');
+     }
+
+     acceptOrRejectServicingOrder(action)
+     {
+        this.copyFileName();
+        cy.xpath('//tbody/tr[1]/td[last()]/div/div/button[text()="'+action+'"]').should('exist').click();
+     }
+
+     acceptOrRejectServicingOrderInDetailsPage(action)
+     {
+         cy.xpath('//div[@data-testid="stavviz-card"]/div/div[text()="Foreclosure"]/../following-sibling::div/div[5]/button[text()="'+action+'"]').should('exist').click();  
+    }
      
-     verifyServicingOrderPresentInTheList(file)
+     verifyServicingOrderPresentInTheList()
      {
-         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]').should('exist');
+        cy.get('@file name').then((res)=>{
+
+            var fileName=res.text()
+            cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]').should('exist');
+         })
      }
 
-     verifyServicingOrderNotPresentInTheList(file)
+     verifyServicingOrderNotPresentInTheList()
      {
-         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]').should('not.exist');
-     }
+         cy.get('@file name').then((res)=>{
 
-     navigateToServicingOrderDetailsPage(file)
-     {
-        cy.xpath('//tbody/tr/td[1][text()="'+file+'"]').should('exist').click();
-     }
+            var fileName=res.text()
+            cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]').should('not.exist');
+         })
+         }
 
-     verifyOrderNotPresentInTheList(file,orderType)
+     navigateToServicingOrderDetailsPage()
      {
-         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]/../td[4][text()="'+orderType+'"]').should('not.exist');
+         this.copyFileName();
+        cy.get('@file name').then((res)=>{
+            var fileName=res.text();
+            
+                cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]').should('exist').click();
+     })
+        }
+    
+        
+
+     verifyOrderNotPresentInTheList()
+     {
+         cy.get('@file name').then((res)=>{
+             var fileName=res.text();
+             cy.log(fileName);
+             cy.get('@order type').then((response)=>{
+                 var orderType=response.text()
+                 cy.log(orderType);
+                 cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]/../td[4][text()="'+orderType+'"]').should('not.exist');
+             })
+         })
+         
      }
-     verifyOrderDetailsInTheList(file,orderType)
+     verifyOrderDetailsInTheList()
      {
-         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]/../td[4][text()="'+orderType+'"]').should('exist');
+        cy.get('@file name').then((res)=>{
+            var fileName=res.text();
+            cy.get('@order type').then((response)=>{
+                var orderType=response.text()
+                cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]/../td[4][text()="'+orderType+'"]').should('exist');
+            })
+        })
      }
      verifyPageHeading(heading,page)
      {
          cy.xpath(selectors.pageHeading).should('have.text',heading);
          cy.xpath('//a[text()="'+page+'"]').should('contain.class','font-medium opacity-100');
      }
-     navigateToOrderDetailsPage(file,orderType)
+     navigateToOrderDetailsPage()
      {
-         cy.xpath('//tbody/tr/td[1][text()="'+file+'"]/../td[4][text()="'+orderType+'"]').click();
+         this.copyFileName();
+         this.copyOrderType();
+        cy.get('@file name').then((res)=>{
+            var fileName=res.text();
+            cy.get('@order type').then((response)=>{
+                var orderType=response.text()
+                cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]/../td[4][text()="'+orderType+'"]').should('exist').click();
+            })
+        })
      }
-     verifyFileNameInTheDetailsPage(loanNumber)
+     verifyFileNameInTheDetailsPage()
      {
-         cy.xpath(selectors.loanNumberInTheDetailsPage).should('contain.text',loanNumber)
+        cy.get('@file name').then((res)=>{
+            var fileName=res.text().toLowerCase();
+         cy.xpath(selectors.loanNumberInTheDetailsPage).should('contain.text',fileName);
+        })
      }
-     verifyOrderStatusInOrderDetails(orderType,status)
+     verifyOrderStatusInOrderDetails(status)
      {
+        cy.get('@order type').then((response)=>{
+            var orderType=response.text()
          cy.xpath('//div[text()="'+orderType+'"]/../following-sibling::div/div/div/div/div').should('have.text',status)
+        })
      }
      verifyNavigatedToOrderDetailsPage()
     {
@@ -141,14 +216,24 @@ export class Orders{
     {
         cy.xpath(selectors.assignedOrdersLinkInOrderDetails).click();
     }
-    verifyOrderDetailsInTheDetailsPage(file,orderType,status)
+    verifyOrderDetailsInTheDetailsPage(status)
     {
-       this.verifyFileNameInTheDetailsPage(file);
-       this.verifyOrderStatusInOrderDetails(orderType,status);
+       this.verifyOrderStatusInOrderDetails(status);
     }
-    acceptOrRejectOrderInDetailsPage(orderType,action)
+
+    verifyServicingOrderDetailsInTheDetaisPage(status)
     {
-        cy.xpath('//div[text()="'+orderType+'"]/../following-sibling::div/div[5]/button[text()="'+action+'"]').click();
+        cy.xpath('//div[text()="Foreclosure"]/../following-sibling::div/div/div/div/div').should('have.text',status)
+        
+    }
+    acceptOrRejectOrderInDetailsPage(action)
+    {
+        cy.get('@order type').then((res)=>{
+    
+            var orderType=res.text();
+            cy.xpath('//div[@data-testid="stavviz-card"]/div/div[text()="'+orderType+'"]/../following-sibling::div/div[5]/button[text()="'+action+'"]').should('exist').click();
+        })
+        
     }
     clickCancelItButton()
     {

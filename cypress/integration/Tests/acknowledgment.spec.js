@@ -16,8 +16,6 @@ describe("Acknowledgment test cases" , ()=>{
 
      it("Verify approving without acknowledgment",()=>{
 
-         var document="certified_document2.pdf";
-         var loanNumber="file777";
          var text="Approved";
          var status="Complete";
 
@@ -25,7 +23,7 @@ describe("Acknowledgment test cases" , ()=>{
          acknowledgment.navigateToAcknowledgementPage();
 
          //Approving without aknowledgement
-         acknowledgment.clickStartQCOfDocument(document,loanNumber);
+         acknowledgment.clickStartQCOfDocument();
          acknowledgment.selectApproveNoAcknowledgement();
          acknowledgment.clickSubmitButton();
 
@@ -33,89 +31,79 @@ describe("Acknowledgment test cases" , ()=>{
          acknowledgment.verifyQualityControlStatusText(text);
          acknowledgment.verifyApprovedWithNoAcknowledgememtQAText();
          acknowledgment.clickBackToInboxButton();
-         acknowledgment.verifyDocumentNotInTheList(document,loanNumber);
-         acknowledgment.verifyDocumentAndItsStatusInTheCompleteTabList(document,loanNumber,status);
+         acknowledgment.clickOnCompleteTab();
+         acknowledgment.verifyDocumentAndItsStatusInTheCompleteTabList(status);
      })
+
 
      it("Verify rejecting document",()=>{
 
-         var document="certified_document3.pdf";
-         var loanNumber="file910";
          var status="Rejected";
 
          //Navigate to Acknowledgement page
          acknowledgment.navigateToAcknowledgementPage();
 
          //Rejecting
-         acknowledgment.clickStartQCOfDocument(document,loanNumber);
+         acknowledgment.clickStartQCOfDocument();
          acknowledgment.selectReject();
          acknowledgment.clickSubmitButton();
 
          //Verify rejected document
          acknowledgment.verifyQualityControlStatusText(status);
          acknowledgment.clickBackToInboxButton();
-         acknowledgment.verifyDocumentNotInTheList(document,loanNumber);
-         acknowledgment.verifyDocumentAndItsStatusInTheCompleteTabList(document,loanNumber,status)
+         acknowledgment.clickOnCompleteTab();
+         acknowledgment.verifyDocumentAndItsStatusInTheCompleteTabList(status)
      })
 
 
      it("Verify moving document from Initial Review to Acknowledge tab by selecting Approve - Acknowledgement Required in Quality control",()=>{
             
-        var document="certified_document1.pdf";
-        var loanNumber="file367";
 
         //Navigating to Acknowledgement page
         acknowledgment.navigateToAcknowledgementPage();
         
         //Selecting "Approve – Acknowledgement Required"
-        acknowledgment.clickStartQCOfDocument(document,loanNumber);
+        acknowledgment.clickStartQCOfDocument();
         acknowledgment.selectApproveAcknowledgmentRequired();
         acknowledgment.clickSubmitButton();
 
         //Verify document
         acknowledgment.verifyApprovedWithAcknowledgmentQAText();
         acknowledgment.clickBackToInboxButton();
-        acknowledgment.verifyDocumentNotInTheList(document,loanNumber);
         acknowledgment.clickOnAcknowledgeTab();
-        acknowledgment.verifyDocumentInTheList(document,loanNumber);
-        acknowledgment.verifyDocumentLastReviewedInTheList(document,loanNumber);
+        acknowledgment.verifyDocumentInTheList();
+        acknowledgment.verifyDocumentLastReviewedInTheList(5);
      })
 
 
      it("Verify Viewing completed document",()=>{
 
-         var document="certified_test doc4.pdf";
-         var loanNumber="Remote signing2";
-         var status="Complete";
-         var text="Approved by MANASA KALYANI LINGALA";
+         var status="Completed";
+         var text="Approved";
 
          //Navigate to Acknowledgment page
          acknowledgment.navigateToAcknowledgementPage();
 
          //Viewing completed document
          acknowledgment.clickOnCompleteTab();
-         acknowledgment.verifyDocumentInTheList(document,loanNumber);
-         acknowledgment.verifyDocumentStatusInTheList(document,loanNumber,status);
-         acknowledgment.clickViewOfDocument(document,loanNumber);
+         acknowledgment.listDocumentsByStatus(status)
+         acknowledgment.clickViewOfDocument();
          acknowledgment.verifyQualityControlStatusText(text);
          acknowledgment.verifyApprovedWithNoAcknowledgememtQAText();
      })
 
      it("Verify viewing rejected document",()=>{
 
-         var document="certified_test doc1.pdf";
-         var loanNumber="Meeting 123";
          var status="Rejected";
-         var text ="Rejected by MANASA KALYANI LINGALA";
+         var text ="Rejected";
 
          //Navigate to Acknowledgment page
          acknowledgment.navigateToAcknowledgementPage();
 
          //Viewing rejected document
          acknowledgment.clickOnCompleteTab();
-         acknowledgment.verifyDocumentInTheList(document,loanNumber);
-         acknowledgment.verifyDocumentStatusInTheList(document,loanNumber,status);
-         acknowledgment.clickViewOfDocument(document,loanNumber);
+         acknowledgment.listDocumentsByStatus(status);
+         acknowledgment.clickViewOfDocument();
          acknowledgment.verifyQualityControlStatusText(text);
      })
 
@@ -169,112 +157,6 @@ describe("Acknowledgment test cases" , ()=>{
         acknowledgment.verifyDocumentListExists();
         acknowledgment.verifySearchDocuments();
         acknowledgment.verifyNoOfRowsPerPageDropDown();
-     })
-
-     it("verify archiving document of Initial Review",()=>{
-
-        var document="certified_test doc5.pdf";
-        var loanNumber="Remote signing2";
-        var location="Initial Review";
-        var tabHeading1="Initial Review";
-        var tabHeading2="Archived"
-
-        //Navigating to Aknowledgement page
-        acknowledgment.navigateToAcknowledgementPage();
-        acknowledgment.verifyTabHeadingText(tabHeading1)
- 
-        //Archive document in Initial Review
-        acknowledgment.selectTheDocumentInTheList(document,loanNumber);
-        acknowledgment.clickArchiveButton();
-
-        //Verify archived doucment
-        acknowledgment.verifyMessage('Entry archived!');
-        acknowledgment.verifyDocumentNotInTheList(document,loanNumber);
-        acknowledgment.navigateToArchivedPage();
-        acknowledgment.verifyTabHeadingText(tabHeading2);
-        acknowledgment.verifyDocumentInTheList(document,loanNumber);
-        acknowledgment.verifyDocumentLastLocation(document,loanNumber,location)
-     })
-
-     it("Verify moving archived Inital Review document to inbox",()=>{
-
-        var document="certified_test doc5.pdf";
-        var loanNumber="Remote signing2";
-        var tabHeading1="Archived";
-        var tabHeading2="Initial Review";
-        
-        
-        //Navigating to Acknowledgement page
-        acknowledgment.navigateToAcknowledgementPage();
-
-        // Navigating to Archived page
-        acknowledgment.navigateToArchivedPage();
-        acknowledgment.verifyTabHeadingText(tabHeading1);
-        acknowledgment.selectTheDocumentInTheList(document,loanNumber);
-        acknowledgment.clickMoveToInboxButton();
-
-        //Verify document moved to initial Review
-        acknowledgment.verifyMessage('Entry moved to inbox!');
-        acknowledgment.verifyDocumentNotInTheList(document,loanNumber);
-        acknowledgment.navigateToInboxPage();
-        acknowledgment.verifyTabHeadingText(tabHeading2);
-        acknowledgment.verifyDocumentInTheList(document,loanNumber);
-     })
-
-     it("verify archiving document of Acknowledge",()=>{
-
-        var document="certified_document2.pdf";
-        var loanNumber="Remote signing2";
-        var location="Acknowledge";
-        var tabHeading1="Acknowledge";
-        var tabHeading2="Archived";
-
-        //Navigating to Aknowledgement page
-        acknowledgment.navigateToAcknowledgementPage();
-
-        //Navigate to Acknowledge tab
-        acknowledgment.clickOnAcknowledgeTab();
-        acknowledgment.verifyTabHeadingText(tabHeading1)
-
-        //Archive document in Initial Review
-        acknowledgment.selectTheDocumentInTheList(document,loanNumber);
-        acknowledgment.clickArchiveButton();
-
-        //Verify archived doucment
-        acknowledgment.verifyMessage('Entry archived!');
-        acknowledgment.verifyDocumentNotInTheList(document,loanNumber);
-        acknowledgment.navigateToArchivedPage();
-        acknowledgment.verifyTabHeadingText(tabHeading2);
-        acknowledgment.verifyDocumentInTheList(document,loanNumber);
-        acknowledgment.verifyDocumentLastLocation(document,loanNumber,location);
-     })
-
-     it("verify archiving completed document in Complete tab",()=>{
-
-        var document="certified_test doc4.pdf";
-        var loanNumber="Remote signing2";
-        var location="Complete";
-        var tabHeading1="Completed";
-        var tabHeading2="Archived";
-
-        //Navigating to Aknowledgement page
-        acknowledgment.navigateToAcknowledgementPage();
-
-        //Navigate to Acknowledge tab
-        acknowledgment.clickOnCompleteTab();
-        acknowledgment.verifyTabHeadingText(tabHeading1)
-
-        //Archive document in Initial Review
-        acknowledgment.selectTheDocumentInTheList(document,loanNumber);
-        acknowledgment.clickArchiveButton();
-
-        //Verify archived doucment
-        acknowledgment.verifyMessage('Entry archived!');
-        acknowledgment.verifyDocumentNotInTheList(document,loanNumber);
-        acknowledgment.navigateToArchivedPage();
-        acknowledgment.verifyTabHeadingText(tabHeading2);
-        acknowledgment.verifyDocumentInTheList(document,loanNumber);
-        acknowledgment.verifyDocumentLastLocation(document,loanNumber,location);
      })
      
     })

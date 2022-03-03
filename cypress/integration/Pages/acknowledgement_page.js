@@ -16,7 +16,7 @@ export class Acknowledgement {
     navigateToArchivedPage()
     {
         cy.get(selectors.archivedLink).click();
-        cy.wait(1000);
+        cy.wait(4000);
     }
 
     navigateToMeetingsPage()
@@ -28,13 +28,13 @@ export class Acknowledgement {
     clickOnInitialReview()
     {
         cy.wait(2000);
-        cy.get(selectors.initialReviewTab).click();
+        cy.xpath(selectors.initialReviewTab).click();
         cy.wait(2000);
     }
 
     verifyInitialReviewTab()
     {
-       cy.get(selectors.initialReviewTab).should('exist');
+       cy.xpath(selectors.initialReviewTab).should('exist');
     }
 
     verifyAcknowledgeTab()
@@ -78,9 +78,22 @@ export class Acknowledgement {
         cy.xpath(selectors.selectAllOfDocumentName).click();
     }
 
-    clickStartQCOfDocument(document,loanNumber)
+    copyDocumentName()
     {
-        cy.xpath('//tr/td[2]/div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td/button').click();
+        cy.xpath('//tbody/tr[1]/td[2]/div[text()]').as('document name');
+    }
+
+    copyLoanNumber()
+    {
+        cy.xpath('//tbody/tr[1]/td[3]/text()').as('loan number');
+    }
+
+    clickStartQCOfDocument()
+    {
+        this.copyDocumentName();
+        this.copyLoanNumber();
+        cy.xpath(selectors.startQcBttnOfFirstDocument).should('exist').click();
+        cy.wait(7000)
     }
 
     clickOnDropdownOfDocumentName(document)
@@ -117,21 +130,23 @@ export class Acknowledgement {
     {
         cy.xpath(selectors.submitBttn).click();
         cy.wait(3000);
+        cy.reload();
     }
 
     verifyDocumentStatusInTheList(document,loanNumber,status)
     {
-        cy.xpath('//div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[3]').should('have.text',status);
+        cy.xpath('//div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[3]/div/div/text()').should('have.text',status);
     }
 
-    verifyDocumentLastReviewedInTheList(document,loanNumber)
+    verifyDocumentLastReviewedInTheList()
     {
-        cy.xpath('//div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[3]').should('contain.text','seconds ago')
-    }
-
-    clickViewOfDocument(document,loanNumber)
-    {
-        cy.xpath('//div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[4]/button').click();
+        cy.get('@document name').then((res)=>{
+            var document=res.text();
+             cy.get('@loan number').then((response)=>{
+               var  loanNumber=response.text();
+               cy.xpath('//div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[3]').should('contain.text','seconds ago')
+             })
+         })
     }
 
     verifyApprovedWithNoAcknowledgememtQAText()
@@ -154,21 +169,43 @@ export class Acknowledgement {
         cy.xpath(selectors.backToInboxBttn).click();
     }
 
-    verifyDocumentNotInTheList(document,loanNumber)
+    verifyDocumentNotInTheList()
     {
-        cy.xpath('//tbody/tr/td[2]/div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]').should('not.exist');
+        cy.reload();
+        cy.get('@document name').then((res)=>{
+           var document=res.text();
+           cy.log(document)
+            cy.get('@loan number').then((response)=>{
+              var  loanNumber=response.text();
+              cy.log(loanNumber)
+                cy.xpath('//tbody/tr/td[2]/div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]').should('not.exist');
+            })
+        })
     }
 
-    verifyDocumentInTheList(document,loanNumber)
+    verifyDocumentInTheList()
     {
-        cy.xpath('//tbody/tr/td[2]/div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]').should('exist');
+        cy.get('@document name').then((res)=>{
+            var document=res.text();
+             cy.get('@loan number').then((response)=>{
+               var  loanNumber=response.text();
+               cy.xpath('//tbody/tr/td[2]/div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]').should('exist');
+             })
+         })
+        
     }
 
-    verifyDocumentAndItsStatusInTheCompleteTabList(document,loanNumber,status)
+    verifyDocumentAndItsStatusInTheCompleteTabList(status)
     {
+        cy.get('@document name').then((res)=>{
+          var  document=res.text();
+            cy.get('@loan number').then((response)=>{
+              var  loanNumber=response.text();
         this.clickOnCompleteTab();
         this.verifyDocumentInTheList(document,loanNumber);
         this.verifyDocumentStatusInTheList(document,loanNumber,status);
+            })
+        })
     }
 
     verifyPageHeading(heading)
@@ -196,13 +233,23 @@ export class Acknowledgement {
         cy.xpath(selectors.tabHeadingText).should('have.text',tabHeading);
     }
 
-    selectTheDocumentInTheList(document,loanNumber)
+    selectTheDocumentInTheList()
     {
-        cy.xpath('//tbody/tr/td/div[text()="'+document+'"]/../../td[3][text()="'+loanNumber+'"]/../td[1]').click();
-    }
+        cy.xpath(selectors.selectFirstDocument).should('exist').click();
+        this.copyDocumentName();
+        this.copyLoanNumber();
+        cy.get('@document name').then((res)=>{
+            cy.log(res.text())
+        })
+        cy.get('@loan number').then((res)=>{
+            cy.log(res.text())
+        })
+        }
+    
 
     clickArchiveButton()
     {
+        cy.wait(5000);
         cy.get(selectors.archicveBttn).should('exist').click();
     }
     verifyMessage(message)
@@ -210,13 +257,30 @@ export class Acknowledgement {
         cy.get(".react-toast-notifications__toast__content").should('have.text', message)
     }
 
-    verifyDocumentLastLocation(document,loanNumber,location)
+    verifyDocumentLastLocation(location)
     {
-        cy.xpath('//tbody/tr/td[2]/div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[2]').should('have.text',location);
+        cy.get('@document name').then((res)=>{
+            var document=res.text();
+             cy.get('@loan number').then((response)=>{
+               var  loanNumber=response.text();
+               cy.xpath('//tbody/tr/td[2]/div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[2]').should('have.text',location);
+             })
+         })
     }
 
     clickMoveToInboxButton()
     {
         cy.xpath(selectors.moveToInboxBttn).should('exist').click();
     }
-}
+
+    listDocumentsByStatus(status)
+    {
+        cy.xpath(selectors.documentStatusDropdown).should('exist').click();
+        cy.xpath('//div/ul/li/span[text()="'+status+'"]').should('exist').click();
+    }
+    clickViewOfDocument()
+    {
+        cy.xpath(selectors.viewButtonOfFirstDocument).should('exist').click();
+    }
+
+    }

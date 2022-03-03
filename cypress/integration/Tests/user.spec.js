@@ -17,7 +17,7 @@ describe("Users test cases" , ()=>{
         login.loginToApplication();
      });
 
-     it("inviting new user", () =>{
+     it.skip("inviting new user", () =>{
 
         var email = "testuser+"+Math.floor(Math.random()*10000)+"@gmail.com";
         var firstName=faker.name.firstName();
