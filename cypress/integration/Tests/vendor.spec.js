@@ -15,7 +15,6 @@ describe("Vendor test cases" , ()=>{
      })
 
 
-
      it("verify inviting new vendor", ()=>{
 
         var domain=faker.name.firstName()+".com";
@@ -36,11 +35,11 @@ describe("Vendor test cases" , ()=>{
         vendors.clickOnInviteVendor();
 
         //Verify added vendor
-        vendors.verifyInvitedVendorMessage(vendorName+" has been invited. Click the requested vendors tab.");
+        vendors.verifyInvitedVendorMessage(vendorName+" has been invited. No further action is required.");
         vendors.verifyStatusOfVendor(domain,status);
      })
 
-
+   
 
      it("verify inviting new vendor with the existing domain",()=>{
 

@@ -144,9 +144,148 @@ it("create a equity type file",()=>{
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
 })
 
-it.only("Verify creating file without assigning loan processor",()=>{
-    
 
+it("Verify creating Floating Rate type Purchase file",()=>{
+
+    var fileType="Purchase";
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
+    var loanAmount=Math.floor(Math.random()*1000);
+    var address=1+Math.floor(Math.random())*100;
+    var purchaseAmount=Math.floor(Math.random()*1000);
+    var streetName=faker.address.streetName();
+    var streetNumber=address;
+    var city=faker.address.cityName();
+    var postalCode=faker.address.zipCode();
+    var borrowerFirstName=faker.name.firstName();
+    var borrowerLastName=faker.name.lastName();
+    var borrowerEmail=faker.internet.email();
+    var borrowerPhone=faker.phone.phoneNumber();
+    var borrowerSSN=faker.phone.phoneNumber();
+    var propertyAddress=streetNumber+" "+streetName+", "+city;
+    var titleOrder="Title";
+    var foreclosureOrder="Foreclosure";
+    var status="Pending";
+    var rateType="Floating";
+
+
+    //Navigate to Files page
+    files.navigateToFiles();
+
+    //Create file
+    files.clickCreateFileButton();
+    files.clickFloatingRateType();
+    files.clickPurchaseType();
+    files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.selectLoanProcessor();
+    files.enterPurchasePrice(purchaseAmount);
+    files.clickContinueButton();
+    files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
+    files.addTitleOrder();
+    files.addForeclosureOrder();
+    files.clickContinueButton();
+    files.clickCreateFileButtonOnReviewOfAFile();
+
+    //Verify created file
+    files.verifyMessage("Creating file...");
+    files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
+    files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
+    files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
+    files.verifyRateTypeOfFile(rateType);
+    
+})
+
+it("Verify creating Floating rate type Refinance file",()=>{
+
+    var fileType="Refinance";
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
+    var loanAmount=Math.floor(Math.random()*1000);
+    var address=1+Math.floor(Math.random())*100;
+    var streetName=faker.address.streetName();
+    var streetNumber=address;
+    var city=faker.address.cityName();
+    var postalCode=faker.address.zipCode();
+    var borrowerFirstName=faker.name.firstName();
+    var borrowerLastName=faker.name.lastName();
+    var borrowerEmail=faker.internet.email();
+    var borrowerPhone=faker.phone.phoneNumber();
+    var borrowerSSN=faker.phone.phoneNumber();
+    var propertyAddress=streetNumber+" "+streetName+", "+city;
+    var titleOrder="Title";
+    var foreclosureOrder="Foreclosure";
+    var status="Pending";
+    var rateType="Floating";
+
+    //Navigate to Files page
+    files.navigateToFiles();
+
+    //Create file
+    files.clickCreateFileButton();
+    files.clickRefinanceType();
+    files.clickFloatingRateType();
+    files.selectLoanProcessor();
+    files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.clickContinueButton();
+    files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
+    files.addTitleOrder();
+    files.addForeclosureOrder();
+    files.clickContinueButton();
+    files.clickCreateFileButtonOnReviewOfAFile();
+
+    //Verify created file
+    files.verifyMessage("Creating file...");
+    files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
+    files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
+    files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
+    files.verifyRateTypeOfFile(rateType);
+})
+
+it("Verify creating Floating rate type Equity file",()=>{
+
+    var fileType="Equity";
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
+    var loanAmount=Math.floor(Math.random()*1000);
+    var address=1+Math.floor(Math.random())*100;
+    var streetName=faker.address.streetName();
+    var streetNumber=address;
+    var city=faker.address.cityName();
+    var postalCode=faker.address.zipCode();
+    var borrowerFirstName=faker.name.firstName();
+    var borrowerLastName=faker.name.lastName();
+    var borrowerEmail=faker.internet.email();
+    var borrowerPhone=faker.phone.phoneNumber();
+    var borrowerSSN=faker.phone.phoneNumber();
+    var propertyAddress=streetNumber+" "+streetName+", "+city;
+    var titleOrder="Title";
+    var foreclosureOrder="Foreclosure";
+    var status="Pending";
+    var rateType="Floating";
+
+    //Navigate to Files page
+    files.navigateToFiles();
+
+    //Create file
+    files.clickCreateFileButton();
+    files.clickEquityType();
+    files.clickFloatingRateType();
+    files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.selectLoanProcessor();
+    files.clickContinueButton();
+    files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
+    files.addTitleOrder();
+    files.addForeclosureOrder();
+    files.clickContinueButton();
+    files.clickCreateFileButtonOnReviewOfAFile();
+
+    //Verify created file
+    files.verifyMessage("Creating file...");
+    files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
+    files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
+    files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
+    files.verifyRateTypeOfFile(rateType);
+})
+
+it("Verify creating file without assigning loan processor",()=>{
+    
     var loanNumber="loan"+Math.floor(Math.random()*1000);
     var loanAmount=Math.floor(Math.random()*1000);
     var address=1+Math.floor(Math.random())*100;
@@ -171,26 +310,11 @@ it.only("Verify creating file without assigning loan processor",()=>{
 })
 
 
-it("navigate to file details page",()=>{
-    
-    //Navigate to File page
-    files.navigateToFiles();
-
-    //Navigate to File details page
-    files.navigateToFileDetailsPage();
-    files.verifyNavigatedToFileDetailsPage();
-
-    //Verify file details
-    files.verifyLoanNumberInDetailsPage()
-})
-
-
 it("verify creating a file without property address",()=>{
    
     var loanNumber="Loan"+Math.floor(Math.random()*1000);
     var loanAmount=Math.floor(Math.random()*1000);
     var purchaseAmount=Math.floor(Math.random()*1000);;
-
 
 
     //Navigate to Files page
@@ -207,6 +331,81 @@ it("verify creating a file without property address",()=>{
     //Verify Continue button is disabled and error text
     files.verifyContinueButtonDisabled();
     files.verifyErrorText("Valid address required");
+})
+
+
+it("Verify creating file without filling Borrower details",()=>{
+
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
+    var loanAmount=Math.floor(Math.random()*1000);
+    var address=1+Math.floor(Math.random())*100;
+    var purchaseAmount=Math.floor(Math.random()*1000);
+    var streetName=faker.address.streetName();
+    var streetNumber=address;
+    var city=faker.address.cityName();
+    var postalCode=faker.address.zipCode();
+    
+    //Navigate to Files page
+    files.navigateToFiles();
+
+    //Create file
+    files.clickCreateFileButton();
+    files.clickPurchaseType();
+    files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.selectLoanProcessor();
+    files.enterPurchasePrice(purchaseAmount);
+    files.clickContinueButton();
+    files.clickContinueButton();
+    
+    //Verify created file
+    files.verifyMessage("Each borrower must have a valid first and last name or valid entity name");
+})
+
+
+it("Verify creating file wihtout adding orders",()=>{
+
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
+    var loanAmount=Math.floor(Math.random()*1000);
+    var address=1+Math.floor(Math.random())*100;
+    var purchaseAmount=Math.floor(Math.random()*1000);
+    var streetName=faker.address.streetName();
+    var streetNumber=address;
+    var city=faker.address.cityName();
+    var postalCode=faker.address.zipCode();
+    var borrowerFirstName=faker.name.firstName();
+    var borrowerLastName=faker.name.lastName();
+    var borrowerEmail=faker.internet.email();
+    var borrowerPhone=faker.phone.phoneNumber();
+    var borrowerSSN=faker.phone.phoneNumber();
+
+    //Navigate to Files page
+    files.navigateToFiles();
+
+    //Create file
+    files.clickCreateFileButton();
+    files.clickPurchaseType();
+    files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    files.selectLoanProcessor();
+    files.enterPurchasePrice(purchaseAmount);
+    files.clickContinueButton();
+    files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
+    files.clickContinueButton();
+
+    //Verify created file
+    files.verifyMessage('Please select an order');
+})
+
+it("navigate to file details page",()=>{
+    
+    //Navigate to File page
+    files.navigateToFiles();
+
+    //Navigate to File details page
+    files.navigateToFileDetailsPage();
+    files.verifyNavigatedToFileDetailsPage();
+
+    //Verify file details
+    files.verifyLoanNumberInDetailsPage()
 })
 
 
@@ -475,6 +674,75 @@ it("Verify adding orders in file details page",()=>{
     //Verify added orders in details page
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
     files.verifyAddedOrderInTheFileDetailsPage(settlementOrder,status);
+})
+
+it("Verify switching between Details, Messages and Documents tabs",()=>{
+
+    var documentsTab="Documents";
+    var messagesTab="Messages";
+    var detailsTab="Details";
+    var detailsSutbtitle="Orders";
+
+    //Navigate to files
+    files.navigateToFiles();
+
+    //Navigate to File details page
+    files.navigateToFileDetailsPage();
+
+    //Switch to "Documents tab"
+    files.clickDocumentsButton();
+
+    //Verify documents tab
+    files.verifyNavigatedToTabInDetailsPage(documentsTab)
+    files.verifyTabSubtitleInFileDetailsPage(documentsTab);
+    files.verifyDocuments();
+    files.verifyCertifiedDocuments();
+    files.verifyAddDocumentsButton();
+
+    //Switch to "Details" tab
+    files.clickDetailsTab()
+
+    //Verify Details tab
+    files.verifyNavigatedToTabInDetailsPage(detailsTab)
+    files.verifyTabSubtitleInFileDetailsPage(detailsSutbtitle);
+    files.verifyAddOrderButton();
+
+    //Switch to "Messages" tab
+    files.clickMessagesTab();
+
+    //Verify messaged tab
+    files.verifyNavigatedToTabInDetailsPage(messagesTab);
+    files.verifyTabSubtitleInFileDetailsPage(messagesTab);
+    files.verifyStartDiscuttionButton();
+})
+
+
+it.only("Verify messaging in file details page",()=>{
+
+    var subject=faker.name.findName();
+    var message=faker.name.firstName();
+
+    //Navigate to files
+    files.navigateToFiles();
+    files.clickNameSorting();
+
+    //Navigate to File details page
+    files.navigateToFileDetailsPage();
+
+    //Start discussion
+    files.clickMessagesTab();
+    files.clickStartDiscussionButton();
+    files.selectVendorForDiscussion();
+    files.enterSubjectLine(subject);
+    files.enterMessageBody(message);
+    files.clickSendButton();
+
+    //Verify message thread
+    files.verifyVendorInMessageThread();
+    files.verifySubjectInMessageThread(subject);
+    files.verifyLastMessageInMessageThread(message);
+    files.verifyMessageAuthor();
+    files.verifyLastMessageInMessageList(message);
 })
 
 })

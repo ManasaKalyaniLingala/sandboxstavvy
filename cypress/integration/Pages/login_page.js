@@ -1,4 +1,5 @@
 import selectors from "../Selectors/login"
+
 const sandboxData = require("../../fixtures/sandbox_data.json")
 const devData=require("../../fixtures/dev_data.json")
 
@@ -7,7 +8,7 @@ var testdata=sandboxData
 export class Login {
 
     navigateToUrl(){
-        cy.visit('/');
+        cy.visit("/");
     }
 
     loginToApplication(username=testdata.username,password=testdata.password)

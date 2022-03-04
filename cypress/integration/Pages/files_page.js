@@ -4,6 +4,11 @@ export class Files{
     navigateToFiles() {
         cy.xpath(selectors.filesSection).click()
     }
+
+     getRandomInt(min, max){      
+        return Math.floor(Math.random() * (max - min + 1)) + min;    
+      } 
+    
     clickPurchaseType()
     {
         cy.get(selectors.purachaseLoanType).click();
@@ -20,23 +25,14 @@ export class Files{
         cy.get(selectors.CreateFileButton).click()
     }
 
-    selectPurchaseLoanType() {
+    selectPurchaseLoanType() 
+    {
         cy.get(selectors.purachaseLoanType).click()
     }
 
-    selectLoanProcessor() {
-        cy.xpath(selectors.clickLoanProcessorDropDown).click()
-       cy.xpath('//div/ul/li')
-       .should('have.length.gt', 3)
-       .then(($li) => {
-        const items = $li.toArray()
-        return Cypress._.sample(items)
-        })
-       .then(($li) => {
-      expect(Cypress.dom.isJquery($li), 'jQuery element').to.be.true
-      cy.log(`you picked "${$li.text()}"`).click();
-    })
-   
+    clickFloatingRateType()
+    {
+        cy.xpath(selectors.floatingRateTyepBttn).should('exist').click();
     }
 
     enterLoanNumber(loanNumber) {
@@ -130,7 +126,6 @@ export class Files{
         cy.xpath(selectors.enterPhoneNumberOfBorrower).type(phoneNumber);
         cy.xpath(selectors.enterSSNOfBorrower).clear();
         cy.xpath(selectors.enterSSNOfBorrower).type(SSN);
-        //cy.get(selectors.enterBorrowerAddress).type(borrowerAddress);
         this.clickContinueButton();
     }
     addSettlementOrder()
@@ -149,12 +144,12 @@ export class Files{
     {
         cy.xpath(selectors.settlementOrderBttn).click();
     }
-    enterSettlementDate(date)
+    enterSettlementDate()
     {
         cy.xpath(selectors.settlementDateBttn).click();
         this.pickDate()
     }
-    selectSettlementVendorFromTheList(vendorName)
+    selectSettlementVendorFromTheList()
     {
        cy.xpath(selectors.settlementVendorDropdown).click();
        this.selectVendor()
@@ -189,17 +184,23 @@ export class Files{
 
     selectVendor()
     {
-        cy.xpath('//div/ul/li')
-       .should('have.length.gt', 3)
-       .then(($li) => {
-        const items = $li.toArray()
-        return Cypress._.sample(items)
-        })
-       .then(($li) => {
-      expect(Cypress.dom.isJquery($li), 'jQuery element').to.be.true
-      cy.log(`you picked "${$li.text()}"`).click();
-    })
+        cy.xpath('//div/ul/li/span')
+    .then(listing => {        
+      const randomNumber = this.getRandomInt(1, listing.length-1); 
+       cy.xpath('(//div/ul/li['+randomNumber+']/span)').click();     
+  })
     }
+ 
+    selectLoanProcessor()
+    {
+        cy.xpath(selectors.clickLoanProcessorDropDown).click()
+     cy.xpath('//div/ul/li/span')
+     .then(listing => {        
+     const randomNumber = this.getRandomInt(0, listing.length-1); 
+       cy.xpath('(//div/ul/li['+randomNumber+']/span)').click();  
+  })
+}
+
     addForeclosureOrder()
     {
         this.selectForeclosurOrder();
@@ -610,6 +611,125 @@ export class Files{
         cy.xpath(selectors.submitOrderBttn).should('be.enabled').click()
     }
 
+    verifyRateTypeOfFile(rateType)
+    {
+        cy.xpath(selectors.rateTypeText).should('have.text',rateType);
+    }
+
+    verifyTabSubtitleInFileDetailsPage(subtitle)
+    {
+      cy.xpath(selectors.tabSubtitleInFileDetailsPage).should('have.text',subtitle)
+    }
+
+    verifyAddOrderButton()
+    {
+        cy.xpath(selectors.addOrderBttn).should('exist');
+    }
+
+    verifyStartDiscuttionButton()
+    {
+        cy.xpath(selectors.startDiscussionBttn).should('exist');
+    }
+
+    verifyCertifiedDocuments()
+    {
+        cy.get(selectors.certifiedDocuments).should('exist');
+    }
+
+    verifyDocuments()
+    {
+        cy.xpath(selectors.documents).should('exist');
+    }
+
+    verifyAddDocumentsButton()
+    {
+        cy.xpath(selectors.addDocumentBttn).should('exist');
+    }
+
+    clickMessagesTab()
+    {
+        cy.get(selectors.messagesTabInFileDetails).should('exist').click();
+    }
+
+    clickDetailsTab()
+    {
+        cy.get(selectors.detailsTabFileDetail).should('exist').click();
+    }
+
+    verifyNavigatedToTabInDetailsPage(tab)
+    {
+        cy.xpath('//div[text()="'+tab+'"]').should('contain.class',"stavviz-tab-is-active");
+    }
+
+    clickStartDiscussionButton()
+    {
+        cy.xpath(selectors.startDiscussionBttn).should('exist').click();
+    }
+
+    enterSubjectLine(subject)
+    {
+        cy.get(selectors.subjectLine).should('exist').type(subject);
+    }
+
+    selectVendorForDiscussion()
+    {
+        cy.get(selectors.sharedWithDropDown).should('exist').click();
+        this.selectVendor();
+        cy.xpath('//input[@placeholder="Select Vendor"]').invoke('val').as('value');
+    }
+
+    enterMessageBody(body)
+    {
+        cy.get(selectors.messageBody).should('exist').type(body);
+    }
+
+    clickSendButton()
+    {
+       cy.xpath(selectors.sendButtonInBeginDiscussion).should('be.enabled').click();
+    }
+
+    verifyVendorInMessageThread()
+    {
+        cy.get('@value').then((res)=>{
+            cy.xpath(selectors.vendorNameInMessageThread).should('contain.text',res);
+        })
+        
+    }
+
+    verifySubjectInMessageThread(subject)
+    {
+        cy.xpath(selectors.subjectInMessageThread).should('contain.text',subject)
+    }
+
+    verifyLastMessageInMessageThread(message)
+    {
+        cy.xpath(selectors.lastMessage).should('contain.text',message);
+    }
+
+    copyTheUserName()
+    {
+        cy.xpath(selectors.userNameInProfile).as('userName');
+    }
+
+    verifyMessageAuthor()
+    {
+        this.copyTheUserName()
+        cy.get('@userName').then((res)=>{
+          var  author=res.text();
+            cy.xpath(selectors.messageAuthor).should('contain.text',author)
+        })
+        
+    }
+
+    verifyLastMessageInMessageList(message)
+    {
+        cy.xpath(selectors.lastMessage).should('contain.text',message)
+    }
+    
+    clickNameSorting()
+    {
+        cy.xpath(selectors.nameSorting).should('exist').click();
+    }
 
 }
 
