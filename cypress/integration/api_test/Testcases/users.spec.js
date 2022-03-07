@@ -32,7 +32,7 @@ describe('Users test cases',()=>{
         users.verifyCreatedUser(email);
 
         //2.Get users  (GET)
-        users.getUsers()
+        users.getUsers();
 
         //Verify created user in the list
         users.verifyUserInTheList(email,notaryStatus,userRole);

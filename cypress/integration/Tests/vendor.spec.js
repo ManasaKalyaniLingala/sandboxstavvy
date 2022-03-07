@@ -59,9 +59,7 @@ describe("Vendor test cases" , ()=>{
         vendors.verifyErrorText("An existing or duplicate value has already been saved.");
      })
 
-
-
-     it("verify inviting new vendor with the existing vendor mail",()=>{
+     it("Verify inviting new vendor with existing vendor details",()=>{
 
         var domain=faker.name.firstName()+".com";
         var vendorName=faker.name.findName();
@@ -89,6 +87,42 @@ describe("Vendor test cases" , ()=>{
         vendors.verifyErrorText("User already exists with that email. Did you use their correct domain?");
         vendors.clickOnCloseIcon();
         vendors.verifyDomainNotExistInTheList(domain);
+     })
+
+
+     it("verify inviting new vendor with the existing vendor mail",()=>{
+
+        var vedndor1domain=faker.name.firstName()+".com";
+        var vendor1Name=faker.name.findName();
+        var vendor1firstName=faker.name.firstName();
+        var vendor1middleName=faker.name.middleName();
+        var vendor1lastName=faker.name.lastName();
+        var vendor2domain=faker.name.firstName()+".com";
+        var vendor2Name=faker.name.findName();
+        var vendor2firstName=faker.name.firstName();
+        var vendor2middleName=faker.name.middleName();
+        var vendor2lastName=faker.name.lastName();
+        var vendoremail = "testuser+"+Math.floor(Math.random()*10000)+"@gmail.com";
+
+        //Navigate to Organizations
+        vendors.clickOnOrganizations();
+
+        //Invite vendor
+        vendors.clickOnInviteNewVendor();
+        vendors.enterVendorDomain(vedndor1domain);
+        vendors.enterVendorInfo(vendor1Name,vendor1firstName,vendor1middleName,vendor1lastName,vendoremail);
+        vendors.clickOnInviteVendor();
+
+        //Invite vendor with existing vendor mail
+        vendors.clickOnInviteNewVendor()
+        vendors.enterVendorDomain(vendor2domain);
+        vendors.enterVendorInfo(vendor2Name,vendor2firstName,vendor2middleName,vendor2lastName,vendoremail);
+        vendors.clickOnInviteVendor();
+
+        //Verify added vendor
+        vendors.verifyErrorText("User already exists with that email. Did you use their correct domain?");
+        vendors.clickOnCloseIcon();
+        vendors.verifyDomainNotExistInTheList(vendor2domain);
      })
 
 

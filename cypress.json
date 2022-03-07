@@ -4,6 +4,8 @@
     "viewportWidth": 1280,
     "viewportHeight": 720,
     "testFiles": "**/*.spec.js",
-    "baseUrl": "https://connect.sandbox.stavvy.com/"
+    "baseUrl": "https://connect.sandbox.stavvy.com/",
+    "USERNAME":"MMM",
+    "PASSWORD":"111"
     
   }

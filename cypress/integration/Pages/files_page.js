@@ -186,7 +186,8 @@ export class Files{
     {
         cy.xpath('//div/ul/li/span')
     .then(listing => {        
-      const randomNumber = this.getRandomInt(1, listing.length-1); 
+      const randomNumber = this.getRandomInt(1, listing.length-1)+1;
+      cy.log(randomNumber);
        cy.xpath('(//div/ul/li['+randomNumber+']/span)').click();     
   })
     }
@@ -347,6 +348,7 @@ export class Files{
             cy.log(res.text())
         })
         cy.xpath(selectors.firstFileInTheList).click();
+        cy.wait(5000);
         
     }
     uploadDocument(document)
@@ -671,7 +673,7 @@ export class Files{
         cy.get(selectors.subjectLine).should('exist').type(subject);
     }
 
-    selectVendorForDiscussion()
+    selectVendorForDiscussio()
     {
         cy.get(selectors.sharedWithDropDown).should('exist').click();
         this.selectVendor();
@@ -731,5 +733,90 @@ export class Files{
         cy.xpath(selectors.nameSorting).should('exist').click();
     }
 
+    verifyMakingFileAsFovoriteOrNonFavorite()
+    {
+        cy.xpath(selectors.favoriteText).then((res)=>{
+
+        if(res.text().includes('Favorite')){
+            cy.get(selectors.favouriteIcon).should('exist').click();
+            this.navigateToFiles();
+            this.navigateToMyFavoritesFilesTab();
+            cy.get('@file name').then((res)=>{
+            this.verifyFileInTheList(res.text())
+            })
+        }
+        else{
+            cy.get(selectors.removeFromFavoritesIcon).should('exist').click();
+            this.navigateToFiles();
+            this.navigateToMyFavoritesFilesTab();
+            cy.get('@file name').then((res)=>{
+                this.verifyFileIsNotPresentInTheList(res.text());
+                })
+        }
+    })    
+    }
+
+    verifyFileInTheList(file)
+    {
+        cy.xpath('//tbody/tr/td[2][text()="'+file+'"]').should('exist');
+    }
+
+    verifyFileIsNotPresentInTheList(file)
+    {
+        cy.xpath('//tbody/tr/td[2][text()="'+file+'"]').should('not.exist');
+    }
+
+    followingAndUnfollowingFile()
+    {
+       cy.xpath('//button/text()').then((res)=>{
+       if(res.text().includes('ing')){
+        cy.xpath(selectors.followButton).should('exist').click();
+        this.verifyMessage("You are no longer following this file.");
+       }
+
+       else{
+        cy.xpath(selectors.followButton).should('exist').click();
+        this.verifyMessage("You are now following this file! You will receive email alerts when this file is updated");
+       }
+
+       })
+    }
+
+    follow()
+    {
+        cy.xpath(selectors.followButton).should('exist').click();
+        this.verifyMessage("You are now following this file! You will receive email alerts when this file is updated");
+
+    }
+
+    clickEditButtinOfAnOrder()
+    {
+        cy.xpath(selectors.editButtonOfAnOrderl).should('exist').click();
+    }
+
+    clickReassignButton()
+    {
+        cy.xpath(selectors.reassignButtonOfOrder).should('exist').click();
+    }
+
+    selectVendorForReassigning()
+    {
+        cy.get(selectors.selectVendorForReassignVendor).should('exist').click();
+        this.selectVendor();
+        cy.get(selectors.selectVendorForReassignVendor).invoke('val').as('reassignedVendor')
+    }
+
+    clickReassignOrderButton()
+    {
+        cy.xpath(selectors.reassignOrderButton).should('exist').click();
+    }
+
+    verifyReassignedVendor()
+    {
+        cy.get('@reassignedVendor').then((res)=>{
+
+            cy.xpath(selectors.vendorNameInOrder).should('contain.text',res)
+        })
+    }
 }
 

@@ -717,7 +717,7 @@ it("Verify switching between Details, Messages and Documents tabs",()=>{
 })
 
 
-it.only("Verify messaging in file details page",()=>{
+it("Verify messaging in file details page",()=>{
 
     var subject=faker.name.findName();
     var message=faker.name.firstName();
@@ -743,6 +743,50 @@ it.only("Verify messaging in file details page",()=>{
     files.verifyLastMessageInMessageThread(message);
     files.verifyMessageAuthor();
     files.verifyLastMessageInMessageList(message);
+})
+
+
+it("Verify making a file favorite or non favorite",()=>{
+
+    //Navigate to files
+    files.navigateToFiles();
+
+    //Navigate to File details page
+    files.navigateToFileDetailsPage();
+
+    //Make a file as Favorite or non-Favorite and then verify it
+    files.verifyMakingFileAsFovoriteOrNonFavorite();
+
+})
+
+it("Verify following and unfollowing a file",()=>{
+
+    //Navigate to files
+    files.navigateToFiles();
+
+    //Navigate to File details page
+    files.navigateToFileDetailsPage();
+
+    //Following or unfollowinf a file, then verifing it
+    files.followingAndUnfollowingFile()
+})
+
+it.only("Verify reassigning vendor for an order",()=>{
+
+    //Navigate to files
+    files.navigateToFiles();
+
+    //Navigate to File details page
+    files.navigateToFileDetailsPage();
+
+    //Reassign the vendor for an order
+    files.clickEditButtinOfAnOrder();
+    files.clickReassignButton();
+    files.selectVendorForReassigning();
+    files.clickReassignOrderButton();
+
+    //Verify reassigned vendor
+    files.verifyReassignedVendor();
 })
 
 })

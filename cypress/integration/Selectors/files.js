@@ -106,5 +106,15 @@ export default{
     userNameInProfile:'//div[@class="hover:text-brand-secondary py-2"]/text()',
     messageAuthor:'(//div[@class="message-author"]/text())[1]',
     lastMessageInMessageList:'(//div[@class="message"]/div)[last()]',
-    nameSorting:'//th/span[@class="relative"][text()="Name"]'
+    nameSorting:'//th/span[@class="relative"][text()="Name"]',
+    favouriteIcon:'[title="Favorite"]',
+    favoriteText:"//h3/span/*[local-name()='svg']/*/text()",
+    removeFromFavoritesIcon:'[title="Remove from favorites"]',
+    fileInTheList:'//tbody/tr/td[2]/text()',
+    followButton:'//button[text()="Follow"]',
+    editButtonOfAnOrderl:'//div[@data-testid="stavviz-card"][1]/div/div[2]/div/div',
+    reassignButtonOfOrder:'//li[@title="Reassign"]',
+    selectVendorForReassignVendor:'[placeholder="Select  Vendor"]',
+    reassignOrderButton:'//button[text()="Reassign Order"]',
+    vendorNameInOrder:'//div[@data-testid="stavviz-card"][1]/div[2]/div[5]/div[2]',
 }
