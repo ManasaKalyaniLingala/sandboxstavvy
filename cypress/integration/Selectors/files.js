@@ -117,4 +117,15 @@ export default{
     selectVendorForReassignVendor:'[placeholder="Select  Vendor"]',
     reassignOrderButton:'//button[text()="Reassign Order"]',
     vendorNameInOrder:'//div[@data-testid="stavviz-card"][1]/div[2]/div[5]/div[2]',
+    statusOfOrder:'//div[@data-testid="stavviz-card"][1]/div[2]/div[1]/div[2]/div/div/text()',
+    cancelButtonOfOrder:"//li/span[text()='Cancel']",
+    cancelItButton:"//button[text()='Yes, cancel it']",
+    reopenBttnOfOrder:'//li/span[text()="Reopen"]',
+    addClosingBttn:'//button[text()[1]="+ Add "]',
+    searchDropContainer:'[class="search-dropdown-container"]',
+    loanNumberInSearchcontainer:'//div[@class="search-dropdown-container"]/div/div[@class="result-item"]/div[@class="loan-number-borrowers"]/text()',
+    meetingCardInDetailsPage:'//div[@data-testid="meeting-card"]',
+    addressInMeetingCard:'//div[@data-testid="meeting-card"]/div[2]/div/p',
+    loanNumberInMeetingCard:'//div[@data-testid="meeting-card"]/div[2]/div/div[2]/div[1]/div[1]/p[2]',
+
 }

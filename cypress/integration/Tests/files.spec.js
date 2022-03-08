@@ -2,11 +2,14 @@
 
 import { Login } from "../Pages/login_page";
 import { Files } from "../Pages/files_page";
+import { Meetings } from "../Pages/meetings_page";
 
 const { faker } = require('@faker-js/faker');
 
 const login =new Login();
 const files= new Files();
+const meetings=new Meetings();
+
 describe("Files test cases" , ()=>{
 
     beforeEach("Login as valid user",()=>{
@@ -722,12 +725,8 @@ it("Verify messaging in file details page",()=>{
     var subject=faker.name.findName();
     var message=faker.name.firstName();
 
-    //Navigate to files
-    files.navigateToFiles();
-    files.clickNameSorting();
-
-    //Navigate to File details page
-    files.navigateToFileDetailsPage();
+    //Create a file
+    files.createAFile()
 
     //Start discussion
     files.clickMessagesTab();
@@ -771,13 +770,10 @@ it("Verify following and unfollowing a file",()=>{
     files.followingAndUnfollowingFile()
 })
 
-it.only("Verify reassigning vendor for an order",()=>{
+it("Verify reassigning vendor for an order",()=>{
 
-    //Navigate to files
-    files.navigateToFiles();
-
-    //Navigate to File details page
-    files.navigateToFileDetailsPage();
+    //Create a file
+    files.createAFile()
 
     //Reassign the vendor for an order
     files.clickEditButtinOfAnOrder();
@@ -788,5 +784,76 @@ it.only("Verify reassigning vendor for an order",()=>{
     //Verify reassigned vendor
     files.verifyReassignedVendor();
 })
+
+
+it("Verify cancelling the order",()=>{
+
+    var status="Rejected"
+
+    //creating a file
+    files.createAFile();
+
+    //Reassign the vendor for an order
+    files.clickEditButtinOfAnOrder();
+    files.cancelTheOrder();
+
+    //Verify the status of order
+    files.verifyStatusOfOrder(status)
+})
+
+
+it("Verify reopening a rejected order",()=>{
+
+    var status1="Rejected";
+    var status2="Pending";
+
+    //creating a file
+    files.createAFile();
+
+    //Reassign the vendor for an order
+    files.clickEditButtinOfAnOrder();
+    files.cancelTheOrder();
+
+    //Verify the status of order
+    files.verifyStatusOfOrder(status1);
+
+    //Reopen a rejected order
+    files.clickEditButtinOfAnOrder();
+    files.clickReopenButton();
+
+    //Verify reopened order
+    files.verifyStatusOfOrder(status2)
+})
+
+it("Verify adding a closing meeting to file",()=>{
+
+      var signerFirstName=faker.name.firstName();
+      var signerMiddleName=faker.name.middleName();
+      var signerLastName=faker.name.lastName();
+      var signerPhone=faker.phone.phoneNumber();
+      var email=faker.internet.email();
+      var transactionType="Purchase";
+
+     //Navigate to files
+     files.createAFile();
+     files.copyAddressInFileDetailsPage();
+     files.copyTheLoanNumberInFileDetailsPage();
+     files.clickAddClosingMeetingButton();
+
+     meetings.enterMeetingInfo();
+     meetings.selectHost();
+     meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,email); 
+     meetings.clickOnCreateClosing();
+
+     //Verify created closing meeting
+     meetings.verifyPopupMessage('Created meeting!');
+     meetings.verifyNavigatedToClosingDetailsPage();
+     files.verifyAddressInMeetingDetailsPage();
+     meetings.verifyTransactionType(transactionType);
+     files.navigateToFiles();
+     files.searchTheFileandNavigateToFileDetailsPage();
+     files.verifyMeetingCardDetailsInFileDetailsPage();
+})
+
 
 })

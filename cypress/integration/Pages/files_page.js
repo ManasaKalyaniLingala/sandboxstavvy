@@ -1,5 +1,8 @@
 
 import selectors from "../Selectors/files"
+
+const { faker } = require('@faker-js/faker');
+
 export class Files{
     navigateToFiles() {
         cy.xpath(selectors.filesSection).click()
@@ -673,7 +676,7 @@ export class Files{
         cy.get(selectors.subjectLine).should('exist').type(subject);
     }
 
-    selectVendorForDiscussio()
+    selectVendorForDiscussion()
     {
         cy.get(selectors.sharedWithDropDown).should('exist').click();
         this.selectVendor();
@@ -816,6 +819,96 @@ export class Files{
         cy.get('@reassignedVendor').then((res)=>{
 
             cy.xpath(selectors.vendorNameInOrder).should('contain.text',res)
+        })
+    }
+
+    cancelTheOrder()
+    {
+        cy.xpath(selectors.cancelButtonOfOrder).should('exist').click();
+        cy.xpath(selectors.cancelItButton).should('exist').click();
+    }
+
+    verifyStatusOfOrder(status)
+    {
+        cy.xpath(selectors.statusOfOrder).should('have.text',status)
+    }
+
+    createAFile()
+    {
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
+    var loanAmount=Math.floor(Math.random()*1000);
+    var address=1+Math.floor(Math.random())*100;
+    var purchaseAmount=Math.floor(Math.random()*1000);
+    var streetName=faker.address.streetName();
+    var streetNumber=address;
+    var city=faker.address.cityName();
+    var postalCode=faker.address.zipCode();
+    var borrowerFirstName=faker.name.firstName();
+    var borrowerLastName=faker.name.lastName();
+    var borrowerEmail=faker.internet.email();
+    var borrowerPhone=faker.phone.phoneNumber();
+    var borrowerSSN=faker.phone.phoneNumber();
+
+    //Navigate to Files page
+    this.navigateToFiles();
+
+    //Create file
+    this.clickCreateFileButton();
+    this.clickPurchaseType();
+    this.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    this.selectLoanProcessor();
+    this.enterPurchasePrice(purchaseAmount);
+    this.clickContinueButton();
+    this.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
+    this.addTitleOrder();
+    this.addForeclosureOrder();
+    this.clickContinueButton();
+    this.clickCreateFileButtonOnReviewOfAFile();
+    }
+
+    clickReopenButton()
+    {
+        cy.xpath(selectors.reopenBttnOfOrder).should('exist').click();
+    }
+
+    clickAddClosingMeetingButton()
+    {
+        cy.xpath(selectors.addClosingBttn).should('exist').click();
+    }
+
+    copyAddressInFileDetailsPage()
+    {
+        cy.xpath('//h3/div/text()').as('meetingAdress');
+    }
+
+    verifyAddressInMeetingDetailsPage()
+    {
+        cy.get('@meetingAdress').then((res)=>{
+            cy.xpath('//h3/div/text()').should('contain.text',res.text())
+            
+        })
+    }
+
+    copyTheLoanNumberInFileDetailsPage()
+    {
+        cy.xpath(selectors.loanNumberText).as('loanNumberInDetailsPage');
+    }
+
+    searchTheFileandNavigateToFileDetailsPage()
+    {
+        cy.get('@loanNumberInDetailsPage').then((res)=>{
+
+         cy.get(selectors.fileSearchBar).should('exist').type(res.text());
+         cy.xpath('(//div[text()="'+res.text()+'"])[1]').should('exist').click();
+        })
+    }
+
+    verifyMeetingCardDetailsInFileDetailsPage()
+    {
+        cy.get('@loanNumberInDetailsPage').then((loanNumber)=>{
+            
+        cy.xpath(selectors.meetingCardInDetailsPage).should('exist');
+        cy.xpath(selectors.loanNumberInMeetingCard).should('contain.text',loanNumber.text())
         })
     }
 }

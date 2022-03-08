@@ -1,4 +1,3 @@
-
 /// <reference types="cypress" />
 
 import faker from "@faker-js/faker";
@@ -125,6 +124,38 @@ describe("Vendor test cases" , ()=>{
         vendors.verifyDomainNotExistInTheList(vendor2domain);
      })
 
+     it("Verify inviting new vendor with the existing vendor name credentials",()=>{
+
+        var domain=faker.name.firstName()+".com";
+        var domain2=faker.name.firstName()+".com";
+        var vendorName=faker.name.findName();
+        var firstName=faker.name.firstName();
+        var middleName=faker.name.middleName();
+        var lastName=faker.name.lastName();
+        var email1=faker.internet.email().toLowerCase();
+        var email2=faker.internet.email().toLowerCase();
+        var status="Invited";
+
+        //Navigate to Organizations
+        vendors.clickOnOrganizations();
+
+        //Invite vendor
+        vendors.clickOnInviteNewVendor();
+        vendors.enterVendorDomain(domain);
+        vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email1);
+        vendors.clickOnInviteVendor();
+
+        //Invite vendor with existing vendor name credentials
+        vendors.clickOnInviteNewVendor()
+        vendors.enterVendorDomain(domain2);
+        vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email2);
+        vendors.clickOnInviteVendor();
+
+        //Verify added vendor
+        vendors.verifyInvitedVendorMessage(vendorName+" has been invited. No further action is required.");
+        vendors.verifyStatusOfVendor(domain,status);
+     })
+
 
 
      it("verify navigating to details of connected org",()=>{
@@ -228,6 +259,22 @@ describe("Vendor test cases" , ()=>{
       vendors.clickOnNextButton();
       vendors.enterVendoMail(email);
       vendors.verifyInviteVendorIsDisabled();
+    })
+
+    it("Verify inviting new vendor with an improper domain",()=>{
+
+      var domain="1222"
+
+      //Navigate to Organizations
+      vendors.clickOnOrganizations();
+
+      //Invite vendor
+      vendors.clickOnInviteNewVendor();
+      vendors.enterVendorDomain(domain);
+
+      //Verify Next button is disabled
+      vendors.verifyNextButtonIsDisabled();
+
     })
 
     })

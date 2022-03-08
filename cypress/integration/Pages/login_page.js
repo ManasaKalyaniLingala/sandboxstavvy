@@ -4,13 +4,13 @@ import selectors from "../Selectors/login"
 const sandboxData = require("../../fixtures/sandbox_data.json")
 const devData=require("../../fixtures/dev_data.json")
 
-const testData=devData
+const testData=sandboxData
 
 export class Login {
 
     
     navigateToUrl(){
-        cy.visit("/");
+        cy.visit(testData.baseUrl);
     }
 
     loginToApplication(username=testData.username,password=testData.password)
@@ -37,7 +37,6 @@ export class Login {
 
     verifyLoginPageView()
     {
-        cy.url().should('include', 'https://login.sandbox.stavvy.com/login?state');
         cy.get(selectors.usernameTxtbx).should('exist');
         cy.get(selectors.passwordTxtbx).should('exist');
         cy.get(selectors.loginBttn).should('exist');

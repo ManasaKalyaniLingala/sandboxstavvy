@@ -2,6 +2,9 @@ import selectors from "../Selectors/meetings"
 
 export class Meetings {
 
+    getRandomInt(min, max){      
+        return Math.floor(Math.random() * (max - min + 1)) + min;    
+      } 
     navigateToMeetingsPage()
     {
         cy.xpath(selectors.meetingsLink).click();
@@ -136,7 +139,7 @@ export class Meetings {
 
     enterEmail(email)
     {
-        cy.get(selectors.emailTxtbx).type(email);
+        cy.get(selectors.emailTxtbx).clear().type(email);
     }
     
     clickOnCreateClosing()
@@ -218,16 +221,12 @@ export class Meetings {
    selectHost()
    {
     cy.get(selectors.notary).click();
-    cy.xpath('//div/ul/li')
-    .should('have.length.gt', 3)
-    .then(($li) => {
-      const items = $li.toArray()
-      return Cypress._.sample(items)
-    })
-    .then(($li) => {
-      expect(Cypress.dom.isJquery($li), 'jQuery element').to.be.true
-      cy.log(`you picked "${$li.text()}"`).click();
-    })
+    cy.xpath('//div/ul/li/span')
+    .then(listing => {        
+      const randomNumber = this.getRandomInt(2, listing.length-1);
+      cy.log(randomNumber);
+       cy.xpath('(//div/ul/li['+randomNumber+']/span)').click();     
+  })
    }
    
 
