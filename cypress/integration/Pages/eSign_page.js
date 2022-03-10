@@ -306,7 +306,8 @@ export class ESign {
             var packetTitle=$res.text();
             this.clickOneSignLink();
             this.refreshESignListPage();
-            this.searcPacket(packetTitle)
+            this.searcPacket(packetTitle);
+            cy.wait(3000);
             this.verifyPacketStatusInTheList(packetTitle,status);
         })
     }
@@ -431,6 +432,20 @@ export class ESign {
     clickOnCancelPacketButtonInPopupPage()
     {
         cy.xpath(selectors.cancelPacketBttn2).click();
+    }
+    copyEsign()
+    {
+        cy.xpath('//tbody/tr[1]/td[1]').as('packetTitle')
+    }
+
+    searchedPacketAndVerify()
+    {
+        this.copyEsign()
+        cy.get('@packetTitle').then((res)=>{
+            cy.get(selectors.searchPacketTxBx).type(res.text());
+            cy.xpath('(//*[text()="'+res.text()+'"])[1]').click();
+            cy.xpath(selectors.packetTitleIneSignDetailsPage).should('have.text',res.text());
+        })
     }
     searcPacket(packetTitle)
     {

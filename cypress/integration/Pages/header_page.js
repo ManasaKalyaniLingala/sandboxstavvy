@@ -9,7 +9,7 @@ export class Header{
 
     hoverOverHelpButton()
     {
-        cy.get(Selectors.helpBttn).should('exist').realHover();
+        cy.get(Selectors.helpBttn).trigger('mouseover')
     }
 
     verifyHelpButtonText()
@@ -67,6 +67,6 @@ export class Header{
 
     verifyNavigatedToSettingsPage()
     {
-        cy.url().should('eq', 'https://connect.sandbox.stavvy.com/settings/profile');
+        cy.url().should('include', '/settings/profile');
     }
 }

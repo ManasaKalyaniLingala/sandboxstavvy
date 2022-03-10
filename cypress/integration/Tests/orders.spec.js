@@ -11,7 +11,7 @@ describe("Assigned Order test cases" , ()=>{
     beforeEach("Login as valid user",()=>{
 
         login.navigateToUrl();
-        login.loginToApplication("manasa.lingala@qualitlabs.com","16c31a0_486");
+        login.loginToApplication();
      })
 
 
@@ -41,7 +41,7 @@ describe("Assigned Order test cases" , ()=>{
      })
 
 
-     it.only("Verify accepting a pending Origination order in the list",()=>{
+     it("Verify accepting a pending Origination order in the list",()=>{
          
          var heading="Origination Orders";
          var page="Origination";

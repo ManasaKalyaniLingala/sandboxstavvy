@@ -63,7 +63,7 @@ export class Users{
     clickInviteUsers()
     {
         cy.get(selectors.inviteUsersBttn).click();
-        cy.wait(3000);
+        cy.wait(5000);
     }
 
     clickOnDeleteUserButton()
@@ -75,7 +75,7 @@ export class Users{
         cy.get(selectors.manageUserCloseBttn).click();
     }
 
-    checkInviteUsersDisabled()
+    verifyInviteUsersDisabled()
     {
         cy.get(selectors.inviteUsersBttn).should('be.disabled')
     }
@@ -101,6 +101,7 @@ export class Users{
     }
     searchUser(userName)
     {
+     cy.wait(4000)
      cy.get(selectors.searchUser).clear().type(userName);
      cy.wait(3000);
     }

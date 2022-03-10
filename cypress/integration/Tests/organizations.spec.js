@@ -2,7 +2,7 @@
 
 import faker from "@faker-js/faker";
 import { Login } from "../Pages/login_page";
-import { Vendors } from "../Pages/vendors_page";
+import { Vendors } from "../Pages/organizations_page";
 
 const login = new Login();
 const vendors=new Vendors();
@@ -17,7 +17,7 @@ describe("Vendor test cases" , ()=>{
      it("verify inviting new vendor", ()=>{
 
         var domain=faker.name.firstName()+".com";
-        var email = "testuser+"+Math.floor(Math.random()*10000)+"@gmail.com";
+        var email =faker.internet.email().toLowerCase();
         var vendorName=faker.name.findName();
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
@@ -39,14 +39,13 @@ describe("Vendor test cases" , ()=>{
      })
 
    
-
      it("verify inviting new vendor with the existing domain",()=>{
 
         var vendorName=faker.name.findName();
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email = "testuser+"+Math.floor(Math.random()*10000)+"@gmail.com";
+        var email=faker.internet.email().toLowerCase();
 
         //Navigate to Organizations
         vendors.clickOnOrganizations();
@@ -58,6 +57,7 @@ describe("Vendor test cases" , ()=>{
         vendors.verifyErrorText("An existing or duplicate value has already been saved.");
      })
 
+
      it("Verify inviting new vendor with existing vendor details",()=>{
 
         var domain=faker.name.firstName()+".com";
@@ -65,7 +65,7 @@ describe("Vendor test cases" , ()=>{
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email = "testuser+"+Math.floor(Math.random()*10000)+"@gmail.com";
+        var email =faker.internet.email().toLowerCase();
 
         //Navigate to Organizations
         vendors.clickOnOrganizations();
@@ -101,7 +101,7 @@ describe("Vendor test cases" , ()=>{
         var vendor2firstName=faker.name.firstName();
         var vendor2middleName=faker.name.middleName();
         var vendor2lastName=faker.name.lastName();
-        var vendoremail = "testuser+"+Math.floor(Math.random()*10000)+"@gmail.com";
+        var vendoremail=faker.internet.email().toLowerCase();
 
         //Navigate to Organizations
         vendors.clickOnOrganizations();

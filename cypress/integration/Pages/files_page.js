@@ -90,6 +90,19 @@ export class Files{
         cy.xpath(selectors.continueButtion).click();
     }
 
+    clickContinueInCreateFile()
+    {
+        cy.xpath(selectors.continueButtion).should('exist').click();
+        cy.xpath('//h2').then((res)=>{
+            cy.log(res.text())
+            if(res.text().includes('Attach Documents'))
+            {
+                cy.xpath(selectors.continueButtion).should('exist').click();
+                cy.log('passed');
+            }
+        })
+    }
+
     verifyContinueButtonDisabled()
     {
         cy.xpath(selectors.continueButtion).should('be.disabled');
@@ -189,9 +202,9 @@ export class Files{
     {
         cy.xpath('//div/ul/li/span')
     .then(listing => {        
-      const randomNumber = this.getRandomInt(1, listing.length-1)+1;
+      const randomNumber = this.getRandomInt(2, listing.length-1);
       cy.log(randomNumber);
-       cy.xpath('(//div/ul/li['+randomNumber+']/span)').click();     
+       cy.xpath('(//div/ul/li['+randomNumber+']/span)[1]').click();     
   })
     }
  
@@ -200,7 +213,7 @@ export class Files{
         cy.xpath(selectors.clickLoanProcessorDropDown).click()
      cy.xpath('//div/ul/li/span')
      .then(listing => {        
-     const randomNumber = this.getRandomInt(0, listing.length-1); 
+     const randomNumber = this.getRandomInt(2, listing.length-1); 
        cy.xpath('(//div/ul/li['+randomNumber+']/span)').click();  
   })
 }
@@ -409,19 +422,19 @@ export class Files{
     {
         cy.xpath(selectors.assignCloserBtnn).click();
     }
-    selectCloserFromTheDropdown(closer)
+    selectCloserFromTheDropdown()
     {
         cy.get(selectors.assignACloserDropDown).click();
-        cy.xpath('//ul/li/span[text()="'+closer+'"]').click();
+        this.selectVendor();
     }
     clickSaveButton()
     {
         cy.xpath(selectors.saveBttn).click();
     }
-    assignCloser(closer)
+    assignCloser()
     {
         this.clickOnAssignCloserButton();
-        this.selectCloserFromTheDropdown(closer);
+        this.selectCloserFromTheDropdown();
         this.clickSaveButton();
     }
     verifyAssignedCloserName(closer)
@@ -433,15 +446,16 @@ export class Files{
     {
         cy.xpath(selectors.assignLoanProcessorLink).click();
     }
-    selectLoanProcessorFromTheDropDown(loanProcessor)
+    selectLoanProcessorFromTheDropDown()
     {
         cy.get(selectors.assignLoanProcessorDropDown).click();
-        cy.xpath('//ul/li/span[text()="'+loanProcessor+'"]').click();
+        this.selectVendor();
+       
     }
-    assignLoanProcessor(loanProcessor)
+    assignLoanProcessor()
     {
         this.clickAssignLoanProcessorLink();
-        this.selectLoanProcessorFromTheDropDown(loanProcessor);
+        this.selectLoanProcessorFromTheDropDown();
         this.clickSaveButton();
     }
     verifyAssignedLoanProcessor(loanProcessor)
@@ -623,7 +637,7 @@ export class Files{
 
     verifyTabSubtitleInFileDetailsPage(subtitle)
     {
-      cy.xpath(selectors.tabSubtitleInFileDetailsPage).should('have.text',subtitle)
+      cy.xpath(selectors.tabSubtitleInFileDetailsPage).should('contain.text',subtitle)
     }
 
     verifyAddOrderButton()
@@ -861,8 +875,7 @@ export class Files{
     this.clickContinueButton();
     this.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     this.addTitleOrder();
-    this.addForeclosureOrder();
-    this.clickContinueButton();
+    this.clickContinueInCreateFile();
     this.clickCreateFileButtonOnReviewOfAFile();
     }
 

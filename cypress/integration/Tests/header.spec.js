@@ -12,7 +12,7 @@ describe("Header test cases" , ()=>{
 
         //Login to stavvy
         login.navigateToUrl();
-        login.loginToApplication("manasa.lingala@qualitlabs.com","16c31a0_486");
+        login.loginToApplication();
      })
 
      it("Verify Header view",()=>{

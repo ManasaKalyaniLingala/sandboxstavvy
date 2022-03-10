@@ -15,7 +15,7 @@ export class Settings{
 
     updateFirstName(name)
     {
-        cy.xpath(Selectors.firstName).realHover();
+        cy.xpath(Selectors.firstName).trigger('mouseover');
         cy.xpath(Selectors.firstNameEditBttn).click({force:true});
         cy.get(Selectors.inputTextBx).clear().type(name);
         cy.get(Selectors.saveIconBttn).click();
@@ -42,7 +42,7 @@ export class Settings{
     updateLastName(name)
     {
         cy.xpath(Selectors.lastName).realHover();
-        cy.xpath(Selectors.lastNameEditBttn).click();
+        cy.xpath(Selectors.lastNameEditBttn).click({force:true})
         cy.get(Selectors.inputTextBx).clear().type(name);
         cy.get(Selectors.saveIconBttn).click();
     }
@@ -55,7 +55,7 @@ export class Settings{
     updateOrganizationName(name)
     {
         cy.xpath(Selectors.organization).realHover();
-        cy.xpath(Selectors.organizationEditBttn).click();
+        cy.xpath(Selectors.organizationEditBttn).click({force:true})
         cy.get(Selectors.inputTextBx).clear().type(name);
         cy.get(Selectors.saveIconBttn).click();
     }

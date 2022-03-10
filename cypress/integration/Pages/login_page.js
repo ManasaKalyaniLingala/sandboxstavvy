@@ -1,19 +1,14 @@
 
 import selectors from "../Selectors/login"
 
-const sandboxData = require("../../fixtures/sandbox_data.json")
-const devData=require("../../fixtures/dev_data.json")
-
-const testData=sandboxData
-
 export class Login {
 
     
     navigateToUrl(){
-        cy.visit(testData.baseUrl);
+        cy.visit(Cypress.env("baseUrl"));
     }
 
-    loginToApplication(username=testData.username,password=testData.password)
+    loginToApplication(username=Cypress.env("username"),password=Cypress.env("password"))
     {
         this.enterUserName(username);
         this.enterPassword(password);

@@ -37,7 +37,7 @@ export default {
     addAttendeeBttn:'//button[text()="+ Add attendee"]',
     addAttendeeBttnInMeetingInfoPage:'//button[text()="Add attendee"]',
     uploadDocumentField:'#upload-doc',
-    uploadButton:"(//div[contains(@class,'stavviz-button-row text-right')]//button)[3]",
+    uploadButton:'//button[text()="Upload"]',
     documentName:'((//tbody)[2]/tr[last()]//td/div/div/text())[1]',
     addedAttendeeEmail:'(//tbody)[1]/tr[last()]/td[3]/text()',
     transactionType:'//div[@class="text-base"][2]/text()',
@@ -46,4 +46,6 @@ export default {
     loanNumberInList:'//div/div[1]/div[1][@class="flex flex-row"]/p[2]/text()',
     meetingCardInList:'//div[@data-testid="meeting-card"][1]',
     firstMeetingLoanNumber:'(//div/div[1]/div[1][@class="flex flex-row"]/p[2]/text())[1]',
+    createNewPageText:'//div[@role="button"]/div/div',
+    closingMeetingBttn:'//div[@role="button"]/div/div[text()="Closing Meeting"]'
 }

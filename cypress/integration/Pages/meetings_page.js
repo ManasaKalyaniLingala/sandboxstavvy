@@ -12,6 +12,13 @@ export class Meetings {
     clickOnCreateMeeting()
     {
         cy.get(selectors.createMeetingBttn).click();
+
+        cy.xpath(selectors.createNewPageText).then((res)=>{
+            if(res.text().includes('Closing Meeting'))
+            {
+                cy.xpath(selectors.closingMeetingBttn).should('exist').click();
+            }  
+        })
     }
 
     clickOnPurchaseType()
@@ -250,7 +257,7 @@ export class Meetings {
    }
    clickUploadButton()
    {
-       cy.xpath(selectors.uploadButton).should('exist').realClick();
+       cy.xpath(selectors.uploadButton).should('exist').click();
    }
    uploadDocument(document)
    {

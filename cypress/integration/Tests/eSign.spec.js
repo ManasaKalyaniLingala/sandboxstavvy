@@ -15,7 +15,7 @@ describe("stavvy application" , ()=>{
 
     
 
-     it.only("Create new eSign with Just Others", ()=>{
+     it("Create new eSign with Just Others", ()=>{
 
          var packetTitle=faker.name.findName();
          var firstName=faker.name.firstName();
@@ -84,18 +84,12 @@ describe("stavvy application" , ()=>{
 
       it("verify searching a packet by title and navigating to details page",()=>{
 
-        var packetTitle="packet3553";
-
+        
         //Navigate to eSign page
         eSign.clickOneSignButton();
 
         //Search packet
-        eSign.searcPacket(packetTitle);
-
-        //Verify searched packet
-        eSign.verifyPacketInTheList(packetTitle);
-        eSign.clickOnPacketFromTheList(packetTitle);
-        eSign.verifyPacketNameInDetailsPage(packetTitle);
+        eSign.searchedPacketAndVerify();
        }) 
 
 

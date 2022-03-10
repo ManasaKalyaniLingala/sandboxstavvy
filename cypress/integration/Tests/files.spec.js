@@ -51,7 +51,7 @@ it("Create Purchase type File", ()=> {
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     files.addTitleOrder();
     files.addForeclosureOrder();
-    files.clickContinueButton();
+    files.clickContinueInCreateFile();
     files.clickCreateFileButtonOnReviewOfAFile();
 
     //Verify created file
@@ -94,7 +94,7 @@ it("create a refinance type file",()=>{
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     files.addTitleOrder();
     files.addForeclosureOrder();
-    files.clickContinueButton();
+    files.clickContinueInCreateFile();
     files.clickCreateFileButtonOnReviewOfAFile();
 
     //Verify created file
@@ -137,7 +137,7 @@ it("create a equity type file",()=>{
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     files.addTitleOrder();
     files.addForeclosureOrder();
-    files.clickContinueButton();
+    files.clickContinueInCreateFile();
     files.clickCreateFileButtonOnReviewOfAFile();
 
     //Verify created file
@@ -185,7 +185,7 @@ it("Verify creating Floating Rate type Purchase file",()=>{
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     files.addTitleOrder();
     files.addForeclosureOrder();
-    files.clickContinueButton();
+    files.clickContinueInCreateFile();
     files.clickCreateFileButtonOnReviewOfAFile();
 
     //Verify created file
@@ -231,7 +231,7 @@ it("Verify creating Floating rate type Refinance file",()=>{
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     files.addTitleOrder();
     files.addForeclosureOrder();
-    files.clickContinueButton();
+    files.clickContinueInCreateFile();
     files.clickCreateFileButtonOnReviewOfAFile();
 
     //Verify created file
@@ -276,7 +276,7 @@ it("Verify creating Floating rate type Equity file",()=>{
     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
     files.addTitleOrder();
     files.addForeclosureOrder();
-    files.clickContinueButton();
+    files.clickContinueInCreateFile();
     files.clickCreateFileButtonOnReviewOfAFile();
 
     //Verify created file
@@ -286,6 +286,8 @@ it("Verify creating Floating rate type Equity file",()=>{
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
     files.verifyRateTypeOfFile(rateType);
 })
+
+
 
 it("Verify creating file without assigning loan processor",()=>{
     
@@ -315,7 +317,7 @@ it("Verify creating file without assigning loan processor",()=>{
 
 it("verify creating a file without property address",()=>{
    
-    var loanNumber="Loan"+Math.floor(Math.random()*1000);
+    var loanNumber="loan"+Math.floor(Math.random()*1000);
     var loanAmount=Math.floor(Math.random()*1000);
     var purchaseAmount=Math.floor(Math.random()*1000);;
 
@@ -421,12 +423,6 @@ it("verify listing files by no of rows",()=>{
 
     //Verify no of rows
     files.verifyNoOfFilesInTheList(5);
-
-    //Select No of rows
-    files.selectNoOfRowsPerPage("25");
-
-    //Verify no of rows
-    files.verifyNoOfFilesInTheList(25);
 
     //Select No of rows
     files.selectNoOfRowsPerPage("10");
@@ -564,34 +560,22 @@ it("verify updating Loan Number",()=>{
 
 it("Assign closer to file",()=>{
 
-    var closer="Wilton c Hintz (Guadalupe58@hotmail.com)";
-    var closerName="Wilton c Hintz";
-
     //Navigate to Files
     files.navigateToFiles();
 
     //Assign closer
     files.navigateToFileDetailsPage();
-    files.assignCloser(closer);
-
-    //Verify assigned closer
-    files.verifyAssignedCloserName(closerName);
+    files.assignCloser();
 })
 
 it("assign Loan Processor",()=>{
-
-    var loanProcessor="Wilton c Hintz (Guadalupe58@hotmail.com)";
-    var loanProcessorName="Wilton c Hintz";
 
     //Navigate to Files
     files.navigateToFiles();
 
     //Assign Loan processor
     files.navigateToFileDetailsPage()
-    files.assignLoanProcessor(loanProcessor);
-
-    //Verify assigned loan procesor
-    files.verifyAssignedLoanProcessor(loanProcessorName);
+    files.assignLoanProcessor();
   })
 
 it("Verify archiving file",()=>{
@@ -628,22 +612,7 @@ it("Verify reopening archived file",()=>{
 })
 
 it("Verify adding orders in file details page",()=>{
-
-    var fileType="Equity";
-    var loanNumber="loan"+Math.floor(Math.random()*1000);
-    var loanAmount=Math.floor(Math.random()*1000);
-    var address=1+Math.floor(Math.random())*100;
-    var streetName=faker.address.streetName();
-    var streetNumber=address;
-    var city=faker.address.cityName();
-    var postalCode=faker.address.zipCode();
-    var borrowerFirstName=faker.name.firstName();
-    var borrowerLastName=faker.name.lastName();
-    var borrowerEmail=faker.internet.email();
-    var borrowerPhone=faker.phone.phoneNumber();
-    var borrowerSSN=faker.phone.phoneNumber();
-    var propertyAddress=streetNumber+" "+streetName+", "+city;
-    var titleOrder="Title";
+    
     var status="Pending";
     var foreclosureOrder="Foreclosure";
     var settlementOrder="Settlement"
@@ -652,19 +621,7 @@ it("Verify adding orders in file details page",()=>{
     files.navigateToFiles();
 
     //Create file
-    files.clickCreateFileButton();
-    files.clickEquityType();
-    files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-    files.clickContinueButton();
-    files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
-    files.addTitleOrder();
-    files.clickContinueButton();
-    files.clickCreateFileButtonOnReviewOfAFile();
-
-    //Verify created file
-    files.verifyMessage("Creating file...");
-    files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
-    files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
+    files.createAFile();
 
     //Add order in File details page
     files.clickAddOrderButton();

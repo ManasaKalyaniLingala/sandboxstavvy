@@ -12,7 +12,7 @@ describe("Meetings/Closings test cases" , ()=>{
 
    beforeEach("Login as valid user",()=>{
        login.navigateToUrl();
-       login.loginToApplication("manasa.lingala@qualitlabs.com","16c31a0_486");
+       login.loginToApplication();
     });
 
     it("Create New purchase Meeting ",()=>{
@@ -203,8 +203,8 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.uploadDocument(document);
 
         //Verify added document.
-      //  meetings.verifyPopupMessage("Documents uploaded!")
-        //meetings.verifyAddedDocumentName(document);
+        meetings.verifyPopupMessage("Documents uploaded!")
+        meetings.verifyAddedDocumentName(document);
     })
 
     it("Add attendee to the Meeting",()=>{

@@ -11,8 +11,9 @@ describe("Acknowledgment test cases" , ()=>{
     beforeEach("Login as valid user",()=>{
 
         login.navigateToUrl();
-        login.loginToApplication("manasa.lingala@qualitlabs.com","16c31a0_486");
+        login.loginToApplication();
      })
+
 
      it("Verify approving without acknowledgment",()=>{
 
@@ -92,6 +93,7 @@ describe("Acknowledgment test cases" , ()=>{
          acknowledgment.verifyApprovedWithNoAcknowledgememtQAText();
      })
 
+
      it("Verify viewing rejected document",()=>{
 
          var status="Rejected";
@@ -106,6 +108,7 @@ describe("Acknowledgment test cases" , ()=>{
          acknowledgment.clickViewOfDocument();
          acknowledgment.verifyQualityControlStatusText(text);
      })
+
 
      it("Verify navigating to Acknowledgement Inbox page and its view",()=>{
 
@@ -125,6 +128,7 @@ describe("Acknowledgment test cases" , ()=>{
         acknowledgment.verifyNoOfRowsPerPageDropDown();
      })
 
+
      it("Verify Navigating to Acknowledgement Mettings page and its view",()=>{
         
         var heading="Acknowledgement Meetings";
@@ -139,6 +143,7 @@ describe("Acknowledgment test cases" , ()=>{
         acknowledgment.verifyPageHeading(heading);
         acknowledgment.verifyDocumentListExists();
      })
+
 
      it("Verify navigating to Archived acknowledgements page and its view",()=>{
          

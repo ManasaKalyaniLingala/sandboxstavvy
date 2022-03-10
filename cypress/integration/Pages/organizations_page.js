@@ -1,4 +1,4 @@
-import Selectors from "../Selectors/vendors"
+import Selectors from "../Selectors/organizations"
 
 export class Vendors{
 
