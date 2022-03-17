@@ -43,6 +43,7 @@ describe("Acknowledgment test cases" , ()=>{
 
          //Navigate to Acknowledgement page
          acknowledgment.navigateToAcknowledgementPage();
+         acknowledgment.navigateToInboxPage();
 
          //Rejecting
          acknowledgment.clickStartQCOfDocument();
@@ -59,9 +60,9 @@ describe("Acknowledgment test cases" , ()=>{
 
      it("Verify moving document from Initial Review to Acknowledge tab by selecting Approve - Acknowledgement Required in Quality control",()=>{
             
-
         //Navigating to Acknowledgement page
         acknowledgment.navigateToAcknowledgementPage();
+        acknowledgment.navigateToInboxPage()
         
         //Selecting "Approve – Acknowledgement Required"
         acknowledgment.clickStartQCOfDocument();

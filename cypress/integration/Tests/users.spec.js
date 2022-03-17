@@ -127,7 +127,7 @@ describe("Users test cases" , ()=>{
 
     it("verify deleting user",()=>{
 
-         var email = faker.internet.email().toLowerCase
+         var email = faker.internet.email().toLowerCase()
          var firstName=faker.name.firstName();
          var middleName=faker.name.middleName();
          var lastName=faker.name.lastName();

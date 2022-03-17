@@ -232,7 +232,7 @@ export class Meetings {
     .then(listing => {        
       const randomNumber = this.getRandomInt(2, listing.length-1);
       cy.log(randomNumber);
-       cy.xpath('(//div/ul/li['+randomNumber+']/span)').click();     
+       cy.xpath('(//div/ul/li['+randomNumber+']/span)').click({ force: true });     
   })
    }
    

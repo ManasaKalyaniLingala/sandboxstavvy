@@ -153,6 +153,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyTransactionType(transactionType);
     } )
 
+
     it("Navigated to closing details page", () =>{
         
 
@@ -164,6 +165,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyFileIdInMeetingDetailsPage();
     })
     
+
     it("Navigating to scheduled meetings page", ()=>{
 
         //Navigate to scheduled meeitngs
@@ -173,6 +175,8 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyNavigatedToScheduledMeetings();
         meetings.verifyMeetingCardStatus(" Upcoming");
     })
+
+
     it("Navigating to completed meetings page", ()=>{
 
         //Navigate to completed meetings
@@ -182,6 +186,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyNavigatedToCompletedMeetings();
         meetings.verifyMeetingCardStatus(" Completed");
     })
+
 
     it("Navigating to Cancelled meetings page", ()=>{
 
@@ -193,7 +198,8 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyMeetingCardStatus(" Cancelled");
     })
 
-    it.skip("Upload document to a meeting",()=>{
+
+    it.only("Upload document to a meeting",()=>{
 
         var document="title_exam (4).pdf"
 

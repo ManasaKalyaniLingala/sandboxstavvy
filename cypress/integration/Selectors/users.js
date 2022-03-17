@@ -26,5 +26,4 @@ user:'(//td/p[text()="User"])[1]',
 selectRoleDropDown:'[placeholder="Select role"]',
 saveUserBttn:'//button[text()="Save User"]'
 
-
 }

@@ -276,10 +276,17 @@ export class ESign {
     {
         cy.xpath(selectors.saveBttn).click();
     }
+
+    verifySaveBttnIsDisabled()
+    {
+        cy.xpath(selectors.saveBttn).should('be.disabled');
+    }
+
     verifyPacketInTheList(packetTitle)
     {
         cy.xpath(selectors.verifyPacketInTheList).should('have.text',packetTitle);
     }
+
     verifyPacketStatusInTheList(packetTitle,status)
     {
         cy.xpath('//tr/td[text()="'+packetTitle+'"]/following-sibling::td[3]/div/text()').should('have.text',status);
@@ -510,6 +517,11 @@ export class ESign {
        cy.xpath(selectors.editSignerButton).should('exist').click();
    }
 
+   clickResendInviteButton()
+   {
+       cy.xpath(selectors.resendInvite).should('exist').click();
+   }
+
    clickEditButtonOfDocument(document)
    {
        cy.xpath('//div[text()="Documents"]/../following-sibling::div/div/table/tbody/tr/td[1][text()="'+document+'"]/following-sibling::td[3]/div').should('exist').click();
@@ -522,9 +534,53 @@ export class ESign {
 
    editPacketTitle(packetName)
    {
-       cy.xpath(selectors.packetTitleEditBttn).should('exist').realHover().and.click();
-      // cy.xpath(selectors.packetTitleEditBttn).should('exist').realClick();
+       cy.get(selectors.packetTitle).trigger('mouseover');
+       cy.get('[data-icon="pencil"]').click({force:true})
        cy.get(selectors.editPacketTitleTxBx).clear().type(packetName);
+       cy.get(selectors.saveIconBttn).should('exist').click();
 
    }
-}
+
+   verifyEsignPageView()
+   {
+       cy.xpath(selectors.createNeweSignBttn).should('exist');
+       cy.xpath(selectors.eSignHeading).should('have.text',"eSign");
+       cy.get(selectors.searchPacketTxBx).should('exist');
+       cy.get(selectors.statusDropdown).should('exist');
+       cy.get(selectors.createdByDropdown).should('exist');
+       cy.xpath(selectors.tabSubtitle).should('have.text',"Packets");
+       cy.xpath(selectors.eSignListColoumnName).should('contain.text',"Packet Title");
+       cy.xpath(selectors.eSignListColoumnName).should('contain.text',"Created on");
+       cy.xpath(selectors.eSignListColoumnName).should('contain.text',"Created by");
+       cy.xpath(selectors.eSignListColoumnName).should('contain.text',"Status");
+       cy.xpath("//tbody/tr").should('exist');
+       cy.get(selectors.previousBttn).should('exist');
+       cy.get(selectors.nextBttn).should('exist');
+   }
+
+   verifyErrorText(errorText)
+   {
+       cy.xpath(selectors.errorText).should('contain.text',errorText);
+   }
+
+   verifyEmailValidationError(errorText)
+   {
+       cy.xpath(selectors.emailValidationError).should('contain.text',errorText)
+   }
+
+   clickSendButton()
+   {
+       cy.xpath(selectors.sendBttn).should('exist').click();
+   }
+
+   verifyMessage(message)
+    {
+        cy.get(".react-toast-notifications__toast__content").should('have.text', message)
+    }
+
+    clickInviteAllSigners()
+    {
+        cy.xpath(selectors.inviteAllSigners).should('exist').click();
+    }
+
+   }

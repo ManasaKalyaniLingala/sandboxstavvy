@@ -706,6 +706,7 @@ it("Verify making a file favorite or non favorite",()=>{
 
     //Navigate to files
     files.navigateToFiles();
+    files.clickNameSorting();
 
     //Navigate to File details page
     files.navigateToFileDetailsPage();
@@ -719,6 +720,7 @@ it("Verify following and unfollowing a file",()=>{
 
     //Navigate to files
     files.navigateToFiles();
+    files.clickNameSorting();
 
     //Navigate to File details page
     files.navigateToFileDetailsPage();

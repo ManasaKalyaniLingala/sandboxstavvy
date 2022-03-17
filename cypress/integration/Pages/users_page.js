@@ -63,7 +63,7 @@ export class Users{
     clickInviteUsers()
     {
         cy.get(selectors.inviteUsersBttn).click();
-        cy.wait(5000);
+        cy.wait(2000);
     }
 
     clickOnDeleteUserButton()
