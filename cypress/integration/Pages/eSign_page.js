@@ -2,6 +2,7 @@
 import selectors from "../Selectors/eSign"
 
 export class ESign {
+
     clickOneSignButton()
     {
         cy.get(selectors.eSignBttn).click();
@@ -120,41 +121,42 @@ export class ESign {
     {
         cy.get(selectors.selectAssigneeDropDown).click();
     }
-    dragFirstNameAnnotation()
+    clickFirstNameAnnotation()
     {
-    cy.xpath(selectors.fullNameAnnotation);
+    cy.xpath(selectors.fullNameAnnotation).should('exist').click();
     }
     clickSignatureAnnotation()
     {
-        cy.xpath(selectors.signatureAnnotation);
+        cy.xpath(selectors.signatureAnnotation).should('exist').click();
     }
     clickInitialsAnnotation()
     {
-        cy.xpath(selectors.initialsAnnotation);
+        cy.xpath(selectors.initialsAnnotation).should('exist').click();
     }
     clickDateAnnoataion()
     {
-        cy.xpath(selectors.dateAnnotation);
+        cy.xpath(selectors.dateAnnotation).should('exist').click();
     }
     clickTextFieldAnnotation()
     {
-        cy.xpath(selectors.textFieldAnnotation);
+        cy.xpath(selectors.textFieldAnnotation).should('exist').click();
     }
     clickCheckBoxAnnotation()
     {
-        cy.xpath(selectors.checkBoxAnnotation);
+        cy.xpath(selectors.checkBoxAnnotation).should('exist').click();
     }
     clickDeleteAllAnnotations()
     {
-        cy.xpath(selectors.deleteAllAnnotationsBttn);
+        cy.xpath(selectors.deleteAllAnnotationsBttn).should('exist').click();
     }
     clickDataHiddenButton()
     {
-        cy.get(selectors.dataHiddenBttn);
+        cy.get(selectors.dataHiddenBttn).should('exist').click();
     }
     clickApplyExistingTemplate()
     {
-        cy.get(selectors.applyExisitingTemplateBttn);
+        cy.wait(3000)
+        cy.get(selectors.applyExisitingTemplateBttn).should('exist').click();
     }
     clickReassignAnnotationDropdown()
     {
@@ -162,43 +164,44 @@ export class ESign {
     }
     clickSmallButton()
     {
-        cy.xpath(selectors.smallBtnn);
+        cy.xpath(selectors.smallBtnn).should('exist').click();
     }
     clickMediumButton()
     {
-        cy.xpath(selectors.mediumBtnn);
+        cy.xpath(selectors.mediumBtnn).should('exist').click();
     }
     clickLargeButton()
     {
-        cy.xpath(selectors.largeBtnn);
+        cy.xpath(selectors.largeBtnn).should('exist').click();
     }
     clickMaximizeButton()
     {
-        cy.get(selectors.maximizeBtnn);
+        cy.get(selectors.maximizeBtnn).should('exist').click();
     }
     clickMinimizeButton()
     {
-        cy.get(selectors.minimizeBtnn);
+        cy.get(selectors.minimizeBtnn).should('exist').click();
     }
     clickBackToPacketDetailsLink()
     {
-        cy.xpath(selectors.backtoPacketDetailsLink);
+        cy.xpath(selectors.backtoPacketDetailsLink).should('exist').click();
     }
     clickMakeChangesButton()
     {
-        cy.xpath(selectors.makeChangedBtnn);
+        cy.xpath(selectors.makeChangedBtnn).click();
+        cy.wait(4000)
     }
     clickCloseButton() 
     {
-        cy.get(selectors.eSigncloseBtnn);
+        cy.get(selectors.eSigncloseBtnn).click();
     }
     clickSetSigningOrderCheckBox()
     {
-        cy.get(selectors.setSigningOrderCheckBx);
+        cy.get(selectors.setSigningOrderCheckBx).click();
     }
     clickPencilIconButton()
     {
-        cy.get(selectors.pencilIconBtnn);
+        cy.get(selectors.pencilIconBtnn).click();
     }
     clickOnPacketTitle()
     {
@@ -219,7 +222,7 @@ export class ESign {
     }
     clickOnPacketFromTheList(eSignpacketName)
     {
-        cy.xpath('(//*[text()="'+eSignpacketName +'"])[1]').click();
+        cy.xpath('(//*[text()="'+eSignpacketName +'"])[1]').should('exist').dblclick();
     }
     clickOnEditButtonOfSigner(mailIdOfSigner)
     {
@@ -264,7 +267,8 @@ export class ESign {
     }
     clickOnEditAnnotations()
     {
-        cy.xpath(selectors.editAnnotationsBttn).click();
+        cy.xpath(selectors.editAnnotationsBttn).click()
+        cy.wait(3000);
     }
     clickRemoveDocument()
     {
@@ -364,6 +368,7 @@ export class ESign {
     refreshESignListPage()
     {
         cy.reload();
+        cy.wait(3000)
 
     }
 
@@ -555,7 +560,7 @@ export class ESign {
        cy.xpath(selectors.eSignListColoumnName).should('contain.text',"Status");
        cy.xpath("//tbody/tr").should('exist');
        cy.get(selectors.previousBttn).should('exist');
-       cy.get(selectors.nextBttn).should('exist');
+       cy.get(selectors.nextButton).should('exist');
    }
 
    verifyErrorText(errorText)
@@ -581,6 +586,73 @@ export class ESign {
     clickInviteAllSigners()
     {
         cy.xpath(selectors.inviteAllSigners).should('exist').click();
+    }
+
+    clickSignNowButton()
+    {
+        cy.xpath(selectors.signNowBttn).should('exist').click();
+    }
+
+    clickStartSigning()
+    {
+        cy.xpath(selectors.startSigning).should('exist').click();
+    }
+
+    clickFinishSigning()
+    {
+        cy.xpath(selectors.finishSigning).should('exist').click();
+    }
+
+    verifySigningCompletePopupPage()
+    {
+        cy.xpath(selectors.completeSigning).should('exist');
+    }
+
+    verifyDocumentSignedText()
+    {
+        cy.xpath(selectors.documentSignedText).should('exist');
+    }
+
+    verifyDocumentStatusUnderDocumentName(document,status)
+    {
+        cy.xpath('//div[text()="'+document+'"]/../../../following-sibling::div/span/span').should('contain.text',status)
+    }
+
+    clickSignerDropdown()
+    {
+        cy.get(selectors.signerDropdown).should('exist').click();
+    }
+
+    clickApplyButton()
+    {
+        cy.xpath(selectors.applyBttn).should('exist').click();
+    }
+
+    clickOnAnnotations()
+    {
+        cy.xpath("(//div[@data-rnd-annotation-type='SIGNATURE']//div)[1]").should('exist').dblclick();
+        this.clickUseThisSignature();
+        cy.xpath("//div[@data-rnd-annotation-type='CHECK']").should('exist').dblclick();
+    }
+
+    aaplyTemplateToDocument()
+    {
+        this.clickApplyExistingTemplate();
+        cy.xpath('//tbody/tr/td[text()="signer template"]').click();
+        this.clickNextButton();
+        this.clickSignerDropdown();
+        cy.xpath('//ul/li[1]').click();
+        this.clickApplyButton();
+    }
+
+    clickUseThisSignature()
+    {
+        cy.xpath(selectors.useThisSignatureBttn).should('exist').click();
+    }
+
+    redirectPacketDetailsPageFromSignerPorta()
+    {
+        cy.go(-1);
     }
 
    }

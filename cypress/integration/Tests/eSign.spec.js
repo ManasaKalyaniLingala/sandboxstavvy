@@ -13,16 +13,17 @@ describe("stavvy application" , ()=>{
         login.loginToApplication();
      })
 
-    it("Verify eSign page View",()=>{
+      it("Verify eSign page View",()=>{
 
-      //Navigate to eSign page
-      eSign.clickOneSignButton();
+         //Navigate to eSign page
+        eSign.clickOneSignButton();
 
-      //Verify eSign Page view
-      eSign.verifyEsignPageView();
-    })
+        //Verify eSign Page view
+        eSign.verifyEsignPageView();
+        })
 
-     it("Create new eSign with Just Others", ()=>{
+
+      it("Create new eSign with Just Others", ()=>{
 
          var packetTitle=faker.name.findName();
          var firstName=faker.name.firstName();
@@ -88,7 +89,6 @@ describe("stavvy application" , ()=>{
        })
 
 
-
       it("verify searching a packet by title and navigating to details page",()=>{
         
         //Navigate to eSign page
@@ -145,10 +145,9 @@ describe("stavvy application" , ()=>{
        })
 
 
-
       it("Add signer to an eSign", ()=>{
 
-        var email = "testuser+"+Math.floor(Math.random()*10000)+"@gmail.com";
+        var email = faker.internet.email().toLowerCase();
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
@@ -167,7 +166,6 @@ describe("stavvy application" , ()=>{
         //Verify added signer
         eSign.verifyAddedSignerInTheList(email);
        })
-
 
 
       it("Adding multiple signer to eSign", ()=>{
@@ -200,7 +198,7 @@ describe("stavvy application" , ()=>{
        })
 
 
-       it("verify adding similar signers to an eSign",()=>{
+      it("verify adding similar signers to an eSign",()=>{
 
         var signerEmail = faker.internet.email().toLowerCase();
         var firstName=faker.name.firstName();
@@ -226,7 +224,7 @@ describe("stavvy application" , ()=>{
        })
 
 
-       it("Verify adding signer with same email",()=>{
+      it("Verify adding signer with same email",()=>{
 
         var signerEmail = faker.internet.email().toLowerCase();
         var firstName1=faker.name.firstName();
@@ -279,7 +277,7 @@ describe("stavvy application" , ()=>{
         //Verify added signers
         eSign.verifyAddedSignerInTheList(signerEmail1);
         eSign.verifyAddedSignerInTheList(signerEmail2);
-      })
+       })
 
 
       it("Verify deleting Signer",()=>{
@@ -295,9 +293,8 @@ describe("stavvy application" , ()=>{
 
         //Delete and verify deleted signer
         eSign.deleteAndVerifyDeletedSigner();
-      })
+       })
     
-
 
       it("Edit Signer details", ()=>{
 
@@ -324,7 +321,6 @@ describe("stavvy application" , ()=>{
        })
 
 
-
       it("Verify Cancelling a packet", ()=>{
 
         var value="Ready To Sign";
@@ -347,6 +343,25 @@ describe("stavvy application" , ()=>{
      
       it("Verify resending invite to signer",()=>{
      
+        var value="Ready To Sign";
+
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
+        //Edit Signer details
+        eSign.clickPacketStatusDropDownAndSelectValue(value);
+        eSign.selectPacketFromTheList();
+        eSign.clickEditSignerBttn();
+        eSign.clickResendInviteButton();
+        eSign.clickSendButton();
+
+        //Verify popup message
+        eSign.verifyMessage("Invite sent!");
+        })
+
+
+      it("Verify inviting all signers",()=>{
+
        var value="Ready To Sign";
 
        //Navigate to eSign page
@@ -355,45 +370,186 @@ describe("stavvy application" , ()=>{
        //Edit Signer details
        eSign.clickPacketStatusDropDownAndSelectValue(value);
        eSign.selectPacketFromTheList();
-       eSign.clickEditSignerBttn();
-       eSign.clickResendInviteButton();
+       eSign.clickInviteAllSigners();
        eSign.clickSendButton();
-
-       //Verify popup message
-       eSign.verifyMessage("Invite sent!");
-     })
-
-     it("Verify inviting all signers",()=>{
-
-      var value="Ready To Sign";
-
-      //Navigate to eSign page
-      eSign.clickOneSignButton();
-
-      //Edit Signer details
-      eSign.clickPacketStatusDropDownAndSelectValue(value);
-      eSign.selectPacketFromTheList();
-      eSign.clickInviteAllSigners();
-      eSign.clickSendButton();
       
-      //Verify inviting all signers
-      eSign.verifyMessage("Invite sent!");
-     })
+       //Verify inviting all signers
+       eSign.verifyMessage("Invite sent!"); 
+       })
 
-     it("Verify editing packet name",()=>{
+
+      it("Verify editing packet name",()=>{
     
-      var value="Draft";
-      var packetTitle=faker.name.findName();
+       var value="Draft";
+       var packetTitle=faker.name.findName();
 
-      //Navigate to eSign page
-      eSign.clickOneSignButton();
+       //Navigate to eSign page
+       eSign.clickOneSignButton();
 
-      //Add signers
-      eSign.clickPacketStatusDropDownAndSelectValue(value);
-      eSign.selectPacketFromTheList();
-      eSign.editPacketTitle(packetTitle);
-      eSign.verifyPacketNameInDetailsPage(packetTitle);
+       //Add signers
+       eSign.clickPacketStatusDropDownAndSelectValue(value);
+       eSign.selectPacketFromTheList();
+       eSign.editPacketTitle(packetTitle);
+       eSign.verifyPacketNameInDetailsPage(packetTitle);
+      })
 
-     })
+
+      it("Verify sending invite for an added signer",()=>{
+
+        var email = faker.internet.email().toLowerCase();
+        var firstName=faker.name.firstName();
+        var middleName=faker.name.middleName();
+        var lastName=faker.name.lastName();
+        var value="Ready To Sign";
+
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
+        //Add Signer
+        eSign.clickPacketStatusDropDownAndSelectValue(value);
+        eSign.selectPacketFromTheList()
+        eSign.clickOnAddSignerButton();
+        eSign.addSignerInfo(firstName,middleName,lastName,email);
+        eSign.clickOnSaveButton();
+
+        //Verify added signer
+        eSign.verifyAddedSignerInTheList(email);
+
+        //Send invite for added signer
+        eSign.clickOnEditButtonOfSigner(email);
+        eSign.clickOnSendInvite();
+        eSign.clickSendButton();
+
+        //Verify popup message
+        eSign.verifyMessage("Invite sent!");
+       })
+
+
+      it("Verify sending invite to signer which doesn't have documents",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document)
+        eSign.refreshESignListPage();
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document)
+        eSign.clickRemoveDocument();
+
+        //Invite signer
+        eSign.clickEditSignerBttn();
+        eSign.clickOnSendInvite();
+
+        //Verify popup message
+        eSign.verifyMessage("At least 1 document is required.")
+       })
     
+
+      it("Verify making status of packet from 'Ready to sign' to 'Annotating'",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var status="Annotating";
+      
+
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document)
+        eSign.refreshESignListPage();
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document)
+        eSign.clickOnEditAnnotations();
+        eSign.clickMakeChangesButton();
+        eSign.clickBackToPacketDetailsLink();
+
+        //Verify packet status
+        eSign.verifyPacketStatusInDetailsPage(status);
+        eSign.clickOneSignLink();
+        eSign.verifyPacketStatusInTheList(packetTitle,status);
+       })
+     
+
+      it("Verify performing signing",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var status="Download";
+      
+
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document)
+        eSign.refreshESignListPage();
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickSignNowButton();
+        eSign.clickStartSigning();
+        eSign.clickFinishSigning();
+
+        //Verify signing completed
+        eSign.verifyDocumentStatusUnderDocumentName(document,status);
+        eSign.verifySigningCompletePopupPage();
+        eSign.verifyDocumentSignedText();
+       })
+
+
+      it("Editing annotations and performing signing",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var documentStatus="Download";
+        var status="Completed";
+      
+
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+        eSign.refreshESignListPage()
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document);
+        eSign.clickOnEditAnnotations();
+        eSign.clickMakeChangesButton();
+        eSign.aaplyTemplateToDocument();
+        eSign.clickMarkReadyForSigning();
+        eSign.clickBackToPacketDetailsLink();
+        eSign.clickSignNowButton();
+        eSign.clickStartSigning();
+        eSign.clickOnAnnotations();
+        eSign.clickFinishSigning();
+
+        //Verify signed document
+        eSign.verifyDocumentStatusUnderDocumentName(document,documentStatus);
+        eSign.verifySigningCompletePopupPage();
+        eSign.verifyDocumentSignedText();
+        eSign.redirectPacketDetailsPageFromSignerPorta();
+        eSign.verifyPacketStatusInDetailsPage(status);
+        eSign.clickOneSignLink();
+        eSign.refreshESignListPage();
+        eSign.verifyPacketStatusInTheList(packetTitle,status)
+       })
+
+       
+      it("Verify Performing signing without clicking 'Finish signing'",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var documentStatus="In progress";
+        var status="Signing In Progress";
+      
+
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+        eSign.refreshESignListPage()
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document);
+        eSign.clickOnEditAnnotations();
+        eSign.clickMakeChangesButton();
+        eSign.aaplyTemplateToDocument();
+        eSign.clickMarkReadyForSigning();
+        eSign.clickBackToPacketDetailsLink();
+        eSign.clickSignNowButton();
+        eSign.clickStartSigning();
+        eSign.clickOnAnnotations();
+
+        //Verify signed document
+        eSign.verifyDocumentStatusUnderDocumentName(document,documentStatus);
+        eSign.redirectPacketDetailsPageFromSignerPorta();
+        eSign.verifyPacketStatusInDetailsPage(status);
+        eSign.clickOneSignLink();
+        eSign.refreshESignListPage();
+        eSign.verifyPacketStatusInTheList(packetTitle,status)
+       })
+
 })
