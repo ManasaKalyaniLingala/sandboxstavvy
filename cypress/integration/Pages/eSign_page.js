@@ -30,6 +30,7 @@ export class ESign {
     selectJustMe()
     {
         cy.get(selectors.selectJustMeBttn).click();
+        cy.wait(3000)
     }
     selectJustOthers()
     {
@@ -188,8 +189,8 @@ export class ESign {
     }
     clickMakeChangesButton()
     {
-        cy.xpath(selectors.makeChangedBtnn).click();
-        cy.wait(4000)
+        cy.xpath(selectors.makeChangesBtnn).click();
+        cy.wait(4000);
     }
     clickCloseButton() 
     {
@@ -263,7 +264,7 @@ export class ESign {
     }
     clickOnViewDocument()
     {
-        cy.xpath(selectors.viewDocumentBttn).click();
+        cy.xpath(selectors.viewDocumentBttn).should('exist').click();
     }
     clickOnEditAnnotations()
     {
@@ -635,6 +636,15 @@ export class ESign {
         cy.xpath("//div[@data-rnd-annotation-type='CHECK']").should('exist').dblclick();
     }
 
+    verifyAnnotationsExist()
+    {
+        cy.xpath("(//div[@data-rnd-annotation-type='SIGNATURE']//div)[1]").should('exist');
+        cy.xpath("//div[@data-rnd-annotation-type='CHECK']").should('exist');
+        cy.xpath("//div[@data-rnd-annotation-type='DATE']").should('exist');
+        cy.xpath("//div[@data-rnd-annotation-type='TEXT']").should('exist');
+
+    }
+
     aaplyTemplateToDocument()
     {
         this.clickApplyExistingTemplate();
@@ -655,4 +665,81 @@ export class ESign {
         cy.go(-1);
     }
 
+    verifyNavigatedToUrl(link)
+    {
+        cy.url().should('include',link);
+    }
+
+    verifyPacketTitleInViewDocumentPage(packetTitle)
+    {
+        cy.xpath(selectors.packetTitleInViewDocument).should('contain.text',packetTitle)
+    }
+
+    verifyDocumentNameInViewDocumentPage(documentName)
+    {
+        cy.xpath(selectors.documentNameInViewDocument).should('contain.text',documentName)
+    }
+
+    verifyDocumentIsLoaded()
+    {
+        cy.xpath(selectors.loadedDocument).should('exist');
+    }
+
+    clickStartSigningLink()
+    {
+        cy.xpath(selectors.startSigningLink).should('exist').click();
+    }
+
+    clickEditAnnotationsInViewDocumentPage()
+    {
+        cy.xpath(selectors.editAnnotationsBttnInViewDocument).should('exist').click();
+        cy.wait(4000)
+    }
+
+    clickAddSignersButtonInViewDocumentPage()
+    {
+        cy.xpath(selectors.addSignersBttnInViewDocument).should('exist').click();
+    }
+
+    clickEditButtonOfSignerInViewDocumentPage()
+    {
+        cy.xpath(selectors.editButtonOfSignerInViewDocumentPage).should('exist').click();
+    }
+
+    clickBackToPacketOverviewLink()
+    {
+        cy.xpath(selectors.backToPacketOverviewLink).should('exist').click();
+    }
+
+    clickBackToSignerPortal()
+    {
+        cy.xpath(selectors.backToSignerPortal).should('exist').click();
+    }
+
+    verifyNavigateToPacketOverviewPage()
+    {
+        cy.xpath(selectors.signYourDocumentsText).should('exist');
+        cy.xpath(selectors.viewYourSignedDocumentsText).should('exist');
+        cy.get(selectors.packetDetailsBttnInSignerPortal).should('exist');
+        cy.xpath(selectors.startSigning).should('exist');
+        cy.xpath(selectors.startSigningLink).should('exist');
+    }
+
+    verifyNavigateToSignerPortal()
+    {
+        cy.xpath(selectors.signerPortalHeading).should('exist');
+        cy.get(selectors.eSignPacketsTabInSignerPortal).should('exist');
+        cy.get(selectors.meetingsTabInSignerPortal).should('exist');
+    }
+
+    verifyNavigatedToSigningDocumentPage(document,status)
+    {
+        cy.xpath(selectors.signYourDocumentsText).should('not.exist')
+        cy.xpath(selectors.viewYourSignedDocumentsText).should('not.exist');
+        cy.get(selectors.packetDetailsBttnInSignerPortal).should('exist');
+        cy.xpath(selectors.startSigning).should('not.exist');
+        cy.xpath(selectors.startSigningLink).should('not.exist');
+        this.verifyDocumentStatusUnderDocumentName(document,status);
+        this.verifyDocumentIsLoaded();
+    }
    }

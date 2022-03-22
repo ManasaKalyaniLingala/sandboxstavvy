@@ -341,7 +341,7 @@ describe("stavvy application" , ()=>{
        })
 
      
-      it("Verify resending invite to signer",()=>{
+      it.only("Verify resending invite to signer",()=>{
      
         var value="Ready To Sign";
 
@@ -473,7 +473,6 @@ describe("stavvy application" , ()=>{
         var document="document2.pdf";
         var status="Download";
       
-
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
         eSign.refreshESignListPage();
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -551,5 +550,160 @@ describe("stavvy application" , ()=>{
         eSign.refreshESignListPage();
         eSign.verifyPacketStatusInTheList(packetTitle,status)
        })
+
+
+      it("Verify viewing document",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var link="view";
+
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+        eSign.refreshESignListPage()
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document);
+        eSign.clickOnViewDocument();
+
+        //Verify viewing document
+        eSign.verifyNavigatedToUrl(link);
+        eSign.verifyPacketTitleInViewDocumentPage(packetTitle);
+        eSign.verifyDocumentNameInViewDocumentPage(document);
+       })
+
+
+      it("Verify viewing document and redirecting to packet details page",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var link="view";
+
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+        eSign.refreshESignListPage()
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document);
+        eSign.clickOnViewDocument();
+
+        //Verify viewing document
+        eSign.verifyNavigatedToUrl(link);
+        eSign.verifyPacketTitleInViewDocumentPage(packetTitle);
+        eSign.verifyDocumentNameInViewDocumentPage(document);
+
+        //Redirect to packet details
+        eSign.clickBackToPacketDetailsLink();
+        eSign.verifyNavigatedToPacketDetailsPage();
+        eSign.verifyPacketNameInDetailsPage(packetTitle);
+       })
+
+
+      it("Verify performing signing through start signing link under document",()=>{
+        
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var status="Download";
+      
+
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document)
+        eSign.refreshESignListPage();
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickSignNowButton();
+        eSign.clickStartSigningLink();
+        eSign.clickFinishSigning();
+
+        //Verify signing completed
+        eSign.verifyDocumentStatusUnderDocumentName(document,status);
+        eSign.verifySigningCompletePopupPage();
+        eSign.verifyDocumentSignedText();
+       })
+
+
+      it("Verify editing annotations by 'Edit Annotations' button in view document page",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+      
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+        eSign.refreshESignListPage()
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document);
+        eSign.clickOnViewDocument();
+        eSign.clickEditAnnotationsInViewDocumentPage();
+        eSign.clickMakeChangesButton();
+        eSign.aaplyTemplateToDocument();
+        eSign.clickMarkReadyForSigning();
+
+        //Verify edited annotations
+        eSign.verifyAnnotationsExist();
+       })
+
+
+      it("Verify adding signer through view document page",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var firstName=faker.name.firstName();
+        var middleName=faker.name.middleName();
+        var lastName=faker.name.lastName();
+        var email = faker.internet.email().toLowerCase();
+
+      
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+        eSign.refreshESignListPage()
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document);
+        eSign.clickOnViewDocument();
+        eSign.clickAddSignersButtonInViewDocumentPage();
+        eSign.addSignerInfo(firstName,middleName,lastName,email);
+        eSign.clickOnSaveButton();
+        eSign.clickBackToPacketDetailsLink();
+
+        //Verify added signer in details page
+        eSign.verifyAddedSignerInTheList(email)
+       })
+
+
+      it("Verify sending invite to signer in View document page",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+      
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+        eSign.refreshESignListPage()
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickEditButtonOfDocument(document);
+        eSign.clickOnViewDocument();
+        eSign.clickEditButtonOfSignerInViewDocumentPage();
+        eSign.clickOnSendInvite();
+        eSign.clickSendButton();
+
+        //Verify popup message
+        eSign.verifyMessage("Invite sent!");
+       })
+
+
+      it("Verify switching between Signer Portal, Packet Overiview, and Signing document page",()=>{
+
+        var packetTitle=faker.name.findName();
+        var document="document2.pdf";
+        var status="In progress"
+      
+        eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+        eSign.refreshESignListPage();
+        eSign.clickOnPacketFromTheList(packetTitle)
+        eSign.clickSignNowButton();
+        
+        //Verify navigated to Packet Overview
+        eSign.verifyNavigateToPacketOverviewPage();
+
+        eSign.clickStartSigning();
+
+        //Verify navigated to signing page of document
+        eSign.verifyNavigatedToSigningDocumentPage(document,status);
+
+        eSign.clickBackToPacketOverviewLink();
+        eSign.clickBackToSignerPortal();
+
+        //Verify navigate to signer Portal
+        eSign.verifyNavigateToSignerPortal();
+      });
 
 })
