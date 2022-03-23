@@ -1,9 +1,14 @@
-# sandboxstavvy
-Testcases for sandbox environment.
-
+<div align="center">
+  <h1>STAVVY TEST CASES</h1>
+  <br/>
+  <br/>
+</div>
 
 # Injecting user credentials from env varibles
 
+```sh
+   --env "username=username,password=password,baseUrl=url"
+```
 # run on sandbox env
 
  ```sh
@@ -28,5 +33,3 @@ npx cypress run --env "username=username,password=password" --headed --browser f
 
  # run on dev env
 ```sh
- example: npx cypress run --env "username=username,password=password,baseUrl=https://connect.dev.stavvy.com/"
- ```
