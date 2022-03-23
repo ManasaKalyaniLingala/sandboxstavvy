@@ -101,25 +101,6 @@ describe("stavvy application" , ()=>{
 
       it("upload document to  an eSign", ()=>{
 
-         var document="title_exam (4).pdf";
-         var value="Ready To Sign";
-
-         //Navigate to eSign page
-         eSign.clickOneSignButton();
-
-         //Upload document
-         eSign.clickPacketStatusDropDownAndSelectValue(value);
-         eSign.selectPacketFromTheList();
-         eSign.clickOnAddDocument();
-         eSign.clickOnUploadDocuments(document)
-
-         //Verify added document
-         eSign.verifyAddedDocumentInTheList(document);
-       })
-
-
-       it("Verify deleting added document",()=>{
-
          var document="test doc6.pdf";
          var value="Ready To Sign";
 
@@ -135,13 +116,36 @@ describe("stavvy application" , ()=>{
 
          //Verify added document
          eSign.verifyAddedDocumentInTheList(document);
+       })
+
+
+       it.only("Verify deleting added document",()=>{
+
+         var packetTitle=faker.name.findName();
+         var document1="document2.pdf";
+         var document2="test doc6.pdf";
+
+
+         //Navigate to eSign page
+         eSign.clickOneSignButton();
+
+         //Upload document
+         eSign.creatingNewESignWithJustMeOption(packetTitle,document1)
+         eSign.refreshESignListPage();
+         eSign.clickOnPacketFromTheList(packetTitle);
+         eSign.clickOnAddDocument();
+         eSign.clickOnUploadDocuments(document2);
+         eSign.clickUploadButton();
+
+         //Verify added document
+         eSign.verifyAddedDocumentInTheList(document2);
 
          //Remove document
-         eSign.clickEditButtonOfDocument(document);
+         eSign.clickEditButtonOfDocument(document2);
          eSign.clickRemoveDocument();
 
          //Verify removed document
-         eSign.verifyDeletedDocument(document);
+         eSign.verifyDeletedDocument(document2);
        })
 
 
@@ -341,16 +345,21 @@ describe("stavvy application" , ()=>{
        })
 
      
-      it.only("Verify resending invite to signer",()=>{
-     
-        var value="Ready To Sign";
+      it("Verify resending invite to signer",()=>{
+
+        var packetTitle=faker.name.findName();
+        var firstName=faker.name.firstName();
+        var middleName=faker.name.middleName();
+        var lastName=faker.name.lastName();
+        var email=faker.internet.email();
+        var document="document2.pdf";
 
         //Navigate to eSign page
-        eSign.clickOneSignButton();
+        eSign.creatingNewESignWithJustOtherOption(packetTitle,document,firstName,middleName,lastName,email)
+        eSign.refreshESignListPage();
+        eSign.clickOnPacketFromTheList(packetTitle)
 
         //Edit Signer details
-        eSign.clickPacketStatusDropDownAndSelectValue(value);
-        eSign.selectPacketFromTheList();
         eSign.clickEditSignerBttn();
         eSign.clickResendInviteButton();
         eSign.clickSendButton();
@@ -704,6 +713,6 @@ describe("stavvy application" , ()=>{
 
         //Verify navigate to signer Portal
         eSign.verifyNavigateToSignerPortal();
-      });
+       });
 
 })

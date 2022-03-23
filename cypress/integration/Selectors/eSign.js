@@ -105,7 +105,7 @@ export default {
     signNowBttn:'//button[text()="Sign now"]',
     startSigning:'//button[text()="Start Signing"]',
     finishSigning:'//button[text()="Finish signing"]',
-    completeSigning:'//div[@class="flex-grow"]/div/span[2][text()="Signing Complete"]',
+    completeSigning:'//*[text()="Signing Complete"]',
     documentSignedText:'//span[@data-testid="esign-document-signed-banner"][text()="Document has been signed."]',
     signerDropdown:'[placeholder="Signer"]',
     applyBttn:'//button[text()="Apply"]',
@@ -118,13 +118,14 @@ export default {
     editAnnotationsBttnInViewDocument:'//button[text()="Edit Annotations"]',
     addSignersBttnInViewDocument:'//button[text()="Add Signers"]',
     editButtonOfSignerInViewDocumentPage:"//div[@role='button']//div[1]",
-    backToPacketOverviewLink:'//div[text()="Back to Packet Overview"]',
-    backToSignerPortal:'//div[text()="Back to Signer Portal"]',
+    backToPacketOverviewLink:'//div[@data-testid="back-button"]',
+    backToSignerPortal:'//div[@data-testid="back-button"]',
     packetDetailsBttnInSignerPortal:'[title="Packet Details - Click to open"]',
     signYourDocumentsText:'//h2[text()="Sign your documents"]',
     viewYourSignedDocumentsText:'//h2[text()="View your signed documents"]',
     signerPortalHeading:'//h1[text()="Signer Portal"]',
     eSignPacketsTabInSignerPortal:'[title="Select eSign Packets tab"]',
-    meetingsTabInSignerPortal:'[title="Select Meetings tab"]'
+    meetingsTabInSignerPortal:'[title="Select Meetings tab"]',
+    checkBoxInAdopNewSignature:'//div[@title="I consent to the use of electronic signatures and records."]/span/span',
 
 }

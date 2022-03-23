@@ -40,6 +40,7 @@ export class ESign {
     {
         cy.get(selectors.uploadDocumentsBttn).attachFile(documentName);
     }
+
     clickNextButton()
     {
         cy.xpath(selectors.nextBttn).click();
@@ -249,6 +250,12 @@ export class ESign {
     clickOnSendInvite()
     {
         cy.xpath(selectors.sendInvite).click();
+        cy.xpath('//button').then((res)=>{
+            if(res.text().includes('send'))
+            {
+                this.clickSendButton();
+            }
+        })
     }
     clickOnEdit()
     {
@@ -334,9 +341,8 @@ export class ESign {
         cy.wait(1000)
         this.selectJustMe();
         this.clickNextButton();
-        cy.wait(1000)
+        cy.wait(4000);
         this.clickNextButton();
-        cy.wait(5000);
         cy.xpath("//*[text()='Full Name']").drag('[class="react-pdf__Page"]')
         cy.wait(5000);
         this.clickMarkReadyForSigning();
@@ -632,7 +638,18 @@ export class ESign {
     clickOnAnnotations()
     {
         cy.xpath("(//div[@data-rnd-annotation-type='SIGNATURE']//div)[1]").should('exist').dblclick();
-        this.clickUseThisSignature();
+        cy.xpath('//button').then((res)=>{
+             cy.log(res.text())
+            if(res.text().includes('Use this signature'))
+            {
+                this.clickUseThisSignature();
+            }
+
+            else{
+                cy.xpath(selectors.checkBoxInAdopNewSignature).should('exist').click();
+                this.clickOnSaveButton();
+            }
+        })
         cy.xpath("//div[@data-rnd-annotation-type='CHECK']").should('exist').dblclick();
     }
 
