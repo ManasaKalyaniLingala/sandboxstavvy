@@ -5,7 +5,7 @@
 </div>
 
 
-# Injecting user credentials from env varibles
+# Injecting user credentials from env variables
 
 ```sh
    --env "username=username,password=password,baseUrl=url"
