@@ -4,6 +4,7 @@
   <br/>
 </div>
 
+
 # Injecting user credentials from env varibles
 
 ```sh
@@ -33,3 +34,5 @@ npx cypress run --env "username=username,password=password" --headed --browser f
 
  # run on dev env
 ```sh
+ npx cypress run --env "username=username,password=password,baseUrl=https://connect.dev.stavvy.com/"
+ ```
