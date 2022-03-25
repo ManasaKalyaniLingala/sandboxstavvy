@@ -98,6 +98,7 @@ export default {
     nextButton:'[data-pager="next"]',
     errorText:'//p[@class="text-danger text-right"]',
     emailValidationError:'//p[@data-testid="email-validation-error"]',
+    inputValidationError:'//p[@data-testid="stavviz-input-validation-error"]',
     resendInvite:'//div//li[@title="Resend Invite"]',
     sendBttn:'//button[text()="Send"]',
     inviteAllSigners:'//button[text()="Invite all signers"]',

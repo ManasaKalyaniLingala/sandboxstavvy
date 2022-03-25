@@ -13,6 +13,7 @@ export class Login {
         this.enterUserName(username);
         this.enterPassword(password);
         this.clickOnLogin();
+        cy.wait(4000);
     }
 
     enterUserName(username)

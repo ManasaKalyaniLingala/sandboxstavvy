@@ -48,7 +48,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
         meetings.verifyTransactionType(transactionType);
-    } )
+      })
 
 
     it("Create New Refinance Meeting ",()=>{
@@ -83,7 +83,8 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
         meetings.verifyTransactionType(transactionType);
-    } )
+     } )
+
 
     it("Create New Equity Meeting ",()=>{
 
@@ -199,7 +200,7 @@ describe("Meetings/Closings test cases" , ()=>{
     })
 
 
-    it.only("Upload document to a meeting",()=>{
+    it("Upload document to a meeting",()=>{
 
         var document="title_exam (4).pdf"
 
@@ -212,6 +213,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyPopupMessage("Documents uploaded!")
         meetings.verifyAddedDocumentName(document);
     })
+
 
     it("Add attendee to the Meeting",()=>{
 

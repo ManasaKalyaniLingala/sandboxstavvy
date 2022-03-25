@@ -10,13 +10,13 @@ const users=new Users()
 describe('Users test cases',()=>{
 
 
-   it.only("Get users",()=>{
+   it("Get users",()=>{
 
     users.getUsers();
     users.verifyUsersList()
    })
 
-    it.only("Verify inviting a new User",()=>{
+    it("Verify inviting a new User",()=>{
 
         var email=faker.internet.email();
         var firstName=faker.name.firstName();
