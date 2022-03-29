@@ -118,7 +118,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
         meetings.verifyTransactionType(transactionType);
-    } )
+     })
 
     it("Create New modification Meeting ",()=>{
 
@@ -152,7 +152,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
         meetings.verifyTransactionType(transactionType);
-    } )
+     })
 
 
     it("Navigated to closing details page", () =>{
@@ -164,7 +164,7 @@ describe("Meetings/Closings test cases" , ()=>{
 
         //verify fileId
         meetings.verifyFileIdInMeetingDetailsPage();
-    })
+     })
     
 
     it("Navigating to scheduled meetings page", ()=>{
@@ -175,7 +175,7 @@ describe("Meetings/Closings test cases" , ()=>{
         //Verify Scheduled meeitngs page
         meetings.verifyNavigatedToScheduledMeetings();
         meetings.verifyMeetingCardStatus(" Upcoming");
-    })
+     })
 
 
     it("Navigating to completed meetings page", ()=>{
@@ -186,7 +186,7 @@ describe("Meetings/Closings test cases" , ()=>{
         //Verify completed meetings page
         meetings.verifyNavigatedToCompletedMeetings();
         meetings.verifyMeetingCardStatus(" Completed");
-    })
+     })
 
 
     it("Navigating to Cancelled meetings page", ()=>{
@@ -197,7 +197,7 @@ describe("Meetings/Closings test cases" , ()=>{
         //Verify cancelled meetings page
         meetings.verifyNavigatedToCancelledMeetings();
         meetings.verifyMeetingCardStatus(" Cancelled");
-    })
+     })
 
 
     it("Upload document to a meeting",()=>{
@@ -212,7 +212,7 @@ describe("Meetings/Closings test cases" , ()=>{
         //Verify added document.
         meetings.verifyPopupMessage("Documents uploaded!")
         meetings.verifyAddedDocumentName(document);
-    })
+     })
 
 
     it("Add attendee to the Meeting",()=>{
@@ -235,7 +235,7 @@ describe("Meetings/Closings test cases" , ()=>{
         //verify added signer.
         meetings.verifyPopupMessage("Successfully invited "+signer+" as an attendee");
         meetings.verifyAddedSigner(signerEmail);
-    })
+     })
     
     })
 

@@ -23,8 +23,8 @@ export class ESign {
     {
         cy.wait(4000);
         cy.xpath(selectors.nextBttn).click();
+        cy.wait(4000)
     }
-
     selectJustMeAndOthers()
     {
         cy.get(selectors.selectJustMeAndOthersBttn).click();
@@ -63,6 +63,12 @@ export class ESign {
     selectJustOthersOption()
     {
         cy.get(selectors.selectJustOthersBttn).click();
+    }
+
+    clickSaveAndExitButton()
+    {
+        cy.wait(4000)
+        cy.xpath(selectors.saveAndExitBttn).click();
     }
     clickOnSaveAndExitButton()
     {
@@ -161,7 +167,7 @@ export class ESign {
     }
     clickApplyExistingTemplate()
     {
-        cy.wait(5000)
+        cy.wait(7000)
         cy.get(selectors.applyExisitingTemplateBttn).should('exist').click();
     }
     clickReassignAnnotationDropdown()
@@ -194,7 +200,8 @@ export class ESign {
     }
     clickMakeChangesButton()
     {
-        cy.xpath(selectors.makeChangesBtnn).click();
+        cy.wait(3000);
+        cy.xpath(selectors.makeChangesBtnn).should('exist').click();
         cy.wait(4000);
     }
     clickCloseButton() 
@@ -229,6 +236,7 @@ export class ESign {
     clickOnPacketFromTheList(eSignpacketName)
     {
         cy.xpath('(//*[text()="'+eSignpacketName +'"])[1]').should('exist').dblclick();
+        cy.reload();
     }
     clickOnEditButtonOfSigner(mailIdOfSigner)
     {
@@ -343,6 +351,7 @@ export class ESign {
         this. clickOnUploadDocuments(documentName);
         this.selectJustMe();
         this.clickNextButton();
+        cy.wait(4000);
         this.clickNextButton();
         cy.xpath("//*[text()='Full Name']").drag('[class="react-pdf__Page"]')
         cy.wait(5000);
@@ -674,6 +683,7 @@ export class ESign {
     clickApplyButton()
     {
         cy.xpath(selectors.applyBttn).should('exist').click();
+        cy.wait(3000)
     }
 
     clickOnAnnotations()
@@ -799,5 +809,15 @@ export class ESign {
         cy.xpath(selectors.startSigningLink).should('not.exist');
         this.verifyDocumentStatusUnderDocumentName(document,status);
         this.verifyDocumentIsLoaded();
+    }
+
+    clickNextDocumentButton()
+    {
+        cy.xpath(selectors.nextDocumentBttn).should('exist').click();
+    }
+
+    clickSaveAndAddAnnotationsBttn()
+    {
+        cy.xpath(selectors.saveAndAddAnnotationsBttn).should('exist').click();
     }
    }

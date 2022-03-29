@@ -59,10 +59,10 @@ it("Create Purchase type File", ()=> {
     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-})
+ })
 
 
-it("create a refinance type file",()=>{
+it("Create a refinance type file",()=>{
 
     var fileType="Refinance";
     var loanNumber="loan"+Math.floor(Math.random()*1000);
@@ -102,10 +102,10 @@ it("create a refinance type file",()=>{
     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-})
+ })
 
 
-it("create a equity type file",()=>{
+it("Create a equity type file",()=>{
 
     var fileType="Equity";
     var loanNumber="loan"+Math.floor(Math.random()*1000);
@@ -145,7 +145,7 @@ it("create a equity type file",()=>{
     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-})
+ })
 
 
 it("Verify creating Floating Rate type Purchase file",()=>{
@@ -195,7 +195,7 @@ it("Verify creating Floating Rate type Purchase file",()=>{
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
     files.verifyRateTypeOfFile(rateType);
     
-})
+ })
 
 it("Verify creating Floating rate type Refinance file",()=>{
 
@@ -240,7 +240,7 @@ it("Verify creating Floating rate type Refinance file",()=>{
     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
     files.verifyRateTypeOfFile(rateType);
-})
+ })
 
 it("Verify creating Floating rate type Equity file",()=>{
 
@@ -285,8 +285,7 @@ it("Verify creating Floating rate type Equity file",()=>{
     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
     files.verifyRateTypeOfFile(rateType);
-})
-
+ })
 
 
 it("Verify creating file without assigning loan processor",()=>{
@@ -312,10 +311,10 @@ it("Verify creating file without assigning loan processor",()=>{
     //Verify creting file
     files.verifyContinueButtonDisabled();
     files.verifyErrorText('Select assigned user for file');
-})
+ })
 
 
-it("verify creating a file without property address",()=>{
+it("Verify creating a file without property address",()=>{
    
     var loanNumber="loan"+Math.floor(Math.random()*1000);
     var loanAmount=Math.floor(Math.random()*1000);
@@ -336,7 +335,7 @@ it("verify creating a file without property address",()=>{
     //Verify Continue button is disabled and error text
     files.verifyContinueButtonDisabled();
     files.verifyErrorText("Valid address required");
-})
+ })
 
 
 it("Verify creating file without filling Borrower details",()=>{
@@ -364,7 +363,7 @@ it("Verify creating file without filling Borrower details",()=>{
     
     //Verify created file
     files.verifyMessage("Each borrower must have a valid first and last name or valid entity name");
-})
+ })
 
 
 it("Verify creating file wihtout adding orders",()=>{
@@ -398,9 +397,10 @@ it("Verify creating file wihtout adding orders",()=>{
 
     //Verify created file
     files.verifyMessage('Please select an order');
-})
+ })
 
-it("navigate to file details page",()=>{
+
+it("Navigate to file details page",()=>{
     
     //Navigate to File page
     files.navigateToFiles();
@@ -411,10 +411,10 @@ it("navigate to file details page",()=>{
 
     //Verify file details
     files.verifyLoanNumberInDetailsPage()
-})
+ })
 
 
-it("verify listing files by no of rows",()=>{
+it("Verify listing files by no of rows",()=>{
     //Navigate to File
     files.navigateToFiles();
 
@@ -429,8 +429,8 @@ it("verify listing files by no of rows",()=>{
 
     //Verify no of rows
     files.verifyNoOfFilesInTheList(10);
+ })
 
-})
 
 it("Verify navigating to Files page and its view",()=>{
 
@@ -439,7 +439,8 @@ it("Verify navigating to Files page and its view",()=>{
 
     //Verify Files page view
     files.verifyFilesPageView();
-})
+ })
+
 
 it("Verify switching between files tabs",()=>{
 
@@ -459,8 +460,8 @@ it("Verify switching between files tabs",()=>{
     //Navigate to Favorites tab
     files.navigateToMyFavoritesFilesTab();
     files.verifyNavigatedToTab("My Favorites");
+ })
 
-})
 
 it("Verify navigating to In Progress files tab and its view",()=>{
 
@@ -475,8 +476,9 @@ it("Verify navigating to In Progress files tab and its view",()=>{
 
     //Verify In Progress tab view
     files.verifyTabView();
+ })
 
-})
+
 it("Verify navigating to My favourites files tab and its view",()=>{
 
     //Navigate to files
@@ -490,10 +492,10 @@ it("Verify navigating to My favourites files tab and its view",()=>{
 
     //Verify My Favorites page view
     files.verifyMyFavoritesTabView();
-})
+ })
 
 
-it("verify navigating to Cancelled files tab and its view",()=>{
+it("Verify navigating to Cancelled files tab and its view",()=>{
 
     //Navigate to files
     files.navigateToFiles();
@@ -506,7 +508,7 @@ it("verify navigating to Cancelled files tab and its view",()=>{
 
     //Verify Cancelled page view
     files.verifyTabView();
-})
+ })
 
 
 it("Verify navigating to Completed files tab and view",()=>{
@@ -522,7 +524,7 @@ it("Verify navigating to Completed files tab and view",()=>{
 
     //Verify Completed tab view
     files.verifyTabView();
-})
+ })
 
 
 it("Verify adding document",()=>{
@@ -539,10 +541,10 @@ it("Verify adding document",()=>{
 
     //Verify added document
     files.verifyMessage("Documents uploaded!");
-})
+ })
 
 
-it("verify updating Loan Number",()=>{
+it("Verify updating Loan Number",()=>{
 
     var fileName=faker.name.findName();
 
@@ -555,7 +557,7 @@ it("verify updating Loan Number",()=>{
 
     //Verify updated loan number
     files.verifyLoanNumber(fileName);
-})
+ })
 
 
 it("Assign closer to file",()=>{
@@ -566,9 +568,9 @@ it("Assign closer to file",()=>{
     //Assign closer
     files.navigateToFileDetailsPage();
     files.assignCloser();
-})
+ })
 
-it("assign Loan Processor",()=>{
+it("Assign Loan Processor",()=>{
 
     //Navigate to Files
     files.navigateToFiles();
@@ -609,7 +611,7 @@ it("Verify reopening archived file",()=>{
 
     //Verify reopened file
     files.verifyFileStatusInFileDetailsPage(status);
-})
+ })
 
 it("Verify adding orders in file details page",()=>{
     
@@ -634,7 +636,8 @@ it("Verify adding orders in file details page",()=>{
     //Verify added orders in details page
     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
     files.verifyAddedOrderInTheFileDetailsPage(settlementOrder,status);
-})
+ })
+
 
 it("Verify switching between Details, Messages and Documents tabs",()=>{
 
@@ -674,7 +677,7 @@ it("Verify switching between Details, Messages and Documents tabs",()=>{
     files.verifyNavigatedToTabInDetailsPage(messagesTab);
     files.verifyTabSubtitleInFileDetailsPage(messagesTab);
     files.verifyStartDiscuttionButton();
-})
+ })
 
 
 it("Verify messaging in file details page",()=>{
@@ -699,7 +702,7 @@ it("Verify messaging in file details page",()=>{
     files.verifyLastMessageInMessageThread(message);
     files.verifyMessageAuthor();
     files.verifyLastMessageInMessageList(message);
-})
+ })
 
 
 it("Verify making a file favorite or non favorite",()=>{
@@ -714,7 +717,7 @@ it("Verify making a file favorite or non favorite",()=>{
     //Make a file as Favorite or non-Favorite and then verify it
     files.verifyMakingFileAsFovoriteOrNonFavorite();
 
-})
+  })
 
 it("Verify following and unfollowing a file",()=>{
 
@@ -727,7 +730,7 @@ it("Verify following and unfollowing a file",()=>{
 
     //Following or unfollowinf a file, then verifing it
     files.followingAndUnfollowingFile()
-})
+  })
 
 it("Verify reassigning vendor for an order",()=>{
 
@@ -742,7 +745,7 @@ it("Verify reassigning vendor for an order",()=>{
 
     //Verify reassigned vendor
     files.verifyReassignedVendor();
-})
+  })
 
 
 it("Verify cancelling the order",()=>{
@@ -758,7 +761,7 @@ it("Verify cancelling the order",()=>{
 
     //Verify the status of order
     files.verifyStatusOfOrder(status)
-})
+   })
 
 
 it("Verify reopening a rejected order",()=>{
@@ -782,8 +785,9 @@ it("Verify reopening a rejected order",()=>{
 
     //Verify reopened order
     files.verifyStatusOfOrder(status2)
-})
+     })
 
+     
 it("Verify adding a closing meeting to file",()=>{
 
       var signerFirstName=faker.name.firstName();
@@ -812,7 +816,7 @@ it("Verify adding a closing meeting to file",()=>{
      files.navigateToFiles();
      files.searchTheFileandNavigateToFileDetailsPage();
      files.verifyMeetingCardDetailsInFileDetailsPage();
-})
+     })
 
 
 })
