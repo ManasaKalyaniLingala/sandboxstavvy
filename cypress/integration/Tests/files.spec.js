@@ -242,6 +242,7 @@ it("Verify creating Floating rate type Refinance file",()=>{
     files.verifyRateTypeOfFile(rateType);
  })
 
+
 it("Verify creating Floating rate type Equity file",()=>{
 
     var fileType="Equity";

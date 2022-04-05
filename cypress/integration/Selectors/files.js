@@ -80,7 +80,7 @@ export default{
     city:'[name="City"]',
     postalCode: '[name="ZIP Code"]',
     addressUnit:'[name="Unit/Apt"]', 
-    firstFileInTheList:'//tbody/tr[1]/td[2]',
+    firstFileInTheList:'//tbody/tr[2]/td[2]',
     actionsDropdown:'//button[text()="Actions"]',
     archiveFileBttn:'[title="Archive file"]',
     fileStatusInDetailsPage:'//div[@class="mb-4"]/div/text()',
@@ -127,5 +127,6 @@ export default{
     meetingCardInDetailsPage:'//div[@data-testid="meeting-card"]',
     addressInMeetingCard:'//div[@data-testid="meeting-card"]/div[2]/div/p',
     loanNumberInMeetingCard:'//div[@data-testid="meeting-card"]/div[2]/div/div[2]/div[1]/div[1]/p[2]',
+    documentDescription:'[name="other-description"]',
 
 }

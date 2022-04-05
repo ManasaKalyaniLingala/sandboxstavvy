@@ -202,9 +202,10 @@ export class Files{
     {
         cy.xpath('//div/ul/li/span')
     .then(listing => {        
-      const randomNumber = this.getRandomInt(2, listing.length-1);
+      const randomNumber = this.getRandomInt(4, listing.length-1);
       cy.log(randomNumber);
-       cy.xpath('(//div/ul/li['+randomNumber+']/span)[1]').click();     
+       cy.xpath('(//div/ul/li[last()]/span)[1]').click();   
+         
   })
     }
  
@@ -213,7 +214,7 @@ export class Files{
         cy.xpath(selectors.clickLoanProcessorDropDown).click()
      cy.xpath('//div/ul/li/span')
      .then(listing => {        
-     const randomNumber = this.getRandomInt(2, listing.length-1); 
+     const randomNumber = this.getRandomInt(2, listing.length-2); 
        cy.xpath('(//div/ul/li['+randomNumber+']/span)').click();  
   })
 }
@@ -322,6 +323,7 @@ export class Files{
     {
         cy.wait(2000);
         cy.get(selectors.favoritesTab).should('exist').click();
+        cy.wait(4000)
     }
 
     navigateToCancelledFilesTab()
@@ -359,7 +361,7 @@ export class Files{
 
     navigateToFileDetailsPage()
     {
-        this.copyFileName()
+        cy.xpath('//tbody/tr[2]/td[2]/text()').as('file name');
         cy.get('@file name').then((res)=>{
             cy.log(res.text())
         })
@@ -369,10 +371,12 @@ export class Files{
     }
     uploadDocument(document)
     {
+        var description=faker.name.findName();
         this.clickDocumentsButton();
         this.clickAddDocumentButton();
         this.attachDocument(document);
         this.selectDocumentType();
+        cy.get(selectors.documentDescription).should('exist').type(description);
     }
     clickDocumentsButton()
     {
@@ -424,8 +428,13 @@ export class Files{
     }
     selectCloserFromTheDropdown()
     {
-        cy.get(selectors.assignACloserDropDown).click();
-        this.selectVendor();
+        cy.get(selectors.assignACloserDropDown).should('exist').click();
+        cy.xpath('//div/ul/li/span')
+    .then(listing => {        
+      const randomNumber = this.getRandomInt(4, listing.length-1);
+      cy.log(randomNumber);
+       cy.xpath('(//div/ul/li['+randomNumber+']/span)[1]').click();   
+      })
     }
     clickSaveButton()
     {
@@ -449,8 +458,11 @@ export class Files{
     selectLoanProcessorFromTheDropDown()
     {
         cy.get(selectors.assignLoanProcessorDropDown).click();
-        this.selectVendor();
-       
+        cy.xpath('//div/ul/li/span')
+    .then(listing => {        
+      const randomNumber = this.getRandomInt(4, listing.length-1);
+      cy.log(randomNumber);
+       cy.xpath('(//div/ul/li['+randomNumber+']/span)[1]').click();   })
     }
     assignLoanProcessor()
     {
@@ -913,6 +925,7 @@ export class Files{
 
          cy.get(selectors.fileSearchBar).should('exist').type(res.text());
          cy.xpath('(//div[text()="'+res.text()+'"])[1]').should('exist').click();
+         cy.wait(3000)
         })
     }
 

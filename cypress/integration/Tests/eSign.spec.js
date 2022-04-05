@@ -425,7 +425,7 @@ describe("stavvy application" , ()=>{
         eSign.clickOnSaveButton();
 
         //Verify added signer
-        eSign.verifyAddedSignerInTheList(email),firstName,middleName,lastName;
+        eSign.verifyAddedSignerInTheList(email,firstName,middleName,lastName);
 
         //Send invite for added signer
         eSign.clickOnEditButtonOfSigner(email);

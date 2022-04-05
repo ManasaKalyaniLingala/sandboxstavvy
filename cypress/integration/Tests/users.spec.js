@@ -150,10 +150,10 @@ describe("Users test cases" , ()=>{
          users.verifyMessageText("User has been deleted.");
          users.searchUser(firstName);
          users.verifyDeletedUserInTheList(email);
-    })
+        })
+   
 
-
-    it("verify inviting new user with existing user's mail", ()=>{
+     it("verify inviting new user with existing user's mail", ()=>{
 
          //Navigating to Users page
          users.clickOnUsers();
@@ -166,10 +166,10 @@ describe("Users test cases" , ()=>{
          users.verifyErrorText("User already exists, please enter a different email.");
          users.verifyInviteUsersDisabled();
          users.clickOnManageUserCloseButton();
-    })
+       })
 
 
-    it("Verify inviting new user with an existing user's details",()=>{
+     it("Verify inviting new user with an existing user's details",()=>{
    
          var email = faker.internet.email().toLowerCase();
          var firstName=faker.name.firstName();
@@ -183,6 +183,12 @@ describe("Users test cases" , ()=>{
          users.clickOnInviteUser();
          users.enterUserInfo(firstName,middleName,lastName,email);
          users.clickInviteUsers();
+
+         //Verify invited user
+         users.verifyMessageText(email+" has been invited to your Stavvy account via email!");
+         users.searchUser(firstName+" "+middleName+" "+lastName);
+         users.navigateToManageUserPage(email);
+         users.clickOnManageUserCloseButton();
 
          //Invite new user with existing user details
          users.clickOnInviteUser();
