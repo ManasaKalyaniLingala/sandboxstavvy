@@ -40,7 +40,7 @@ describe("stavvy application" , ()=>{
          eSign.creatingNewESignWithJustOtherOption(packetTitle,document,firstName,middleName,lastName,email);
 
          //Verify created packet
-         eSign.refreshESignListPage();
+         eSign.reloadThePage();
          eSign.verifyPacketInTheList(packetTitle);
          eSign.verifyPacketStatusInTheList(packetTitle,status);
          eSign.clickOnPacketFromTheList(packetTitle);
@@ -67,7 +67,7 @@ describe("stavvy application" , ()=>{
          eSign.verifyPacketNameInDetailsPage(packetTitle);
          eSign.verifyPacketStatusInDetailsPage(status);
          eSign.clickOneSignLink();
-         eSign.refreshESignListPage();
+         eSign.reloadThePage();
          eSign.verifyPacketStatusInTheList(packetTitle,status);
          })
 
@@ -83,12 +83,13 @@ describe("stavvy application" , ()=>{
          eSign.creatingNewESignWithJustMeOption(packetTitle,document);
 
          //Verify created packet
-         eSign.refreshESignListPage()
+         eSign.reloadThePage()
          eSign.verifyPacketInTheList(packetTitle);
-         eSign.verifyPacketStatusInTheList(packetTitle,status);
          eSign.clickOnPacketFromTheList(packetTitle);
          eSign.verifyPacketNameInDetailsPage(packetTitle);
          eSign.verifyPacketStatusInDetailsPage(status);
+         eSign.clickOneSignLink();
+         eSign.verifyPacketStatusInTheList(packetTitle,status);
        })
 
 
@@ -134,7 +135,7 @@ describe("stavvy application" , ()=>{
 
          //Upload document
          eSign.creatingNewESignWithJustMeOption(packetTitle,document1)
-         eSign.refreshESignListPage();
+         eSign.reloadThePage();
          eSign.clickOnPacketFromTheList(packetTitle);
          eSign.clickOnAddDocument();
          eSign.clickOnUploadDocuments(document2);
@@ -225,7 +226,6 @@ describe("stavvy application" , ()=>{
         eSign.addSignerInfo(firstName,middleName,lastName,signerEmail);
 
         //Verify error text
-        eSign.verifyErrorText("Signer already exists with email address "+signerEmail);
         eSign.verifyEmailValidationError("Signer with this email address has already been added");
         eSign.verifySaveBttnIsDisabled();
        })
@@ -254,7 +254,6 @@ describe("stavvy application" , ()=>{
         eSign.addSignerInfo(firstName2,middleName2,lastName2,signerEmail);
 
         //Verify error text
-        eSign.verifyErrorText("Signer already exists with email address "+signerEmail);
         eSign.verifyEmailValidationError("Signer with this email address has already been added");
         eSign.verifySaveBttnIsDisabled();
        })
@@ -359,7 +358,7 @@ describe("stavvy application" , ()=>{
 
         //Navigate to eSign page
         eSign.creatingNewESignWithJustOtherOption(packetTitle,document,firstName,middleName,lastName,email)
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle)
 
         //Edit Signer details
@@ -444,7 +443,7 @@ describe("stavvy application" , ()=>{
 
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
         eSign.clickEditButtonOfDocument(document);
         eSign.clickRemoveDocument();
@@ -466,7 +465,7 @@ describe("stavvy application" , ()=>{
       
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickEditButtonOfDocument(document)
         eSign.clickOnEditAnnotations();
@@ -476,6 +475,7 @@ describe("stavvy application" , ()=>{
         eSign.clickBackToPacketDetailsLink();
 
         //Verify packet status
+        eSign.reloadThePage();
         eSign.verifyPacketStatusInDetailsPage(status);
         eSign.clickOneSignLink();
         eSign.verifyPacketStatusInTheList(packetTitle,status);
@@ -490,7 +490,7 @@ describe("stavvy application" , ()=>{
       
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickSignNowButton();
 
@@ -514,7 +514,7 @@ describe("stavvy application" , ()=>{
       
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
-        eSign.refreshESignListPage()
+        eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickEditButtonOfDocument(document);
         eSign.clickOnEditAnnotations();
@@ -536,7 +536,7 @@ describe("stavvy application" , ()=>{
         eSign.redirectPacketDetailsPageFromSignerPorta();
         eSign.verifyPacketStatusInDetailsPage(status);
         eSign.clickOneSignLink();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.verifyPacketStatusInTheList(packetTitle,status)
        })
 
@@ -550,7 +550,7 @@ describe("stavvy application" , ()=>{
       
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
-        eSign.refreshESignListPage()
+        eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickEditButtonOfDocument(document);
         eSign.clickOnEditAnnotations();
@@ -569,7 +569,7 @@ describe("stavvy application" , ()=>{
         eSign.redirectPacketDetailsPageFromSignerPorta();
         eSign.verifyPacketStatusInDetailsPage(status);
         eSign.clickOneSignLink();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.verifyPacketStatusInTheList(packetTitle,status)
        })
 
@@ -582,7 +582,7 @@ describe("stavvy application" , ()=>{
 
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
-        eSign.refreshESignListPage()
+        eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickEditButtonOfDocument(document);
 
@@ -604,7 +604,7 @@ describe("stavvy application" , ()=>{
 
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
-        eSign.refreshESignListPage()
+        eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickEditButtonOfDocument(document);
 
@@ -631,7 +631,7 @@ describe("stavvy application" , ()=>{
       
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
 
         //Perform signing
@@ -653,7 +653,7 @@ describe("stavvy application" , ()=>{
       
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
-        eSign.refreshESignListPage()
+        eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickEditButtonOfDocument(document);
         eSign.clickOnViewDocument();
@@ -681,13 +681,14 @@ describe("stavvy application" , ()=>{
       
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
-        eSign.refreshESignListPage()
+        eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickEditButtonOfDocument(document);
         eSign.clickOnViewDocument();
         eSign.clickAddSignersButtonInViewDocumentPage();
 
         //Add signer through view document
+        eSign.clickOnaddSignerBttn();
         eSign.addSignerInfo(firstName,middleName,lastName,email);
         eSign.clickOnSaveButton();
         eSign.clickBackToPacketDetailsLink();
@@ -704,7 +705,7 @@ describe("stavvy application" , ()=>{
       
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
-        eSign.refreshESignListPage()
+        eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickEditButtonOfDocument(document);
         eSign.clickOnViewDocument();
@@ -726,7 +727,7 @@ describe("stavvy application" , ()=>{
         var status="In progress"
       
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle)
         eSign.clickSignNowButton();
         
@@ -771,7 +772,7 @@ describe("stavvy application" , ()=>{
         eSign.clickMarkReadyForSigning();
         eSign.clickOnReviewPacketDetails();
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
 
         //Verify added signer
@@ -804,7 +805,7 @@ describe("stavvy application" , ()=>{
         eSign.clickMarkReadyForSigning();
         eSign.clickOnReviewPacketDetails();
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
 
         //Verify added signer
@@ -843,7 +844,7 @@ describe("stavvy application" , ()=>{
         eSign.clickOnReviewPacketDetails();
         eSign.clickOnSaveAndSendNow();
         eSign.clickDone();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
 
         //Verify added signer in the list
@@ -864,7 +865,7 @@ describe("stavvy application" , ()=>{
         eSign.clickOnCreateNeweSignButton();
         eSign.enterPacketTitle(packetTitle);
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
 
         //Verify created packet
         eSign.verifyPacketStatusInTheList(packetTitle,status);
@@ -888,7 +889,7 @@ describe("stavvy application" , ()=>{
         eSign.enterPacketTitle(packetTitle);
         eSign.clickOnUploadDocuments(document);
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.verifyPacketStatusInTheList(packetTitle,status);
         eSign.clickOnPacketFromTheList(packetTitle);
 
@@ -920,7 +921,7 @@ describe("stavvy application" , ()=>{
         eSign.clickNextButton();
         eSign.addSignerInfo(firstName,middleName,lastName,email);
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
 
         //Verify created packet
         eSign.verifyPacketStatusInTheList(packetTitle,status);
@@ -954,7 +955,7 @@ describe("stavvy application" , ()=>{
         eSign.addSignerInfo(firstName,middleName,lastName,email);
         eSign.clickNextButton();
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
 
         //Verify created packet
         eSign.verifyPacketStatusInTheList(packetTitle,status);
@@ -1073,13 +1074,10 @@ describe("stavvy application" , ()=>{
         eSign.addSignerInfo(firstName,middleName,lastName,email);
         eSign.clickOnaddSignerBttn();
         eSign.addSignerInfo(firstName,middleName,lastName,email);
-        eSign.clickNextButton();
+        
 
         //Verify added signers
-        eSign.verifyMessage("Error adding signers: An existing or duplicate value has already been saved.");
-        eSign.verifyEmailValidationError("Signer with this email address has already been added");
-        eSign.clickSaveAndExitButton();
-        eSign.verifyMessage("Error adding signers: An existing or duplicate value has already been saved.");
+        
         eSign.verifyEmailValidationError("Signer with this email address has already been added");
         })
 
@@ -1109,7 +1107,7 @@ describe("stavvy application" , ()=>{
         eSign.addSignerInfo(firstName,middleName,lastName,email);
         eSign.clickNextButton();
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
 
         //Verify added signer
@@ -1155,15 +1153,16 @@ describe("stavvy application" , ()=>{
         eSign.clickMarkReadyForSigning();
         eSign.clickOnReviewPacketDetails();
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
 
         //Verify added documents
-        eSign.verifyPacketStatusInTheList(packetTitle,packetStatus);
         eSign.clickOnPacketFromTheList(packetTitle);
         eSign.verifyPacketStatusInDetailsPage(packetStatus);
         eSign.verifyDocumentStatusInList(document1,documentStatus);
         eSign.verifyDocumentStatusInList(document2,documentStatus);
         eSign.verifyDocumentStatusInList(document3,documentStatus);
+        eSign.clickOneSignLink();
+        eSign.verifyPacketStatusInTheList(packetTitle,packetStatus);
       })
 
 
@@ -1191,13 +1190,8 @@ describe("stavvy application" , ()=>{
         eSign.addSignerInfo(firstName1,middleName1,lastName1,email);
         eSign.clickOnaddSignerBttn();
         eSign.addSignerInfo(firstName2,middleName2,lastName2,email);
-        eSign.clickNextButton();
 
         //Verify added signers
-        eSign.verifyMessage("Error adding signers: An existing or duplicate value has already been saved.");
-        eSign.verifyEmailValidationError("Signer with this email address has already been added");
-        eSign.clickSaveAndExitButton();
-        eSign.verifyMessage("Error adding signers: An existing or duplicate value has already been saved.");
         eSign.verifyEmailValidationError("Signer with this email address has already been added");
        })
 
@@ -1225,7 +1219,7 @@ describe("stavvy application" , ()=>{
         eSign.clickOnaddSignerBttn();
         eSign.addSignerInfo(firstName,middleName,lastName,email2);
         eSign.clickOnSaveAndExitButton();
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
 
         //Verify added signers
@@ -1245,7 +1239,7 @@ describe("stavvy application" , ()=>{
 
         //Create new eSign packet
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
-        eSign.refreshESignListPage();
+        eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
         eSign.clickOnAddSignerButton();
         eSign.addSignerInfo(firstName,middleName,lastName,email);

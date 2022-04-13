@@ -614,7 +614,7 @@ it("Verify reopening archived file",()=>{
     files.verifyFileStatusInFileDetailsPage(status);
  })
 
-it("Verify adding orders in file details page",()=>{
+it.skip("Verify adding orders in file details page",()=>{
     
     var status="Pending";
     var foreclosureOrder="Foreclosure";
@@ -720,19 +720,6 @@ it("Verify making a file favorite or non favorite",()=>{
 
   })
 
-it("Verify following and unfollowing a file",()=>{
-
-    //Navigate to files
-    files.navigateToFiles();
-    files.clickNameSorting();
-
-    //Navigate to File details page
-    files.navigateToFileDetailsPage();
-
-    //Following or unfollowinf a file, then verifing it
-    files.followingAndUnfollowingFile()
-  })
-
 it("Verify reassigning vendor for an order",()=>{
 
     //Create a file
@@ -786,37 +773,6 @@ it("Verify reopening a rejected order",()=>{
 
     //Verify reopened order
     files.verifyStatusOfOrder(status2)
-     })
-
-     
-it("Verify adding a closing meeting to file",()=>{
-
-      var signerFirstName=faker.name.firstName();
-      var signerMiddleName=faker.name.middleName();
-      var signerLastName=faker.name.lastName();
-      var signerPhone=faker.phone.phoneNumber();
-      var email=faker.internet.email();
-      var transactionType="Purchase";
-
-     //Navigate to files
-     files.createAFile();
-     files.copyAddressInFileDetailsPage();
-     files.copyTheLoanNumberInFileDetailsPage();
-     files.clickAddClosingMeetingButton();
-
-     meetings.enterMeetingInfo();
-     meetings.selectHost();
-     meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,email); 
-     meetings.clickOnCreateClosing();
-
-     //Verify created closing meeting
-     meetings.verifyPopupMessage('Created meeting!');
-     meetings.verifyNavigatedToClosingDetailsPage();
-     files.verifyAddressInMeetingDetailsPage();
-     meetings.verifyTransactionType(transactionType);
-     files.navigateToFiles();
-     files.searchTheFileandNavigateToFileDetailsPage();
-     files.verifyMeetingCardDetailsInFileDetailsPage();
      })
 
 

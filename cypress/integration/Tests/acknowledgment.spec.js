@@ -12,10 +12,10 @@ describe("Acknowledgment test cases" , ()=>{
 
         login.navigateToUrl();
         login.loginToApplication();
-     })
+    })
 
 
-     it("Verify approving without acknowledgment",()=>{
+    it("Verify approving without acknowledgment",()=>{
 
          var text="Approved";
          var status="Complete";
@@ -34,10 +34,10 @@ describe("Acknowledgment test cases" , ()=>{
          acknowledgment.clickBackToInboxButton();
          acknowledgment.clickOnCompleteTab();
          acknowledgment.verifyDocumentAndItsStatusInTheCompleteTabList(status);
-     })
+        })
 
 
-     it("Verify rejecting document",()=>{
+    it("Verify rejecting document",()=>{
 
          var status="Rejected";
 
@@ -58,7 +58,7 @@ describe("Acknowledgment test cases" , ()=>{
      })
 
 
-     it("Verify moving document from Initial Review to Acknowledge tab by selecting Approve - Acknowledgement Required in Quality control",()=>{
+    it("Verify moving document from Initial Review to Acknowledge tab by selecting Approve - Acknowledgement Required in Quality control",()=>{
             
         //Navigating to Acknowledgement page
         acknowledgment.navigateToAcknowledgementPage();
@@ -78,7 +78,7 @@ describe("Acknowledgment test cases" , ()=>{
      })
 
 
-     it("Verify Viewing completed document",()=>{
+    it("Verify Viewing completed document",()=>{
 
          var status="Completed";
          var text="Approved";
@@ -95,7 +95,7 @@ describe("Acknowledgment test cases" , ()=>{
      })
 
 
-     it("Verify viewing rejected document",()=>{
+    it("Verify viewing rejected document",()=>{
 
          var status="Rejected";
          var text ="Rejected";
@@ -111,7 +111,7 @@ describe("Acknowledgment test cases" , ()=>{
      })
 
 
-     it("Verify navigating to Acknowledgement Inbox page and its view",()=>{
+    it("Verify navigating to Acknowledgement Inbox page and its view",()=>{
 
         var heading="Acknowledgement";
 
@@ -130,7 +130,7 @@ describe("Acknowledgment test cases" , ()=>{
      })
 
 
-     it("Verify Navigating to Acknowledgement Mettings page and its view",()=>{
+    it("Verify Navigating to Acknowledgement Mettings page and its view",()=>{
         
         var heading="Acknowledgement Meetings";
 
@@ -143,10 +143,10 @@ describe("Acknowledgment test cases" , ()=>{
         //Verify Inbox page view
         acknowledgment.verifyPageHeading(heading);
         acknowledgment.verifyDocumentListExists();
-     })
+      })
 
 
-     it("Verify navigating to Archived acknowledgements page and its view",()=>{
+    it("Verify navigating to Archived acknowledgements page and its view",()=>{
          
         var heading="Acknowledgement";
         var tabHeading="Archived";
@@ -164,5 +164,11 @@ describe("Acknowledgment test cases" , ()=>{
         acknowledgment.verifySearchDocuments();
         acknowledgment.verifyNoOfRowsPerPageDropDown();
      })
+
+
+    it("Verify archiving 'initial review' document",()=>{
+
+        
+    })
      
     })

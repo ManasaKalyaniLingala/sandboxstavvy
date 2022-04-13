@@ -1,5 +1,5 @@
 import selectors from "../Selectors/meetings"
-
+const { faker } = require('@faker-js/faker')
 export class Meetings {
 
     getRandomInt(min, max){      
@@ -277,9 +277,14 @@ export class Meetings {
    {
        cy.xpath(selectors.addAttendeeBttnInMeetingInfoPage).click();
    }
-   verifyAddedSigner(attendeeEmail)
+   verifyAddedSigner(attendeeEmail1)
    {
-       cy.xpath(selectors.addedAttendeeEmail).should('have.text',attendeeEmail)
+       cy.xpath(selectors.addedAttendeeEmail).should('contain.text',attendeeEmail1);
+   }
+   verifyEditedSigner(attendeeEmail1,attendeeEmail2)
+   {
+       cy.xpath(selectors.addedAttendeeEmail).should('contain.text',attendeeEmail1)
+       cy.xpath(selectors.addedAttendeeEmail).should('not.have.text',attendeeEmail2)
    }
 
    verifyTransactionType(transaction)
@@ -301,4 +306,128 @@ clickMeeting(fileId)
 {
     cy.contains(fileId).click();
 }
+
+selectObserverAttendeeType()
+{
+    cy.get(selectors.selectAttendeeTypeDropdown).should('exist').click();
+    cy.get(selectors.observerAttendeeType).should('exist').click();
 }
+
+verifyAttendeeType(email,attendeeType)
+{
+    cy.xpath('//tr/td[text()="'+email+'"]/../td[2]').should('contain.text',attendeeType)
+}
+
+createMeeting()
+{
+        var fileId = "file"+Math.floor(Math.random()*1000);
+        var propertyAddress=1+Math.floor(Math.random())*100;
+        var streetName=faker.address.streetName();
+        var streetNumber=propertyAddress;
+        var city=faker.address.cityName();
+        var postalCode=faker.address.zipCode();
+        var signerFirstName=faker.name.firstName();
+        var signerMiddleName=faker.name.middleName();
+        var signerLastName=faker.name.lastName();
+        var signerPhone=faker.phone.phoneNumber();
+        var email=faker.internet.email();
+        
+
+
+        //creating meeting
+        this.clickOnCreateMeeting();
+        this.clickOnPurchaseType();
+        this.enterFileNumber(fileId);
+        this.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
+        this.enterMeetingInfo();
+        this.selectHost();
+        this.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,email); 
+        this.clickOnCreateClosing();
+        cy.wait(5000)
+}
+
+clickEditButtonOfSigner(signerEmail)
+{
+    cy.xpath('//tr/td[text()="'+signerEmail+'"]/following-sibling::td/div/div/div').should('exist').click();
+}
+
+clickOnEdit()
+{
+    cy.xpath(selectors.editBttn).should('exist').click();
+}
+
+editFirstName(firstName)
+{
+    cy.get(selectors.firstNameInEditSigner).should('exist').clear().type(firstName)
+}
+
+editMiddleName(middleName)
+{
+    cy.get(selectors.middleNameInEditSigner).should('exist').clear().type(middleName)
+}
+
+editLasttName(lastName)
+{
+    cy.get(selectors.lastNameInEditSigner).should('exist').clear().type(lastName)
+}
+
+editEmail(email)
+{
+    cy.get(selectors.emailInEditSigner).should('exist').clear().type(email)
+}
+
+editSignerDetails(firstName,middleName,lastName,email)
+{
+   this.editFirstName(firstName);
+   this.editMiddleName(middleName);
+   this.editLasttName(lastName);
+   this.editEmail(email);
+}
+
+clickTheSaveButton()
+{
+    cy.xpath(selectors.saveButton).should('exist').click();
+}
+
+verifyAddedAttendeeName(signerName1)
+{
+    cy.xpath(selectors.addedAttendeeName).should('contain.text',signerName1);
+}
+
+verifyEditedAttendeeName(signerName1,signerName2)
+{
+    cy.xpath(selectors.addedAttendeeName).should('contain.text',signerName1);
+    cy.xpath(selectors.addedAttendeeName).should('not.have.text',signerName2);
+}
+
+clickTheResendInviteButton()
+{
+    cy.xpath(selectors.resendInviteBttn).should('exist').click();
+}
+
+clickTheMoreActionsDropdown()
+{
+    cy.xpath(selectors.moreActionsBttn).should('exist').click();
+}
+
+clicktheCancelButton()
+{
+    cy.xpath(selectors.cancelBttn).should('exist').click();
+}
+
+verifyMeetingCardStatusInMeetingDetailsPage(status)
+{
+    cy.xpath(selectors.meetingCardStatusInMeetingDetailsPage).should('have.text',status);
+}
+
+verifyJoinButtonIsRemoved()
+{
+    cy.xpath(selectors.joinButton).should('not.exist');
+}
+
+verifyCreateClosingButtonIsDisabled()
+{
+    cy.get(selectors.createClosingBttn).should('be.disabled')
+}
+}
+

@@ -51,6 +51,8 @@ export class ESign {
     clickUploadButton()
     {
         cy.xpath(selectors.uploadButton).should('exist').click();
+        cy.wait(5000);
+        this.reloadThePage();
     }
     selectJustMeOption()
     {
@@ -91,6 +93,7 @@ export class ESign {
     clickOnAddSignerButton()
     {
         cy.xpath(selectors.addSignerButton).click();
+        this.clickOnaddSignerBttn();
     }
     addSignerInfo(firstName,middleName,lastName,email)
     {
@@ -294,6 +297,8 @@ export class ESign {
     {
        cy.xpath(selectors.removeDocument).click();
        cy.xpath(selectors.removeDocumentBttn).click();
+       cy.wait(3000);
+       this.reloadThePage();
     }
 
     clickOnSaveButton()
@@ -336,7 +341,7 @@ export class ESign {
 
             var packetTitle=$res.text();
             this.clickOneSignLink();
-            this.refreshESignListPage();
+            this.reloadThePage();
             this.searcPacket(packetTitle);
             cy.wait(3000);
             this.verifyPacketStatusInTheList(packetTitle,status);
@@ -381,7 +386,7 @@ export class ESign {
         this.clickDone();
      }
 
-    refreshESignListPage()
+    reloadThePage()
     {
         cy.reload();
         cy.wait(3000)
@@ -397,8 +402,7 @@ export class ESign {
         cy.wait(1000)
         this.selectJustMeAndOthers();
         this.clickNextButton();
-        cy.wait(1000)
-        //this.clickOnAddSignerButton();
+        cy.wait(1000);
         this.clickOnaddSignerBttn();
         this.addSignerInfo(firstName,middleName,lastName,email);
         this.clickNextButton();
@@ -815,9 +819,9 @@ export class ESign {
     {
         cy.xpath(selectors.nextDocumentBttn).should('exist').click();
     }
-
     clickSaveAndAddAnnotationsBttn()
     {
         cy.xpath(selectors.saveAndAddAnnotationsBttn).should('exist').click();
     }
+    
    }

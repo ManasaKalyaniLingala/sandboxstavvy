@@ -8,38 +8,38 @@ const header=new Header();
 
 describe("Header test cases" , ()=>{
 
-    beforeEach("Login as valid user",()=>{ 
+      beforeEach("Login as valid user",()=>{ 
 
         //Login to stavvy
         login.navigateToUrl();
         login.loginToApplication();
-     })
+       })
 
      it("Verify Header view",()=>{
 
         //Verify Header view
         header.verifyHeaderView();
-     })
+       })
 
-     it("Verify Notifications bar view",()=>{
+      it("Verify Notifications bar view",()=>{
 
         //Click Notifications icon
         header.clickNotificationsButton();
 
         //Verify notification dropdown
         header.verifyNoticationsDropDown();
-     })
+       })
 
-     it("Verify Profile dropdown view",()=>{
+      it("Verify Profile dropdown view",()=>{
 
         //Click profile
         header.clickProfileButton();
 
         //Verify profile dropdown
         header.verifyProfileDropdownList();
-     })
+       })
 
-     it("Verify Settings button in profile",()=>{
+      it("Verify Settings button in profile",()=>{
 
         //Click profile
         header.clickProfileButton();
@@ -49,9 +49,9 @@ describe("Header test cases" , ()=>{
 
         //Verify settings button
         header.verifyNavigatedToSettingsPage();
-     })
+       })
 
-     it("Verify signing out",()=>{
+      it("Verify signing out",()=>{
 
         //Click profile
         header.clickProfileButton();
@@ -61,15 +61,15 @@ describe("Header test cases" , ()=>{
 
         //Verify Signed out
         login.verifyLoginPageView();
-     })
+       })
 
-     it("Verify help button",()=>{
+       it("Verify help button",()=>{
 
         //Hover over help button
         header.hoverOverHelpButton();
 
         //Verify help buton text
         header.verifyHelpButtonText();
-     })
+       })
 
     })

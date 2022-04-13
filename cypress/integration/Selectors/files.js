@@ -99,7 +99,7 @@ export default{
     detailsTabFileDetail:'[title="Select Details tab"]',
     subjectLine:'[placeholder="Subject Line"]',
     messageBody:'[placeholder="Message Body"]',
-    sendButtonInBeginDiscussion:'//div[@class="stavviz-button-row text-center"]/button[text()="Send"]',
+    sendButtonInBeginDiscussion:'//button[text()="Send"]',
     vendorNameInMessageThread:'(//span[@class="thread-vendor"]/text())[1]',
     subjectInMessageThread:'(//div[@class="subject"]/text())[1]',
     lastMessage:'(//div[@class="last-message"]/text())[1]',

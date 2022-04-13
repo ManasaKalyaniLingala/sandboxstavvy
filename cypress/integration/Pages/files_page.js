@@ -863,7 +863,8 @@ export class Files{
     {
     var loanNumber="loan"+Math.floor(Math.random()*1000);
     var loanAmount=Math.floor(Math.random()*1000);
-    var address=1+Math.floor(Math.random())*100;
+    var address=100+Math.floor(Math.random())*100;
+    var addressUnit=1+Math.floor(Math.random())*100;
     var purchaseAmount=Math.floor(Math.random()*1000);
     var streetName=faker.address.streetName();
     var streetNumber=address;
@@ -882,6 +883,7 @@ export class Files{
     this.clickCreateFileButton();
     this.clickPurchaseType();
     this.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+    cy.get('[name="Unit/Apt"]').clear().type(addressUnit)
     this.selectLoanProcessor();
     this.enterPurchasePrice(purchaseAmount);
     this.clickContinueButton();
