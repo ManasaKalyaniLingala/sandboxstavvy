@@ -695,7 +695,7 @@ export class ESign {
         cy.xpath("(//div[@data-rnd-annotation-type='SIGNATURE']//div)[1]").should('exist').dblclick();
         cy.xpath('//button').then((res)=>{
              cy.log(res.text())
-            if(res.text().includes('Use this signature'))
+            if(res.text().includes('Confirm & begin signing'))
             {
                 this.clickUseThisSignature();
             }

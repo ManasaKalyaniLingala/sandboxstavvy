@@ -9,39 +9,72 @@ export class Meetings {
     {
         cy.xpath(selectors.meetingsLink).click();
     }
+
     clickOnCreateMeeting()
     {
         cy.get(selectors.createMeetingBttn).click();
+    }
 
-        cy.xpath(selectors.createNewPageText).then((res)=>{
-            if(res.text().includes('Closing Meeting'))
+    clickTheClosingMeetingButton()
+    {
+        cy.xpath(selectors.closingMeetingBttn).should('exist').click();
+    }
+
+    clickTheSigningMeetingButton()
+    {
+        cy.xpath(selectors.signingMeetingBttn).should('exist').click();
+    }
+
+    clickTheMeetingTypeDropdown()
+    {
+        cy.xpath('//label').then((res)=>{
+            if(res.text().includes('Meeting Type'))
             {
-                cy.xpath(selectors.closingMeetingBttn).should('exist').click();
-            }  
+                cy.get(selectors.meetingType).should('exist').click();
+            }
+        
         })
     }
 
     clickOnPurchaseType()
     {
+        this.clickTheMeetingTypeDropdown();
         cy.xpath(selectors.purchaseTypeBttn).click();
     }
 
     clickOnRefinanceType()
     {
+        this.clickTheMeetingTypeDropdown();
         cy.xpath(selectors.refinanceTypeBtnn).click();
     }
  
     clickOnEquityType()
     {
+        this.clickTheMeetingTypeDropdown();
         cy.xpath(selectors.equityTypeBtnn).click();
     }
+
     clickOnModificationType()
     {
+        this.clickTheMeetingTypeDropdown();
         cy.xpath(selectors.modificationTypeBtnn).click();
     }
+
     enterFileNumber(fileNumber)
     {
         cy.get(selectors.fileNumberTxBx).type(fileNumber);
+    }
+
+    clickTheNextBttn()
+    {
+        cy.xpath('//button').then((res)=>{
+         
+        if(res.text().includes('Next'))
+        {
+            cy.xpath(selectors.nextBttn).should('exist').click();
+            cy.wait(4000)
+        }
+        })
     }
 
     selectPropertyAddress(address,streetNumber,streetName,city,postalCode)
@@ -118,11 +151,22 @@ export class Meetings {
 
     enterSignerInfo(firstName,middleName,lastName,phoneNumber,email)
     {
+        this.clickTheNextBttn();
         this.enterFirstName(firstName);
         this.enterMiddleName(middleName);
         this.enterLastName(lastName);
         this.enterPhoneNumber(phoneNumber);
         this.enterEmail(email);
+    }
+
+    addAttendeeToTheMeeting(firstName,middleName,lastName,email,phoneNumber)
+    {
+        cy.get(selectors.firstNameInAddAttendee).should('exist').type(firstName);
+        cy.get(selectors.middleNameInAddAttendee).should('exist').type(middleName);
+        cy.get(selectors.lastNameInAddAttendee).should('exist').type(lastName);
+        cy.get(selectors.emailInAddAttendee).should('exist').type(email);
+        this.enterPhoneNumber(phoneNumber)
+
     }
 
     enterFirstName(firstName)
@@ -151,7 +195,7 @@ export class Meetings {
     
     clickOnCreateClosing()
     {
-        cy.get(selectors.createClosingBttn).click();
+        cy.xpath(selectors.createClosingBttn).should('exist').click();
     }
 
     clickOnClosingsLink()
@@ -166,6 +210,12 @@ export class Meetings {
     {
         cy.xpath(selectors.firstMeetingLoanNumber).as('loan number');
     }
+
+    verifyNextButtonIsDisabled()
+    {
+        cy.xpath(selectors.nextBttn).should('be.disabled')
+    }
+
     navigatingToClosingDetailsPage()
     {
         cy.xpath(selectors.meetingCardInList).should('exist').click();
@@ -336,6 +386,7 @@ createMeeting()
 
         //creating meeting
         this.clickOnCreateMeeting();
+        this.clickTheClosingMeetingButton();
         this.clickOnPurchaseType();
         this.enterFileNumber(fileId);
         this.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
@@ -427,7 +478,17 @@ verifyJoinButtonIsRemoved()
 
 verifyCreateClosingButtonIsDisabled()
 {
-    cy.get(selectors.createClosingBttn).should('be.disabled')
+    cy.xpath(selectors.createClosingBttn).should('be.disabled')
+}
+
+verifyMeetingNameInSignigngMeetingDetailsPage(meetingName)
+{
+    cy.xpath(selectors.addressTextInMeetingDetailsPage).should('contain.text',meetingName)
+}
+
+verifyErrorText(errorText)
+{
+    cy.xpath(selectors.errorText).should('contain.text',errorText)
 }
 }
 

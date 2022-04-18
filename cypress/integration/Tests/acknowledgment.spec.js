@@ -32,7 +32,7 @@ describe("Acknowledgment test cases" , ()=>{
          acknowledgment.verifyQualityControlStatusText(text);
          acknowledgment.verifyApprovedWithNoAcknowledgememtQAText();
          acknowledgment.clickBackToInboxButton();
-         acknowledgment.clickOnCompleteTab();
+         acknowledgment.clickOnCompletePage();
          acknowledgment.verifyDocumentAndItsStatusInTheCompleteTabList(status);
         })
 
@@ -53,8 +53,8 @@ describe("Acknowledgment test cases" , ()=>{
          //Verify rejected document
          acknowledgment.verifyQualityControlStatusText(status);
          acknowledgment.clickBackToInboxButton();
-         acknowledgment.clickOnCompleteTab();
-         acknowledgment.verifyDocumentAndItsStatusInTheCompleteTabList(status)
+         acknowledgment.clickOnRejectHandlingTab();
+         acknowledgment.verifyDocumentInTheList()
      })
 
 
@@ -73,41 +73,6 @@ describe("Acknowledgment test cases" , ()=>{
         acknowledgment.verifyApprovedWithAcknowledgmentQAText();
         acknowledgment.clickBackToInboxButton();
         acknowledgment.clickOnAcknowledgeTab();
-        acknowledgment.verifyDocumentInTheList();
-        acknowledgment.verifyDocumentLastReviewedInTheList(5);
-     })
-
-
-    it("Verify Viewing completed document",()=>{
-
-         var status="Completed";
-         var text="Approved";
-
-         //Navigate to Acknowledgment page
-         acknowledgment.navigateToAcknowledgementPage();
-
-         //Viewing completed document
-         acknowledgment.clickOnCompleteTab();
-         acknowledgment.listDocumentsByStatus(status)
-         acknowledgment.clickViewOfDocument();
-         acknowledgment.verifyQualityControlStatusText(text);
-         acknowledgment.verifyApprovedWithNoAcknowledgememtQAText();
-     })
-
-
-    it("Verify viewing rejected document",()=>{
-
-         var status="Rejected";
-         var text ="Rejected";
-
-         //Navigate to Acknowledgment page
-         acknowledgment.navigateToAcknowledgementPage();
-
-         //Viewing rejected document
-         acknowledgment.clickOnCompleteTab();
-         acknowledgment.listDocumentsByStatus(status);
-         acknowledgment.clickViewOfDocument();
-         acknowledgment.verifyQualityControlStatusText(text);
      })
 
 
@@ -123,33 +88,33 @@ describe("Acknowledgment test cases" , ()=>{
         acknowledgment.verifyInitialReviewTab();
         acknowledgment.verifyAcknowledgeTab();
         acknowledgment.verifyFinalReviewTab();
-        acknowledgment.verifyCompleteTab();
+        acknowledgment.verifyRejectHandlingTab()
         acknowledgment.verifyDocumentListExists();
         acknowledgment.verifySearchDocuments();
         acknowledgment.verifyNoOfRowsPerPageDropDown();
      })
 
 
-    it("Verify Navigating to Acknowledgement Mettings page and its view",()=>{
+    it("Verify Navigating to Completed page and its view",()=>{
         
-        var heading="Acknowledgement Meetings";
+        var heading="Complete";
 
         //Navigate to acknowledgement meetings page
         acknowledgment.navigateToAcknowledgementPage();
 
         //Navigate to acknowledgement meetings page
-        acknowledgment.navigateToMeetingsPage();
+        acknowledgment.clickOnCompletePage();
 
         //Verify Inbox page view
         acknowledgment.verifyPageHeading(heading);
+        acknowledgment.verifyTabHeadingText(heading)
         acknowledgment.verifyDocumentListExists();
       })
 
 
     it("Verify navigating to Archived acknowledgements page and its view",()=>{
          
-        var heading="Acknowledgement";
-        var tabHeading="Archived";
+        var heading="Archived";
 
         //Navigate to acknowledgement meetings page
         acknowledgment.navigateToAcknowledgementPage();
@@ -159,16 +124,11 @@ describe("Acknowledgment test cases" , ()=>{
 
         //Verify Archived page view
         acknowledgment.verifyPageHeading(heading);
-        acknowledgment.verifyTabHeadingText(tabHeading);
+        acknowledgment.verifyTabHeadingText(heading);
         acknowledgment.verifyDocumentListExists();
         acknowledgment.verifySearchDocuments();
         acknowledgment.verifyNoOfRowsPerPageDropDown();
      })
 
-
-    it("Verify archiving 'initial review' document",()=>{
-
-        
-    })
      
     })

@@ -111,7 +111,7 @@ export default {
     signerDropdown:'[placeholder="Signer"]',
     applyBttn:'//button[text()="Apply"]',
     annotationsToSign:'//div[@class="cursor-pointer react-draggable"]',
-    useThisSignatureBttn:'//button[text()="Use this signature"]',
+    useThisSignatureBttn:'//button[text()="Confirm & begin signing"]',
     packetTitleInViewDocument:'//div/div[@class="subtitle mb-6"]/text()',
     documentNameInViewDocument:'//div[@class="text-sm mb-6"][1]',
     loadedDocument:'//div[@class="react-pdf__Page"]',

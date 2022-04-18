@@ -32,9 +32,19 @@ export class Acknowledgement {
         cy.wait(2000);
     }
 
+    clickOnRejectHandlingTab()
+    {
+        cy.get(selectors.rejectHandlingTab).should('exist').click();
+    }
+
     verifyInitialReviewTab()
     {
        cy.xpath(selectors.initialReviewTab).should('exist');
+    }
+
+    verifyRejectHandlingTab()
+    {
+        cy.get(selectors.rejectHandlingTab).should('exist')
     }
 
     verifyAcknowledgeTab()
@@ -53,10 +63,11 @@ export class Acknowledgement {
     }
 
     clickOnAcknowledgeTab()
-    {
+    {    
+        cy.reload();
         cy.wait(2000);
         cy.get(selectors.acknowledgeTab).click();
-        cy.wait(3000);
+        cy.wait(5000);
     }
 
     clickOnFinalReviewTab()
@@ -66,10 +77,10 @@ export class Acknowledgement {
         cy.wait(3000);
     }
 
-    clickOnCompleteTab()
+    clickOnCompletePage()
     {
         cy.wait(2000);
-        cy.get(selectors.completeTab).click();
+        cy.xpath(selectors.completePage).click();
         cy.wait(3000);
     }
 
@@ -92,6 +103,12 @@ export class Acknowledgement {
     {
         this.copyDocumentName();
         this.copyLoanNumber();
+        cy.get('@document name').then((res)=>{
+            var document=res.text();
+            cy.log(document)})
+             cy.get('@loan number').then((response)=>{
+               var  loanNumber=response.text()
+               cy.log(loanNumber);})
         cy.xpath(selectors.startQcBttnOfFirstDocument).should('exist').click();
         cy.wait(7000)
     }
@@ -135,7 +152,7 @@ export class Acknowledgement {
 
     verifyDocumentStatusInTheList(document,loanNumber,status)
     {
-        cy.xpath('//div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[3]/div/div/text()').should('have.text',status);
+        cy.xpath('//div[text()="certified_blank doc2.pdf"]/../following-sibling::td[text()="file443"]/following-sibling::td[2]/div').should('have.text',status);
     }
 
     verifyDocumentLastReviewedInTheList()
@@ -201,7 +218,6 @@ export class Acknowledgement {
           var  document=res.text();
             cy.get('@loan number').then((response)=>{
               var  loanNumber=response.text();
-        this.clickOnCompleteTab();
         this.verifyDocumentInTheList(document,loanNumber);
         this.verifyDocumentStatusInTheList(document,loanNumber,status);
             })
@@ -230,7 +246,7 @@ export class Acknowledgement {
 
     verifyTabHeadingText(tabHeading)
     {
-        cy.xpath(selectors.tabHeadingText).should('have.text',tabHeading);
+        cy.xpath(selectors.tabHeadingText).should('contain.text',tabHeading);
     }
 
     selectTheDocumentInTheList()

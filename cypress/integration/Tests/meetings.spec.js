@@ -34,6 +34,7 @@ describe("Meetings/Closings test cases" , ()=>{
 
         //creating meeting
         meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
         meetings.clickOnPurchaseType();
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
@@ -43,7 +44,6 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.clickOnCreateClosing();
 
         //verification
-        meetings.verifyPopupMessage('Created meeting!');
         meetings.verifyNavigatedToClosingDetailsPage();
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
@@ -69,6 +69,7 @@ describe("Meetings/Closings test cases" , ()=>{
 
         //creating meeting
         meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
         meetings.clickOnRefinanceType()
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
@@ -78,7 +79,6 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.clickOnCreateClosing();
 
         //verification
-        meetings.verifyPopupMessage('Created meeting!');
         meetings.verifyNavigatedToClosingDetailsPage();
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
@@ -104,6 +104,7 @@ describe("Meetings/Closings test cases" , ()=>{
 
         //creating meeting
         meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
         meetings.clickOnEquityType();
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
@@ -113,7 +114,6 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.clickOnCreateClosing();
 
         //verification
-        meetings.verifyPopupMessage('Created meeting!');
         meetings.verifyNavigatedToClosingDetailsPage();
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
@@ -138,6 +138,7 @@ describe("Meetings/Closings test cases" , ()=>{
 
         //creating meeting
         meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
         meetings.clickOnModificationType()
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
@@ -147,7 +148,6 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.clickOnCreateClosing();
 
         //verification
-        meetings.verifyPopupMessage('Created meeting!');
         meetings.verifyNavigatedToClosingDetailsPage();
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
@@ -159,11 +159,10 @@ describe("Meetings/Closings test cases" , ()=>{
         
 
         //navigating to closing details page
-        meetings.copyTheLoanNumber();
         meetings.navigatingToClosingDetailsPage();
 
         //verify fileId
-        meetings.verifyFileIdInMeetingDetailsPage();
+        meetings.verifyNavigatedToClosingDetailsPage();
      })
     
 
@@ -229,7 +228,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.navigateToScheduledMeetings();
         meetings.createMeeting();
         meetings.clickAddAttendeeButton();
-        meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,signerEmail);
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,signerEmail,signerPhone)
         meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
 
         //verify added signer.
@@ -254,7 +253,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.createMeeting();
         meetings.clickAddAttendeeButton();
         meetings.selectObserverAttendeeType();
-        meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,signerEmail);
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,signerEmail,signerPhone)
         meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
 
         //verify added signer.
@@ -262,6 +261,39 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyAddedSigner(signerEmail);
         meetings.verifyAttendeeType(signerEmail,attendeeType);
       })
+
+
+    it("Verify adding attendee with an existing attendee details",()=>{
+
+        var signerFirstName=faker.name.firstName();
+        var signerMiddleName=faker.name.middleName();
+        var signerLastName=faker.name.lastName();
+        var signerPhone=faker.phone.phoneNumber();
+        var signerEmail="testuser"+Math.floor(Math.random()*1000)+"@gamil.com";
+        var signer=signerFirstName+" "+signerLastName;
+        var attendeeType="Signer";
+
+
+        //Adding attendee
+        meetings.navigateToScheduledMeetings();
+        meetings.createMeeting();
+        meetings.clickAddAttendeeButton();
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,signerEmail,signerPhone)
+        meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
+
+        //verify added signer.
+        meetings.verifyPopupMessage("Successfully invited "+signer+" as an attendee");
+        meetings.verifyAddedSigner(signerEmail);
+        meetings.verifyAttendeeType(signerEmail,attendeeType);
+
+        //Adding existing attendee
+        meetings.clickAddAttendeeButton();
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,signerEmail,signerPhone)
+        meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
+
+        //Verify error message
+        meetings.verifyErrorText(signerEmail+" has already been invited to this meeting.")
+    })
 
 
     it("Verify editing signer details",()=>{
@@ -282,7 +314,7 @@ describe("Meetings/Closings test cases" , ()=>{
 
         //Adding attendee
         meetings.clickAddAttendeeButton();
-        meetings.enterSignerInfo(signerFirstName1,signerMiddleName1,signerLastName1,signerPhone1,signerEmail1);
+        meetings.addAttendeeToTheMeeting(signerFirstName1,signerMiddleName1,signerLastName1,signerEmail1,signerPhone1)
         meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
         meetings.verifyAddedSigner(signerEmail1);
         meetings.clickEditButtonOfSigner(signerEmail1);
@@ -294,6 +326,49 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyEditedSigner(signerEmail2,signerEmail1);
         meetings.verifyEditedAttendeeName(signerFirstName2+" "+signerMiddleName2+" "+signerLastName2,signerFirstName1+" "+signerMiddleName1+" "+signerLastName1);
        })
+
+
+    it.only("Verify editing signer details with an existing signer details",()=>{
+
+        var signerFirstName1=faker.name.firstName();
+        var signerMiddleName1=faker.name.middleName();
+        var signerLastName1=faker.name.lastName();
+        var signerPhone1=faker.phone.phoneNumber();
+        var signerEmail1=faker.internet.email().toLowerCase();
+        var signerFirstName2=faker.name.firstName();
+        var signerMiddleName2=faker.name.middleName();
+        var signerLastName2=faker.name.lastName();
+        var signerEmail2=faker.internet.email().toLowerCase();
+        var signerPhone2=faker.phone.phoneNumber();
+
+
+        //Create a new Closing meeting
+        meetings.createMeeting();
+
+        //Adding attendee
+        meetings.clickAddAttendeeButton();
+        meetings.addAttendeeToTheMeeting(signerFirstName1,signerMiddleName1,signerLastName1,signerEmail1,signerPhone1)
+        meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
+
+        //Verify added signer
+        meetings.verifyAddedSigner(signerEmail1);
+
+        //Adding attendee
+        meetings.clickAddAttendeeButton();
+        meetings.addAttendeeToTheMeeting(signerFirstName2,signerMiddleName2,signerLastName2,signerEmail2,signerPhone2)
+        meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
+
+        //Verify added signer
+        meetings.verifyAddedSigner(signerEmail2);
+
+        //Edit the signer details with existing signer details
+        meetings.clickEditButtonOfSigner(signerEmail1);
+        meetings.clickOnEdit();
+        meetings.editSignerDetails(signerFirstName2,signerMiddleName2,signerLastName2,signerEmail2);
+
+        //verify edited signer.
+        meetings.verifyErrorText("Signer cannot have the same email as another signer or an observer.")
+    })
 
 
     it("Verify resending invite to signer",()=>{
@@ -309,7 +384,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.navigateToScheduledMeetings();
         meetings.createMeeting();
         meetings.clickAddAttendeeButton();
-        meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,signerEmail);
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,signerEmail,signerPhone)
         meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
         meetings.clickEditButtonOfSigner(signerEmail);
         meetings.clickTheResendInviteButton();
@@ -347,14 +422,16 @@ describe("Meetings/Closings test cases" , ()=>{
 
         //creating meeting
         meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
         meetings.clickOnPurchaseType();
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
         meetings.enterMeetingInfo();
         meetings.selectHost();
+        meetings.clickTheNextBttn()
 
         //Verify create closing button is disabled
-        meetings.verifyCreateClosingButtonIsDisabled()
+        meetings.verifyCreateClosingButtonIsDisabled();
      })
 
     
@@ -366,21 +443,16 @@ describe("Meetings/Closings test cases" , ()=>{
         var streetNumber=propertyAddress;
         var city=faker.address.cityName();
         var postalCode=faker.address.zipCode();
-        var signerFirstName=faker.name.firstName();
-        var signerMiddleName=faker.name.middleName();
-        var signerLastName=faker.name.lastName();
-        var signerPhone=faker.phone.phoneNumber();
-        var email=faker.internet.email();
-
+    
 
         //creating meeting
         meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
         meetings.clickOnPurchaseType();
         meetings.enterFileNumber(fileId);
         meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
         meetings.enterMeetingInfo();
-        meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,email);
-        meetings.verifyCreateClosingButtonIsDisabled();
+        meetings.verifyNextButtonIsDisabled();
      })
 
 
@@ -392,23 +464,43 @@ describe("Meetings/Closings test cases" , ()=>{
         var streetNumber=propertyAddress;
         var city=faker.address.cityName();
         var postalCode=faker.address.zipCode();
+       
+        //creating meeting
+        meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
+        meetings.clickOnPurchaseType();
+        meetings.enterFileNumber(fileId);
+        meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
+        meetings.selectHost();
+
+        //Verify create closing button is disabled
+        meetings.verifyNextButtonIsDisabled();
+      })
+     
+
+    it("Verify creating signing meeting",()=>{
+
+        var fileId = "file"+Math.floor(Math.random()*1000);
         var signerFirstName=faker.name.firstName();
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
         var email=faker.internet.email();
 
+
         //creating meeting
         meetings.clickOnCreateMeeting();
-        meetings.clickOnPurchaseType();
+        meetings.clickTheSigningMeetingButton();
         meetings.enterFileNumber(fileId);
-        meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
+        meetings.enterMeetingInfo();
         meetings.selectHost();
-        meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,email);
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,email,signerPhone); 
+        meetings.clickOnCreateClosing();
 
-        //Verify create closing button is disabled
-        meetings.verifyCreateClosingButtonIsDisabled();
-      })
-     
+        //verification
+        meetings.verifyNavigatedToClosingDetailsPage();
+        meetings.verifyMeetingNameInSignigngMeetingDetailsPage(fileId)
+
+       })
     })
 

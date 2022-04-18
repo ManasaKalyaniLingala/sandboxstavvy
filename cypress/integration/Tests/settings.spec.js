@@ -178,7 +178,7 @@ describe("Settings test cases" , ()=>{
 
         var length='3';
         var EligibleDocumentsTransaction ="Eligible Documents";
-        var meetingsTransaction="Meetings";
+        var completeTransaction="Complete";
         var inboxTransaction="Inbox";
         var archivedTransaction="Archived";
 
@@ -195,8 +195,8 @@ describe("Settings test cases" , ()=>{
         settings.navigateToAcknowledgementPage();
         settings.verifyAcknowledgementTransactionListLength(length);
         settings.verifyQualityControlTransactionInTheList(inboxTransaction);
-        settings.verifyQualityControlTransactionInTheList(meetingsTransaction);
+        settings.verifyQualityControlTransactionInTheList(completeTransaction);
         settings.verifyQualityControlTransactionInTheList(archivedTransaction);
         settings.verifyQualityControlTransactionNotInTheList(EligibleDocumentsTransaction);
-     })
+       })
     })
