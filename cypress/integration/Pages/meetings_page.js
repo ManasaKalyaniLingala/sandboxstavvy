@@ -161,10 +161,10 @@ export class Meetings {
 
     addAttendeeToTheMeeting(firstName,middleName,lastName,email,phoneNumber)
     {
-        cy.get(selectors.firstNameInAddAttendee).should('exist').type(firstName);
-        cy.get(selectors.middleNameInAddAttendee).should('exist').type(middleName);
-        cy.get(selectors.lastNameInAddAttendee).should('exist').type(lastName);
-        cy.get(selectors.emailInAddAttendee).should('exist').type(email);
+        cy.xpath(selectors.firstNameInAddAttendee).should('exist').type(firstName);
+        cy.xpath(selectors.middleNameInAddAttendee).should('exist').type(middleName);
+        cy.xpath(selectors.lastNameInAddAttendee).should('exist').type(lastName);
+        cy.xpath(selectors.emailInAddAttendee).should('exist').type(email);
         this.enterPhoneNumber(phoneNumber)
 
     }
@@ -185,7 +185,7 @@ export class Meetings {
 
     enterPhoneNumber(phoneNumber)
     {
-        cy.get(selectors.phoneNumberTxtbx).type(phoneNumber);
+        cy.xpath(selectors.phoneNumberTxtbx).type(phoneNumber);
     }
 
     enterEmail(email)
@@ -490,5 +490,125 @@ verifyErrorText(errorText)
 {
     cy.xpath(selectors.errorText).should('contain.text',errorText)
 }
+
+clickTheAddObserverButton()
+{
+    cy.xpath(selectors.addObserverBttn).should('exist').click();
+}
+
+clickPrepareForEsigningLink()
+{
+    cy.xpath(selectors.prepareForEsigningLink).should('exist').click();
+}
+
+addAnnotation()
+{
+    cy.xpath("//*[text()='Full Name']").drag('[class="react-pdf__Page"]');
+    cy.wait(4000)
+}
+
+addSignatureAnnotation()
+{
+    cy.get('[data-testid="annotation-Signature"]').drag('[class="react-pdf__Page"]',{target: { position: 'left' }})
+    cy.wait(2000);
+}
+
+clickMarkReadyForSigning()
+{
+    cy.xpath(selectors.markReadyForSigningBttn).should('exist').dblclick();
+    cy.wait(5000);
+}
+
+clickBackToMeetingDetailsLink()
+{
+    cy.xpath(selectors.backToMeetingDetailsLink).should('exist').click();
+}
+
+verifyDocumentStatusInEditDocumentPage(status)
+{
+    cy.xpath(selectors.documentStatusInEditDocumentPage).should('have.text',status)
+}
+
+verifyDocumentStatusInMeetingDetailsPage(document,status)
+{
+    cy.xpath('//tbody/tr/td/div/div[text()="'+document+'"]/../../following-sibling::td[2]/div/text()').should('have.text',status)
+}
+
+clickEditDocumentLink()
+{
+    cy.xpath(selectors.editDocumentLink).should('exist').click();
+}
+
+clickMakeChangesButton()
+{
+    cy.xpath(selectors.makeChangesBttn).should('exist').click();
+}
+
+verifyAddedSignatureAnnotation()
+{
+    cy.xpath("(//div[@data-rnd-annotation-type='SIGNATURE']//div)[1]").should('exist');
+}
+
+verifyEmailValidationErrorMessage(errorText)
+{
+    cy.get(selectors.emailValidationErrorMessage).should('have.text',errorText)
+}
+
+clickAddExternalNotary()
+{
+    cy.xpath(selectors.addExternalNotaryBttn).should('exist').click();
+}
+
+enterNotaryEmail(email)
+{
+    cy.get(selectors.notaryEmail).should('exist').type(email);
+}
+
+clickAddNotaryButton()
+{
+    cy.xpath(selectors.addNotaryBttn).should('exist').click();
+}
+
+enterNoatryFirstName(firstName)
+{
+    cy.get(selectors.notaryFirstName).should('exist').type(firstName);
+}
+
+enterNotaryMiddleName(middleName)
+{
+    cy.get(selectors.notaryMiddleName).should('exist').type(middleName);
+}
+
+enterNotaryLastName(lastName)
+{
+    cy.get(selectors.notaryLastName).should('exist').type(lastName);
+}
+
+enterNotaryNameCredentials(firstName,middleName,lastName)
+{
+    this.enterNoatryFirstName(firstName);
+    this.enterNotaryMiddleName(middleName);
+    this.enterNotaryLastName(lastName);
+}
+
+clickInviteNotaryButton()
+{
+    cy.xpath(selectors.inviteNotaryBttn).should('exist').click();
+}
+
+addExternalNotary(email,firstName,middleName,lastName)
+{
+    this.clickAddExternalNotary();
+    this.enterNotaryEmail(email);
+    this.clickAddNotaryButton();
+    this.enterNotaryNameCredentials(firstName,middleName,lastName);
+    this.clickInviteNotaryButton()
+}
+
+verifyExternalNotaryNameInCreateMeetingPage(name)
+{
+    cy.xpath(selectors.externalNotaryNameInCreateMeetingPage).should('contain.text',name)
+}
+
 }
 

@@ -27,7 +27,7 @@ describe("Meetings/Closings test cases" , ()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var email=faker.internet.email();
+        var email=faker.internet.email().toLowerCase()
         var transactionType="Purchase";
         var address=streetNumber+" "+streetName+", "+city
 
@@ -53,7 +53,7 @@ describe("Meetings/Closings test cases" , ()=>{
 
     it("Create New Refinance Meeting ",()=>{
         
-        var fileId = "file"+Math.floor(Math.random()*1000);
+        var fileId = "file"+Math.floor(Math.random()*1000);``
         var propertyAddress=1+Math.floor(Math.random())*100;
         var streetName=faker.address.streetName();
         var streetNumber=propertyAddress;
@@ -63,7 +63,7 @@ describe("Meetings/Closings test cases" , ()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var email=faker.internet.email();
+        var email=faker.internet.email().toLowerCase()
         var transactionType="Refinance";
         var address=streetNumber+" "+streetName+", "+city
 
@@ -83,7 +83,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
         meetings.verifyTransactionType(transactionType);
-     } )
+     })
 
 
     it("Create New Equity Meeting ",()=>{
@@ -98,7 +98,7 @@ describe("Meetings/Closings test cases" , ()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var email=faker.internet.email();
+        var email=faker.internet.email().toLowerCase()
         var transactionType="Equity";
         var address=streetNumber+" "+streetName+", "+city
 
@@ -120,6 +120,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyTransactionType(transactionType);
      })
 
+
     it("Create New modification Meeting ",()=>{
 
         var fileId = "file"+Math.floor(Math.random()*1000);
@@ -132,7 +133,7 @@ describe("Meetings/Closings test cases" , ()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var email=faker.internet.email();
+        var email=faker.internet.email().toLowerCase()
         var transactionType="Modification";
         var address=streetNumber+" "+streetName+", "+city
 
@@ -151,6 +152,55 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyNavigatedToClosingDetailsPage();
         meetings.verifyFileId(fileId);
         meetings.verifyAddressInMeetingDetailsPage(address);
+        meetings.verifyTransactionType(transactionType);
+     })
+
+
+    it("Verify creating a new closing meeting with an external notary",()=>{
+
+        var fileId = "file"+Math.floor(Math.random()*1000);
+        var propertyAddress=1+Math.floor(Math.random())*100;
+        var streetName=faker.address.streetName();
+        var streetNumber=propertyAddress;
+        var city=faker.address.cityName();
+        var postalCode=faker.address.zipCode();
+        var signerFirstName=faker.name.firstName();
+        var signerMiddleName=faker.name.middleName();
+        var signerLastName=faker.name.lastName();
+        var signerPhone=faker.phone.phoneNumber();
+        var email=faker.internet.email().toLowerCase()
+        var notaryFirstName=faker.name.firstName();
+        var notaryMiddleName=faker.name.middleName();
+        var notaryLastName=faker.name.lastName();
+        var notaryEmail=faker.internet.email().toLowerCase();
+        var transactionType="Purchase";
+        var address=streetNumber+" "+streetName+", "+city;
+        var externalNotaryName=notaryFirstName+" "+notaryMiddleName+" "+notaryLastName;
+        var attendeeType="Notary";
+
+
+        //creating meeting
+        meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
+        meetings.clickOnPurchaseType();
+        meetings.enterFileNumber(fileId);
+        meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
+        meetings.enterMeetingInfo();
+        meetings.addExternalNotary(notaryEmail,notaryFirstName,notaryMiddleName,notaryLastName);
+
+        //Verify added external notary in Create meeting page
+        meetings.verifyExternalNotaryNameInCreateMeetingPage(externalNotaryName);
+
+        //Creating meeting
+        meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,email); 
+        meetings.clickOnCreateClosing();
+
+        //verification
+        meetings.verifyNavigatedToClosingDetailsPage();
+        meetings.verifyFileId(fileId);
+        meetings.verifyAddressInMeetingDetailsPage(address);
+        meetings.verifyAddedAttendeeName(externalNotaryName);
+        meetings.verifyAttendeeType(notaryEmail,attendeeType)
         meetings.verifyTransactionType(transactionType);
      })
 
@@ -220,7 +270,7 @@ describe("Meetings/Closings test cases" , ()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var signerEmail="testuser"+Math.floor(Math.random()*1000)+"@gamil.com";
+        var signerEmail=faker.internet.email().toLowerCase();
         var signer=signerFirstName+" "+signerLastName;
 
 
@@ -243,7 +293,7 @@ describe("Meetings/Closings test cases" , ()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var signerEmail="testuser"+Math.floor(Math.random()*1000)+"@gamil.com";
+        var signerEmail=faker.internet.email().toLowerCase();
         var signer=signerFirstName+" "+signerLastName;
         var attendeeType="Observer";
 
@@ -269,7 +319,7 @@ describe("Meetings/Closings test cases" , ()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var signerEmail="testuser"+Math.floor(Math.random()*1000)+"@gamil.com";
+        var signerEmail=faker.internet.email().toLowerCase();
         var signer=signerFirstName+" "+signerLastName;
         var attendeeType="Signer";
 
@@ -328,7 +378,7 @@ describe("Meetings/Closings test cases" , ()=>{
        })
 
 
-    it.only("Verify editing signer details with an existing signer details",()=>{
+    it("Verify editing signer details with an existing signer details",()=>{
 
         var signerFirstName1=faker.name.firstName();
         var signerMiddleName1=faker.name.middleName();
@@ -377,7 +427,7 @@ describe("Meetings/Closings test cases" , ()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var signerEmail="testuser"+Math.floor(Math.random()*1000)+"@gamil.com";
+        var signerEmail=faker.internet.email().toLowerCase();
 
 
         //Adding attendee
@@ -480,12 +530,12 @@ describe("Meetings/Closings test cases" , ()=>{
 
     it("Verify creating signing meeting",()=>{
 
-        var fileId = "file"+Math.floor(Math.random()*1000);
+        var fileId = "signing meeting"+Math.floor(Math.random()*1000);
         var signerFirstName=faker.name.firstName();
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var email=faker.internet.email();
+        var email=faker.internet.email().toLowerCase();
 
 
         //creating meeting
@@ -500,7 +550,186 @@ describe("Meetings/Closings test cases" , ()=>{
         //verification
         meetings.verifyNavigatedToClosingDetailsPage();
         meetings.verifyMeetingNameInSignigngMeetingDetailsPage(fileId)
-
        })
+
+
+    it("Verify creating new signing meeting with multiple attendees(signer and observer)",()=>{
+
+        var fileId = "file"+Math.floor(Math.random()*1000);
+        var signerFirstName=faker.name.firstName();
+        var signerMiddleName=faker.name.middleName();
+        var signerLastName=faker.name.lastName();
+        var signerPhone=faker.phone.phoneNumber();
+        var signerEmail=faker.internet.email().toLowerCase()
+        var observerFirstName=faker.name.firstName();
+        var observerMiddleName=faker.name.middleName();
+        var observerLastName=faker.name.lastName();
+        var observerPhone=faker.phone.phoneNumber();
+        var observerEmail=faker.internet.email().toLowerCase()
+        var attendeeType1="Signer";
+        var attendeeType2="Observer";
+
+
+
+        //creating meeting
+        meetings.clickOnCreateMeeting();
+        meetings.clickTheSigningMeetingButton();
+        meetings.enterFileNumber(fileId);
+        meetings.enterMeetingInfo();
+        meetings.selectHost();
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,signerEmail,signerPhone); 
+        meetings.clickTheAddObserverButton();
+        meetings.addAttendeeToTheMeeting(observerFirstName,observerMiddleName,observerLastName,observerEmail,observerPhone);
+        meetings.clickOnCreateClosing();
+
+        //verification
+        meetings.verifyNavigatedToClosingDetailsPage();
+        meetings.verifyMeetingNameInSignigngMeetingDetailsPage(fileId);
+        meetings.verifyAddedAttendeeName(signerFirstName);
+        meetings.verifyAddedSigner(signerEmail);
+        meetings.verifyAttendeeType(signerEmail,attendeeType1);
+        meetings.verifyAttendeeType(observerEmail,attendeeType2);
+        })
+
+
+    it("Verify creating signing meeting with an invalid signer email",()=>{
+
+        var fileId = "signing meeting"+Math.floor(Math.random()*1000);
+        var signerFirstName=faker.name.firstName();
+        var signerMiddleName=faker.name.middleName();
+        var signerLastName=faker.name.lastName();
+        var signerPhone=faker.phone.phoneNumber();
+        var email=faker.name.title();
+
+
+        //creating meeting
+        meetings.clickOnCreateMeeting();
+        meetings.clickTheSigningMeetingButton();
+        meetings.enterFileNumber(fileId);
+        meetings.enterMeetingInfo();
+        meetings.selectHost();
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,email,signerPhone); 
+
+        //Verification
+        meetings.verifyCreateClosingButtonIsDisabled();
+        meetings.verifyEmailValidationErrorMessage("Please enter a valid email");
+      })
+
+
+    it("Verify creating a new signing meeting with an external notary",()=>{
+
+        var fileId = "signing meeting"+Math.floor(Math.random()*1000);
+        var signerFirstName=faker.name.firstName();
+        var signerMiddleName=faker.name.middleName();
+        var signerLastName=faker.name.lastName();
+        var signerPhone=faker.phone.phoneNumber();
+        var email=faker.internet.email().toLowerCase();
+        var notaryFirstName=faker.name.firstName();
+        var notaryMiddleName=faker.name.middleName();
+        var notaryLastName=faker.name.lastName();
+        var notaryEmail=faker.internet.email().toLowerCase();
+        var externalNotaryName=notaryFirstName+" "+notaryMiddleName+" "+notaryLastName;
+        var attendeeType="Notary";
+
+
+        //creating meeting
+        meetings.clickOnCreateMeeting();
+        meetings.clickTheSigningMeetingButton();
+        meetings.enterFileNumber(fileId);
+        meetings.enterMeetingInfo();
+        meetings.addExternalNotary(notaryEmail,notaryFirstName,notaryMiddleName,notaryLastName);
+        
+        //Verify added external notary in Create meeting page
+        meetings.verifyExternalNotaryNameInCreateMeetingPage(externalNotaryName);
+
+        //Creating meeting
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,email,signerPhone);
+        meetings.clickOnCreateClosing();
+
+        //verification
+        meetings.verifyNavigatedToClosingDetailsPage();
+        meetings.verifyMeetingNameInSignigngMeetingDetailsPage(fileId);
+        meetings.verifyAddedAttendeeName(externalNotaryName);
+        meetings.verifyAttendeeType(notaryEmail,attendeeType)
+
+     })
+
+    it("Verify preparing a document for esigngin",()=>{
+
+        var document="title_exam (4).pdf";
+        var status="Ready for Signing"
+
+        //Uploading document.
+        meetings.navigateToScheduledMeetings();
+        meetings.createMeeting();
+        meetings.uploadDocument(document);
+
+        //Verify added document.
+        meetings.verifyPopupMessage("Documents uploaded!");
+        meetings.verifyAddedDocumentName(document);
+
+        //Prepare the document for eSigning
+        meetings.clickPrepareForEsigningLink();
+        meetings.addAnnotation();
+        meetings.clickMarkReadyForSigning();
+
+        //Verify document status
+        meetings.verifyDocumentStatusInEditDocumentPage(status)
+        meetings.clickBackToMeetingDetailsLink();
+        meetings.verifyDocumentStatusInMeetingDetailsPage(document,status)
+      })
+
+
+    it("Verify adding annotations to the document and not marking document ready for signing",()=>{
+
+        var document="title_exam (4).pdf";
+        var status="Tagging in Progress"
+
+        //Uploading document.
+        meetings.navigateToScheduledMeetings();
+        meetings.createMeeting();
+        meetings.uploadDocument(document);
+
+        //Verify added document.
+        meetings.verifyPopupMessage("Documents uploaded!");
+        meetings.verifyAddedDocumentName(document);
+
+        //Prepare the document for eSigning
+        meetings.clickPrepareForEsigningLink();
+        meetings.addAnnotation();
+
+        //Verify document status
+        meetings.verifyDocumentStatusInEditDocumentPage(status)
+        meetings.clickBackToMeetingDetailsLink();
+        meetings.verifyDocumentStatusInMeetingDetailsPage(document,status)   
+       })
+
+
+    it("Verify editing document",()=>{
+
+        var document="title_exam (4).pdf";
+        var status="Ready for Signing"
+
+        //Uploading document.
+        meetings.navigateToScheduledMeetings();
+        meetings.createMeeting();
+        meetings.uploadDocument(document);
+
+        //Verify added document.
+        meetings.verifyPopupMessage("Documents uploaded!");
+        meetings.verifyAddedDocumentName(document);
+
+        //Prepare the document for eSigning
+        meetings.clickPrepareForEsigningLink();
+        meetings.addAnnotation();
+        meetings.clickMarkReadyForSigning();
+
+        //Verify document status
+        meetings.verifyDocumentStatusInEditDocumentPage(status)
+        
+        //Edit document
+        meetings.clickMakeChangesButton();
+        meetings.addSignatureAnnotation();
+        })
     })
 
