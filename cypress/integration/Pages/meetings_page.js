@@ -218,6 +218,7 @@ export class Meetings {
 
     navigatingToClosingDetailsPage()
     {
+        cy.wait(3000)
         cy.xpath(selectors.meetingCardInList).should('exist').click();
     }
         
@@ -254,6 +255,7 @@ export class Meetings {
    navigateToCompletedMeetings()
    {
        cy.xpath(selectors.completedMeetingsBttn).click();
+       cy.wait(6000)
    }
    navigateToCancelledMeetings()
    {
@@ -326,6 +328,7 @@ export class Meetings {
    clickAddAttendeeButtonInTheMeetingInfoPage()
    {
        cy.xpath(selectors.addAttendeeBttnInMeetingInfoPage).click();
+       cy.wait(2000);
    }
    verifyAddedSigner(attendeeEmail1)
    {
@@ -473,7 +476,12 @@ verifyMeetingCardStatusInMeetingDetailsPage(status)
 
 verifyJoinButtonIsRemoved()
 {
-    cy.xpath(selectors.joinButton).should('not.exist');
+    cy.get(selectors.joinButton).should('not.exist');
+}
+
+verifyJoinButtonExists()
+{
+    cy.get(selectors.joinButton).should('exist');
 }
 
 verifyCreateClosingButtonIsDisabled()
@@ -610,5 +618,61 @@ verifyExternalNotaryNameInCreateMeetingPage(name)
     cy.xpath(selectors.externalNotaryNameInCreateMeetingPage).should('contain.text',name)
 }
 
+clickViewVerificationResultsButton()
+{
+    cy.xpath(selectors.viewVerificationResultsBttn).should('exist').click();
+}
+
+verifyViewingVerificationResults(signer)
+{
+    cy.xpath(selectors.signerNameInVerificationResultPage).should('contain.text',signer);
+    cy.xpath(selectors.securityDetailsTxt).should('contain.text'," Security Results");
+    cy.xpath(selectors.KBAheading).should('have.text',"Knowledge Based Authentication");
+    cy.xpath(selectors.scansHeading).should('have.text',"Scans");
+}
+
+clickArchiveButton()
+{
+    cy.xpath(selectors.archiveBttn).should('exist').click();
+}
+
+clickUnarchiveButton()
+{
+    cy.get(selectors.unarchiveBttn).should('exist').click();
+}
+
+clickEditButtonOfNotary()
+{
+    cy.xpath(selectors.editButtonOfNotary).should('exist').click();
+}
+
+clickReassignButton()
+{
+    cy.xpath(selectors.reassignBttn).should('exist').click();
+}
+
+clickReassignButtonInReassignNotaryPage()
+{
+    cy.xpath(selectors.reassignBttnInReassignNotaryPage).should('exist').click();
+}
+
+copyNotaryDetails()
+{
+    cy.xpath('//tr[1]/td[3][text()]').as('notaryEmail')
+    cy.xpath('//tr[1]/td[3][text()]').as('NotaryName')
+}
+
+verifyNotaryReassigned()
+{
+    cy.get('notaryEmail').then((res)=>{
+       
+        cy.xpath('//tr[1]/td[3][text()]').should('not.have.text',res.text())
+    })
+}
+
+reloadThePage()
+{
+    cy.reload();
+}
 }
 

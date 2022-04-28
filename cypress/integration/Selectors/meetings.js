@@ -65,11 +65,11 @@ export default {
     moreActionsBttn:'//button[text()="More actions"]',
     cancelBttn:'//li/span[text()="Cancel"]',
     meetingCardStatusInMeetingDetailsPage:'//div[@data-testid="meeting-detail-card"]/div/div/text()',
-    joinButton:'//button[text()="Join"]',
+    joinButton:'[data-testid="meeting-join-btn"]',
     meetingType:'[name="meeting-type"]',
     nextBttn:'//button[text()="Next"]',
     signingMeetingBttn:'//div[text()="Signing Meeting"]',
-    errorText:'//p[@class="error-text"]/text()',
+    errorText:'//*[@class="error-text"]/text()',
     addObserverBttn:"//button[text()='Observer']",
     prepareForEsigningLink:'//span[text()="Prepare for eSigning"]',
     markReadyForSigningBttn:'//div[text()="Mark Ready for Signing"]',
@@ -85,7 +85,16 @@ export default {
     notaryMiddleName:'[placeholder="Notary middle name (optional)"]',
     notaryLastName:'[placeholder="Notary last name"]',
     inviteNotaryBttn:'//button[text()="Invite Notary"]',
-    externalNotaryNameInCreateMeetingPage:'//div[@class="mt-2"]/text()[2]'
-
+    externalNotaryNameInCreateMeetingPage:'//div[@class="mt-2"]/text()[2]',
+    viewVerificationResultsBttn:'//li/span[text()="View verification results"]',
+    signerNameInVerificationResultPage:'//div[@class="modal-header"]/text()[1]',
+    securityDetailsTxt:'//div[@class="modal-header"]/text()[2]',
+    KBAheading:'//div[@class="audit-log"]/h4[1]/text()',
+    scansHeading:'//div[@class="audit-log"]/h4[2]/text()',
+    archiveBttn:"//span[@title='Archive']",
+    unarchiveBttn:'span[title="Unarchive"]',
+    editButtonOfNotary:'//tbody/tr/td[2][text()="Notary"]/../td[last()]/div/div/div',
+    reassignBttn:'//li/span[text()="Reassign"]',
+    reassignBttnInReassignNotaryPage:'//button[text()="Reassign"]'
 
 }

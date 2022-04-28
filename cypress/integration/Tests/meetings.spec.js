@@ -15,6 +15,7 @@ describe("Meetings/Closings test cases" , ()=>{
        login.loginToApplication();
     });
 
+
     it("Create New purchase Meeting ",()=>{
         
         var fileId = "file"+Math.floor(Math.random()*1000);
@@ -203,6 +204,64 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyAttendeeType(notaryEmail,attendeeType)
         meetings.verifyTransactionType(transactionType);
      })
+
+
+    it("Verify creating closing meeting with an invalid signer email",()=>{
+
+        var fileId = "file"+Math.floor(Math.random()*1000);
+        var propertyAddress=1+Math.floor(Math.random())*100;
+        var streetName=faker.address.streetName();
+        var streetNumber=propertyAddress;
+        var city=faker.address.cityName();
+        var postalCode=faker.address.zipCode();
+        var signerFirstName=faker.name.firstName();
+        var signerMiddleName=faker.name.middleName();
+        var signerLastName=faker.name.lastName();
+        var signerPhone=faker.phone.phoneNumber();
+        var email=faker.name.title();
+    
+        //creating meeting
+        meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
+        meetings.clickOnPurchaseType();
+        meetings.enterFileNumber(fileId);
+        meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
+        meetings.enterMeetingInfo();
+        meetings.selectHost();
+        meetings.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,email); 
+        
+        //Verification
+        meetings.verifyCreateClosingButtonIsDisabled();
+      })
+
+
+    it("Verify creating a new closing meeting with an invalid external notary email",()=>{
+
+        var fileId = "file"+Math.floor(Math.random()*1000);
+        var propertyAddress=1+Math.floor(Math.random())*100;
+        var streetName=faker.address.streetName();
+        var streetNumber=propertyAddress;
+        var city=faker.address.cityName();
+        var postalCode=faker.address.zipCode();
+        var notaryEmail=faker.name.title();
+
+
+        //creating meeting
+        meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
+        meetings.clickOnPurchaseType();
+        meetings.enterFileNumber(fileId);
+        meetings.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
+        meetings.enterMeetingInfo();
+        meetings.clickAddExternalNotary();
+        meetings.enterNotaryEmail(notaryEmail);
+        meetings.clickAddNotaryButton();
+
+        //Verify external notary
+        meetings.verifyNextButtonIsDisabled();
+        meetings.verifyErrorText("Please enter a valid email");
+
+    })
 
 
     it("Verify navigated to closing details page", () =>{
@@ -651,10 +710,28 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyMeetingNameInSignigngMeetingDetailsPage(fileId);
         meetings.verifyAddedAttendeeName(externalNotaryName);
         meetings.verifyAttendeeType(notaryEmail,attendeeType)
-
      })
 
-    it("Verify preparing a document for esigngin",()=>{
+
+    it("Verify creating new signing meeting with an invalid external notary email",()=>{
+
+        var fileId = "signing meeting"+Math.floor(Math.random()*1000);
+        var notaryEmail=faker.name.title();
+
+        //creating meeting
+        meetings.clickOnCreateMeeting();
+        meetings.clickTheSigningMeetingButton();
+        meetings.enterFileNumber(fileId);
+        meetings.enterMeetingInfo();
+        meetings.clickAddExternalNotary();
+        meetings.enterNotaryEmail(notaryEmail);
+        meetings.clickAddNotaryButton();
+        
+        //verification
+        meetings.verifyErrorText("Please enter a valid email");
+     })
+
+    it("Verify preparing a document for esigning",()=>{
 
         var document="title_exam (4).pdf";
         var status="Ready for Signing"
@@ -731,5 +808,49 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.clickMakeChangesButton();
         meetings.addSignatureAnnotation();
         })
+
+
+    it("Verify viewing verification details of signer",()=>{
+
+        var signerFirstName=faker.name.firstName();
+        var signerMiddleName=faker.name.middleName();
+        var signerLastName=faker.name.lastName();
+        var signerPhone=faker.phone.phoneNumber();
+        var signerEmail=faker.internet.email().toLowerCase();
+        var signer=signerFirstName+" "+signerMiddleName+" "+signerLastName;
+
+        //Adding attendee
+        meetings.navigateToScheduledMeetings();
+        meetings.createMeeting();
+        meetings.clickAddAttendeeButton();
+        meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,signerEmail,signerPhone)
+        meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
+        meetings.reloadThePage();
+        meetings.clickEditButtonOfSigner(signerEmail);
+        meetings.clickViewVerificationResultsButton();
+
+        //Verify viewing secutity details
+        meetings.verifyViewingVerificationResults(signer)    
+        })
+
+    it("Verify archiving a completed meeting",()=>{
+
+        meetings.navigateToCompletedMeetings();
+        meetings.navigatingToClosingDetailsPage();
+
+        //Archive the meeting
+        meetings.clickArchiveButton();
+
+        //Verify meeting is archived
+        meetings.verifyJoinButtonIsRemoved();
+
+
+        //Unarchive the meeting
+        meetings.clickUnarchiveButton();
+
+        //Verify meeting is unarchived
+        meetings.verifyJoinButtonExists()
+       })
+
     })
 

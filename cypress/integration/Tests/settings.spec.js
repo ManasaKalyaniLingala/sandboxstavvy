@@ -80,7 +80,7 @@ describe("Settings test cases" , ()=>{
          settings.verifyUpdatedOrganizationName(organization);
      })
 
-     it("Update preferred timezone",()=>{
+     it.only("Update preferred timezone",()=>{
 
         var timezone="Honolulu (GMT-10:00)";
 
