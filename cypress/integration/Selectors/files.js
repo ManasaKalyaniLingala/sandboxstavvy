@@ -128,5 +128,6 @@ export default{
     addressInMeetingCard:'//div[@data-testid="meeting-card"]/div[2]/div/p',
     loanNumberInMeetingCard:'//div[@data-testid="meeting-card"]/div[2]/div/div[2]/div[1]/div[1]/p[2]',
     documentDescription:'[name="other-description"]',
+    loanOfficerDropDown:'[placeholder="Assign a Loan Officer (optional)"]'
 
 }

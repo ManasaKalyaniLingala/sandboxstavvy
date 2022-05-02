@@ -939,5 +939,10 @@ export class Files{
         cy.xpath(selectors.loanNumberInMeetingCard).should('contain.text',loanNumber.text())
         })
     }
+
+    clickTheLoanOfficerDropdown()
+    {
+        cy.get(selectors.loanOfficerDropDown).should('exist').click();
+    }
 }
 

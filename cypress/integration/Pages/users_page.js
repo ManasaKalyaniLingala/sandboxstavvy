@@ -194,7 +194,45 @@ export class Users{
         cy.xpath(selectors.user).should('exist').click();
     }
 
-    
+    clickCreateLoanOfficer()
+    {
+        cy.xpath(selectors.createLoanOfficerBttn).should('exist').click();
+    }
 
+    enterLoanOfficerName(name)
+    {
+        cy.get(selectors.loanOfficerName).should('exist').type(name)
+    }
+
+    enterLoanOfficerEmail(email)
+    {
+        cy.get(selectors.laonOfficerEmail).should('exist').type(email)
+    }
+    
+    enterLoanOfficerNMLSlicenseNumber(licenseNumber)
+    {
+        cy.get(selectors.NMLSlicesnceNumber).should('exist').type(licenseNumber);
+    }
+
+    enterLoanOfficerPhone(Phone)
+    {
+        cy.get(selectors.NMLSlicesnceNumber).should('exist').type(Phone);
+    }
+
+    clickTheSubmitButton()
+    {
+        cy.xpath(selectors.submitBttn).should('exist').click();
+    }
+
+    verifySubmitButtonIsDisabled()
+    {
+        cy.xpath(selectors.submitBttn).should('be.disabled');
+    }
+
+    verifyLoanOfficerIntheList(loanOfficerName,laonOfficerEmail)
+    {
+        cy.xpath('//li/span/text()').should('contain.text',loanOfficerName);
+        cy.xpath('//li/span/text()').should('contain.text',laonOfficerEmail);
+    }
 
 }

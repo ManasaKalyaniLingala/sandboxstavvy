@@ -24,6 +24,11 @@ adminUser:'(//td/p[text()="Admin"])[1]',
 user:'//tr/td[1]',
 user:'(//td/p[text()="User"])[1]',
 selectRoleDropDown:'[placeholder="Select role"]',
-saveUserBttn:'//button[text()="Save User"]'
-
+saveUserBttn:'//button[text()="Save User"]',
+createLoanOfficerBttn:"//button[contains(@class,'stavviz-button rounded')]/following-sibling::button[1]",
+loanOfficerName:'[placeholder="Name"]',
+laonOfficerEmail:'[placeholder="Email"]',
+loanOfficerPhone:'[placeholder="Phone"]',
+NMLSlicesnceNumber:'[placeholder="NMLS License Number"]',
+submitBttn:'//button[text()="Submit"]',
 }

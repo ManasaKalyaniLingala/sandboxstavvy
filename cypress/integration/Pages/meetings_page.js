@@ -656,18 +656,35 @@ clickReassignButtonInReassignNotaryPage()
     cy.xpath(selectors.reassignBttnInReassignNotaryPage).should('exist').click();
 }
 
-copyNotaryDetails()
+copyNotaryEmail()
 {
-    cy.xpath('//tr[1]/td[3][text()]').as('notaryEmail')
-    cy.xpath('//tr[1]/td[3][text()]').as('NotaryName')
+    cy.xpath('//tr[1]/td[3][text()]').as('notary email');
+}
+
+copyNotaryName()
+{
+    cy.xpath('//tr[1]/td[1][text()]').as('notary name');
 }
 
 verifyNotaryReassigned()
 {
-    cy.get('notaryEmail').then((res)=>{
-       
-        cy.xpath('//tr[1]/td[3][text()]').should('not.have.text',res.text())
+    cy.get('@notary name').then((res)=>{
+
+        var notaryName=res.text();
+
+        cy.xpath('//tr[1]/td[1][text()]').should('not.have.text',notaryName)
     })
+}
+
+verifyNotaryNameReassigned()
+{
+    cy.get('@notary email').then((response)=>{
+
+        var notaryEmail=response.text()
+       
+        cy.xpath('//tr[1]/td[3][text()]').should('not.have.text',notaryEmail)
+    })
+
 }
 
 reloadThePage()

@@ -260,7 +260,6 @@ describe("Meetings/Closings test cases" , ()=>{
         //Verify external notary
         meetings.verifyNextButtonIsDisabled();
         meetings.verifyErrorText("Please enter a valid email");
-
     })
 
 
@@ -851,6 +850,23 @@ describe("Meetings/Closings test cases" , ()=>{
         //Verify meeting is unarchived
         meetings.verifyJoinButtonExists()
        })
+
+    it.only("Verify reassignin Notary/Host to the meeting",()=>{
+
+        //Creating a meeting
+        meetings.createMeeting();
+
+        //Reassign Notary/Host
+        meetings.copyNotaryName();
+        meetings.copyNotaryEmail();
+        meetings.clickEditButtonOfNotary();
+        meetings.clickReassignButton();
+        meetings.selectHost();
+        meetings.clickReassignButtonInReassignNotaryPage();
+
+        //Verify reassigned notary
+        meetings.verifyPopupMessage("Notary successfully reassigned");
+    })
 
     })
 
