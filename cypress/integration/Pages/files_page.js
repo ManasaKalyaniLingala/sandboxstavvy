@@ -255,6 +255,7 @@ export class Files{
     }
     verifyNavigatedToFileDetailsPage()
     {
+        cy.wait(4000);
         cy.xpath(selectors.fileDeatilsPage).should('have.text',"File Details");
     }
     veifyLoanType(loanType)
@@ -312,13 +313,12 @@ export class Files{
         cy.xpath(selectors.filesPageTitle).should('have.text',title)
     }
 
-
-    navigateToInProgressFilesTab()
+    navigateToArchivedFilesTab()
     {
-        cy.wait(2000);
-        cy.get(selectors.inProgressTab).should('exist').click();
+        cy.wait(2000)
+        cy.get(selectors.archiveTab).should('exist').click();
+        cy.wait(4000)
     }
-
     navigateToMyFavoritesFilesTab()
     {
         cy.wait(2000);
@@ -332,10 +332,10 @@ export class Files{
         cy.get(selectors.cancelledTab).should('exist').click();
     }
 
-    navigateToCompletedFilesTab()
+    navigateToActiveFilesTab()
     {
         cy.wait(2000);
-        cy.get(selectors.completedTab).should('exist').click();
+        cy.get(selectors.activeTab).should('exist').click();
         cy.wait(4000);
     }
 
@@ -361,7 +361,7 @@ export class Files{
 
     navigateToFileDetailsPage()
     {
-        cy.xpath('//tbody/tr[2]/td[2]/text()').as('file name');
+        cy.xpath('//tbody/tr[1]/td[2]/text()').as('file name');
         cy.get('@file name').then((res)=>{
             cy.log(res.text())
         })
@@ -496,10 +496,10 @@ export class Files{
         this.verifyPageTitle("Files");
         this.verifyNoOfRowsDropDown();
         this.verifySearchBar();
-        cy.get(selectors.inProgressTab).should('exist');
+        cy.get(selectors.activeTab).should('exist');
         cy.get(selectors.cancelledTab).should('exist');
         cy.get(selectors.favoritesTab).should('exist');
-        cy.get(selectors.completedTab).should('exist');
+        cy.get(selectors.archiveTab).should('exist');
         cy.xpath(selectors.partyOrBorrowerColoumn).should('exist');
         cy.xpath(selectors.fileNameColoumn).should('exist');
         cy.xpath(selectors.closeDateColoumn).should('exist');
@@ -513,10 +513,10 @@ export class Files{
         this.verifyPageTitle("Files");
         this.verifyNoOfRowsDropDown();
         this.verifySearchBar();
-        cy.get(selectors.inProgressTab).should('exist');
+        cy.get(selectors.activeTab).should('exist');
         cy.get(selectors.cancelledTab).should('exist');
         cy.get(selectors.favoritesTab).should('exist');
-        cy.get(selectors.completedTab).should('exist');
+        cy.get(selectors.archiveTab).should('exist');
         cy.xpath(selectors.partyOrBorrowerColoumn).should('exist');
         cy.xpath(selectors.fileNameColoumn).should('exist');
         cy.xpath(selectors.closeDateColoumn).should('exist');
@@ -533,11 +533,11 @@ export class Files{
       this.verifyPageTitle("Files");
       this.verifyNoOfRowsDropDown();
       this.verifySearchBar();
-      cy.get(selectors.inProgressTab).should('exist');
+      cy.get(selectors.activeTab).should('exist');
       cy.get(selectors.cancelledTab).should('exist');
       cy.get(selectors.favoritesTab).should('exist');
-      cy.get(selectors.completedTab).should('exist');
-      this.verifyFilesTabSubtitle("Files: In Progress");
+      cy.get(selectors.archiveTab).should('exist');
+      this.verifyFilesTabSubtitle("Files: Active");
       cy.xpath(selectors.filesList).should('exist');
     }
 
@@ -770,7 +770,7 @@ export class Files{
             cy.get(selectors.favouriteIcon).should('exist').click();
             this.navigateToFiles();
             this.navigateToMyFavoritesFilesTab();
-            cy.get('@file name').then((res)=>{
+            cy.get('@loanNumberInDetailsPage').then((res)=>{
             this.verifyFileInTheList(res.text())
             })
         }
@@ -778,7 +778,7 @@ export class Files{
             cy.get(selectors.removeFromFavoritesIcon).should('exist').click();
             this.navigateToFiles();
             this.navigateToMyFavoritesFilesTab();
-            cy.get('@file name').then((res)=>{
+            cy.get('@loanNumberInDetailsPage').then((res)=>{
                 this.verifyFileIsNotPresentInTheList(res.text());
                 })
         }
@@ -931,6 +931,11 @@ export class Files{
         })
     }
 
+    searchTheFile(file)
+    {
+        cy.get(selectors.fileSearchBar).should('exist').type(file)
+    }
+
     verifyMeetingCardDetailsInFileDetailsPage()
     {
         cy.get('@loanNumberInDetailsPage').then((loanNumber)=>{
@@ -944,5 +949,11 @@ export class Files{
     {
         cy.get(selectors.loanOfficerDropDown).should('exist').click();
     }
+
+    reloadThePage()
+    {
+        cy.reload();
+    }
+
 }
 

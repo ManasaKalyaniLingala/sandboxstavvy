@@ -267,6 +267,8 @@ describe("Meetings/Closings test cases" , ()=>{
         
 
         //navigating to closing details page
+        meetings.clickTheMyMeetingsDropdown();
+        meetings.clickTheSelectAllButton();
         meetings.navigatingToClosingDetailsPage();
 
         //verify fileId
@@ -277,6 +279,8 @@ describe("Meetings/Closings test cases" , ()=>{
     it("Verify navigating to scheduled meetings page", ()=>{
 
         //Navigate to scheduled meeitngs
+        meetings.clickTheMyMeetingsDropdown();
+        meetings.clickTheSelectAllButton();
         meetings.navigateToScheduledMeetings();
 
         //Verify Scheduled meeitngs page
@@ -288,6 +292,8 @@ describe("Meetings/Closings test cases" , ()=>{
     it("Verify navigating to completed meetings page", ()=>{
 
         //Navigate to completed meetings
+        meetings.clickTheMyMeetingsDropdown();
+        meetings.clickTheSelectAllButton();
         meetings.navigateToCompletedMeetings();
 
         //Verify completed meetings page
@@ -299,6 +305,8 @@ describe("Meetings/Closings test cases" , ()=>{
     it("Verify navigating to Cancelled meetings page", ()=>{
 
         //Navigate to cancelled meetings
+        meetings.clickTheMyMeetingsDropdown();
+        meetings.clickTheSelectAllButton();
         meetings.navigateToCancelledMeetings();
 
         //Verify cancelled meetings page
@@ -851,7 +859,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.verifyJoinButtonExists()
        })
 
-    it.only("Verify reassignin Notary/Host to the meeting",()=>{
+    it("Verify reassignin Notary/Host to the meeting",()=>{
 
         //Creating a meeting
         meetings.createMeeting();

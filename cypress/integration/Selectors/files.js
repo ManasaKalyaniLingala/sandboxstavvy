@@ -39,7 +39,6 @@ export default{
     loanNumberInTheList:'//tbody/tr/td[2]',
     borrowerNameInTheLit:'//tbody/tr/td[2][text()="1234"]/preceding-sibling::td/div/text()',
     filesPageTitle:'//h2/text()',
-    inProgressTab:'[data-testid="in_progress"]',
     favoritesTab:'[data-testid="favorites"]',
     cancelledTab:'[data-testid="rejected"]',
     completedTab:'[data-testid="completed"]',
@@ -80,7 +79,7 @@ export default{
     city:'[name="City"]',
     postalCode: '[name="ZIP Code"]',
     addressUnit:'[name="Unit/Apt"]', 
-    firstFileInTheList:'//tbody/tr[2]/td[2]',
+    firstFileInTheList:'//tbody/tr[1]',
     actionsDropdown:'//button[text()="Actions"]',
     archiveFileBttn:'[title="Archive file"]',
     fileStatusInDetailsPage:'//div[@class="mb-4"]/div/text()',
@@ -128,6 +127,8 @@ export default{
     addressInMeetingCard:'//div[@data-testid="meeting-card"]/div[2]/div/p',
     loanNumberInMeetingCard:'//div[@data-testid="meeting-card"]/div[2]/div/div[2]/div[1]/div[1]/p[2]',
     documentDescription:'[name="other-description"]',
-    loanOfficerDropDown:'[placeholder="Assign a Loan Officer (optional)"]'
+    loanOfficerDropDown:'[placeholder="Assign a Loan Officer (optional)"]',
+    activeTab:'[data-testid="active"]',
+    archiveTab:'[data-testid="archived"]'
 
 }

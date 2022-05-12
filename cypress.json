@@ -7,6 +7,6 @@
     "env":{
            "username":"",
            "password":"",
-           "baseUrl": "https://connect.sandbox.stavvy.com/"
+           "baseUrl": "https://connect.dev.stavvy.com/"
     }
   }

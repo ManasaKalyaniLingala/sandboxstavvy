@@ -277,4 +277,34 @@ describe("Vendor test cases" , ()=>{
 
     })
 
+
+   it("Verify inviting vendor by Vendor Phone Number",()=>{
+
+        var phoneNumber=faker.phone.phoneNumberFormat();
+        var email =faker.internet.email().toLowerCase();
+        var vendorName=faker.name.findName();
+        var firstName=faker.name.firstName();
+        var middleName=faker.name.middleName();
+        var lastName=faker.name.lastName();
+        var status="Invited";
+
+        //Navigate to Organizations
+        vendors.clickOnOrganizations();
+
+        //Invite new vendor
+        vendors.clickOnInviteNewVendor();
+        vendors.clickTheWebsiteNotAvailableButton();
+        vendors.enterVendorName(vendorName);
+        vendors.enterFirstName(firstName);
+        vendors.enterMiddleName(middleName);
+        vendors.enterLastName(lastName);
+        vendors.enterVendorPhoneNumber(phoneNumber);
+        vendors.enterVendoMail(email);
+        vendors.clickOnInviteVendor();
+
+        //Verify added vendor
+        vendors.verifyInvitedVendorMessage(vendorName+" has been invited. No further action is required.");
+        vendors.verifyStatusOfVendor(phoneNumber,status)
+      })
+
     })

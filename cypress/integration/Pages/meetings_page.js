@@ -691,5 +691,15 @@ reloadThePage()
 {
     cy.reload();
 }
+
+clickTheMyMeetingsDropdown()
+{
+    cy.get(selectors.myMeetingsDropdown).should('exist').click();
+}
+
+clickTheSelectAllButton()
+{
+    cy.get(selectors.selectAllBttn).should('exist').click();    
+}
 }
 

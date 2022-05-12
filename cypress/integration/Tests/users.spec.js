@@ -408,7 +408,7 @@ describe("Users test cases" , ()=>{
          files.navigateToFiles();
          files.clickCreateFileButton();
          files.clickTheLoanOfficerDropdown();
-         users.verifyLoanOfficerIntheList(name,email)
+         users.verifyLoanOfficerIntheList(name,email);
        })
 
 
@@ -477,7 +477,7 @@ describe("Users test cases" , ()=>{
        })
 
 
-     it.only("Verify creating new loan officer with an existing loan officer's name, phone, and NMLS License Number",()=>{
+     it("Verify creating new loan officer with an existing loan officer's name, phone, and NMLS License Number",()=>{
 
           var name=faker.name.findName();
           var email1=faker.internet.email().toLowerCase();
@@ -518,7 +518,7 @@ describe("Users test cases" , ()=>{
          files.clickCreateFileButton();
          files.clickTheLoanOfficerDropdown();
          users.verifyLoanOfficerIntheList(name,email1)
-     })
+         })
            
 
 })

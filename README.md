@@ -10,7 +10,7 @@
 ```sh
    --env "username=username,password=password,baseUrl=url"
 ```
-# run on sandbox env
+# run on dev env
 
  ```sh
 npx cypress run --env "username=username,password=password" --headed

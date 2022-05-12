@@ -405,6 +405,7 @@ it("Navigate to file details page",()=>{
     
     //Navigate to File page
     files.navigateToFiles();
+    files.navigateToActiveFilesTab();
 
     //Navigate to File details page
     files.navigateToFileDetailsPage();
@@ -418,6 +419,7 @@ it("Navigate to file details page",()=>{
 it("Verify listing files by no of rows",()=>{
     //Navigate to File
     files.navigateToFiles();
+    files.navigateToActiveFilesTab();
 
     //Select No of rows
     files.selectNoOfRowsPerPage("5");
@@ -448,34 +450,41 @@ it("Verify switching between files tabs",()=>{
     //Navigate to Files page
     files.navigateToFiles();
     files.verifyFilesPageView();
-    files.verifyNavigatedToTab("In Progress");
 
-    //Navigate to completed tab
-    files.navigateToCompletedFilesTab();
-    files.verifyNavigatedToTab("Completed");
+    //Navigate to In Active files tab
+    files.navigateToActiveFilesTab()
+    files.verifyNavigatedToTab("Active");
 
-    //Navigate to Cancelled tab
+    //Navigate to Archived files tab
+    files.navigateToArchivedFilesTab();
+    files.verifyNavigatedToTab("Archived");
+
+    //Navigate to Cancelled files tab
     files.navigateToCancelledFilesTab();
     files.verifyNavigatedToTab("Cancelled");
 
     //Navigate to Favorites tab
     files.navigateToMyFavoritesFilesTab();
     files.verifyNavigatedToTab("My Favorites");
+
+    //Navigate to Active tab
+    files.navigateToActiveFilesTab();
+    files.verifyNavigatedToTab("Active")
  })
 
 
-it("Verify navigating to In Progress files tab and its view",()=>{
+it("Verify navigating to Active files tab and its view",()=>{
 
     //Navigate to files
     files.navigateToFiles();
 
-    //Navigate to In progress tab
-    files.navigateToInProgressFilesTab();
+    //Navigate to Active files tab
+    files.navigateToActiveFilesTab()
 
-    //Verify navigated to In progress tab
-    files.verifyNavigatedToTab("In Progress");
+    //Verify navigated to Active files tab
+    files.verifyNavigatedToTab("Active");
 
-    //Verify In Progress tab view
+    //Verify Active files tab view
     files.verifyTabView();
  })
 
@@ -512,18 +521,18 @@ it("Verify navigating to Cancelled files tab and its view",()=>{
  })
 
 
-it("Verify navigating to Completed files tab and view",()=>{
+it("Verify navigating to Archived files tab and view",()=>{
 
     //Navigate to Files
     files.navigateToFiles();
 
-    //Navigate to Completed files
-    files.navigateToCompletedFilesTab();
+    //Navigate to Archived files
+    files.navigateToArchivedFilesTab();
 
-    //Verify navigated Completed files tab 
-    files.verifyNavigatedToTab("Completed");
+    //Verify navigated Archied files tab 
+    files.verifyNavigatedToTab("Archived");
 
-    //Verify Completed tab view
+    //Verify Archived tab view
     files.verifyTabView();
  })
 
@@ -534,9 +543,10 @@ it("Verify adding document",()=>{
 
     //Navigate to Files
     files.navigateToFiles();
+    files.createAFile();
+    files.verifyNavigatedToFileDetailsPage();
 
     //Add document
-    files.navigateToFileDetailsPage()
     files.uploadDocument(document);
     files.clickUploadButton();
 
@@ -551,9 +561,9 @@ it("Verify updating Loan Number",()=>{
 
     //Navigate to Files
     files.navigateToFiles();
+    files.createAFile();
 
     //Update loan number
-    files.navigateToFileDetailsPage()
     files.updateLoanNumber(fileName);
 
     //Verify updated loan number
@@ -565,9 +575,9 @@ it("Assign closer to file",()=>{
 
     //Navigate to Files
     files.navigateToFiles();
+    files.createAFile();
 
     //Assign closer
-    files.navigateToFileDetailsPage();
     files.assignCloser();
  })
 
@@ -575,44 +585,44 @@ it("Assign Loan Processor",()=>{
 
     //Navigate to Files
     files.navigateToFiles();
+    files.createAFile();
 
     //Assign Loan processor
-    files.navigateToFileDetailsPage()
     files.assignLoanProcessor();
   })
 
 it("Verify archiving file",()=>{
 
-    var status="Complete"
+    var status="Archived"
 
     //Navigate to files
     files.navigateToFiles();
+    files.createAFile();
 
     //Archive File
-    files.navigateToFileDetailsPage();
     files.archiveThefile();
+    files.reloadThePage();
 
     //Verify archived file
     files.verifyFileStatusInFileDetailsPage(status);
-    files.navigateToFiles();
-    files.verifyNotPresentInTheList();
  })
 
-it("Verify reopening archived file",()=>{
+it.skip("Verify reopening archived file",()=>{
 
-    var status="In Progress"
+    var status="Active";
 
     //Navigate to files
     files.navigateToFiles();
 
     //Reopen archived files.
-    files.navigateToCompletedFilesTab();
+    files.navigateToArchivedFilesTab();
     files.navigateToFileDetailsPage();
     files.reopenTheArchivedFile();
 
     //Verify reopened file
     files.verifyFileStatusInFileDetailsPage(status);
- })
+  })
+
 
 it.skip("Verify adding orders in file details page",()=>{
     
@@ -649,9 +659,7 @@ it("Verify switching between Details, Messages and Documents tabs",()=>{
 
     //Navigate to files
     files.navigateToFiles();
-
-    //Navigate to File details page
-    files.navigateToFileDetailsPage();
+    files.createAFile();
 
     //Switch to "Documents tab"
     files.clickDocumentsButton();
@@ -687,7 +695,7 @@ it("Verify messaging in file details page",()=>{
     var message=faker.name.firstName();
 
     //Create a file
-    files.createAFile()
+    files.createAFile();
 
     //Start discussion
     files.clickMessagesTab();
@@ -710,20 +718,17 @@ it("Verify making a file favorite or non favorite",()=>{
 
     //Navigate to files
     files.navigateToFiles();
-    files.clickNameSorting();
-
-    //Navigate to File details page
-    files.navigateToFileDetailsPage();
+    files.createAFile();
+    files.copyTheLoanNumberInFileDetailsPage();
 
     //Make a file as Favorite or non-Favorite and then verify it
     files.verifyMakingFileAsFovoriteOrNonFavorite();
-
   })
 
 it("Verify reassigning vendor for an order",()=>{
 
     //Create a file
-    files.createAFile()
+    files.createAFile();
 
     //Reassign the vendor for an order
     files.clickEditButtinOfAnOrder();

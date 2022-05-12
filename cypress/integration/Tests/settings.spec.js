@@ -80,7 +80,7 @@ describe("Settings test cases" , ()=>{
          settings.verifyUpdatedOrganizationName(organization);
      })
 
-     it.only("Update preferred timezone",()=>{
+     it("Update preferred timezone",()=>{
 
         var timezone="Honolulu (GMT-10:00)";
 
@@ -95,6 +95,7 @@ describe("Settings test cases" , ()=>{
         settings.verifyUpdatedTimezone(timezone);
         meetings.navigateToMeetingsPage();
         meetings.clickOnCreateMeeting();
+        meetings.clickTheClosingMeetingButton();
         meetings.verifyDefaultTimezone(timezone);
      })
 

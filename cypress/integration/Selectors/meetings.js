@@ -95,6 +95,8 @@ export default {
     unarchiveBttn:'span[title="Unarchive"]',
     editButtonOfNotary:'//tbody/tr/td[2][text()="Notary"]/../td[last()]/div/div/div',
     reassignBttn:'//li/span[text()="Reassign"]',
-    reassignBttnInReassignNotaryPage:'//button[text()="Reassign"]'
+    reassignBttnInReassignNotaryPage:'//button[text()="Reassign"]',
+    myMeetingsDropdown:'[placeholder="My meetings"]',
+    selectAllBttn:'[title="Select All"]'
 
 }

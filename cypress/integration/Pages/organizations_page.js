@@ -113,5 +113,13 @@ export class Vendors{
    {
     cy.get('div>div>button').should('have.text',"Reject connection").should('be.disabled');
    }
+   clickTheWebsiteNotAvailableButton()
+   {
+       cy.xpath(Selectors.websiteNotAvailableBttn).should('exist').click();
+   }
+   enterVendorPhoneNumber(phoneNumber)
+   {
+       cy.get(Selectors.vendorPhoneNumberTxBx).should('exist').type(phoneNumber)
+   }
    
 }

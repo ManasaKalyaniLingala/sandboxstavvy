@@ -78,19 +78,15 @@ export class Settings{
     {
         cy.get(Selectors.timeZoneDropDown).should('have.value',timezone)
     }
-    selectTimeZoneFromTheList()
+    selectTimeZoneFromTheList(timeZone)
     {
-    cy.xpath('//div/ul/li/span')
-    .then(listing => {        
-      const randomNumber = this.getRandomInt(2, listing.length-1);
-      cy.log(randomNumber);
-       cy.xpath('(//div/ul/li['+randomNumber+']/span)').click({ force: true });     })
+       cy.xpath('//div/ul/li/span[text()="'+timeZone+'"]').click({ force: true });
     }
 
-    updateTimeZone()
+    updateTimeZone(timeZone)
     {
         this.clickTimzoneDropdown();
-        this.selectTimeZoneFromTheList();
+        this.selectTimeZoneFromTheList(timeZone);
     }
 
     navigateToOrganizationTab()
