@@ -31,4 +31,5 @@ laonOfficerEmail:'[placeholder="Email"]',
 loanOfficerPhone:'[placeholder="Phone"]',
 NMLSlicesnceNumber:'[placeholder="NMLS License Number"]',
 submitBttn:'//button[text()="Submit"]',
+userNameInTheList:'//div[@class="user-name"]'
 }

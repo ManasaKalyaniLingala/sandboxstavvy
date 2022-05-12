@@ -517,8 +517,42 @@ describe("Users test cases" , ()=>{
          files.navigateToFiles();
          files.clickCreateFileButton();
          files.clickTheLoanOfficerDropdown();
-         users.verifyLoanOfficerIntheList(name,email1)
+         users.verifyLoanOfficerIntheList(name,email1);
          })
+
+      it("Verify editing user name details",()=>{
+
+         var email = faker.internet.email().toLowerCase()
+         var firstName1=faker.name.firstName();
+         var middleName1=faker.name.middleName();
+         var lastName1=faker.name.lastName();
+         var firstName2=faker.name.firstName();
+         var middleName2=faker.name.middleName();
+         var lastName2=faker.name.lastName();
+         var userName=firstName2+" "+middleName2+" "+lastName2;
+
+         //Navigate to Users page
+         users.clickOnUsers();
+
+         //Inviting user
+         users.clickOnInviteUser();
+         users.enterUserInfo(firstName1,middleName1,lastName1,email);
+         users.selectNotaryOptionForUser();
+         users.clickInviteUsers();
+
+         //Edit the user name details
+         users.searchUser(firstName1);
+         users.navigateToManageUserPage(email);
+         users.editTheUserNameDetails(firstName2,middleName2,lastName2);
+         users.clickSaveUserButton();
+
+         //Verify edited user name details
+         users.searchUser(email);
+         users.verifyUserNameInTheList(userName);
+         users.navigateToManageUserPage(email);
+         users.verifyEditedUserNameDetails(firstName2,middleName2,lastName2);
+         })
+  
            
 
-})
+}) 

@@ -235,4 +235,38 @@ export class Users{
         cy.xpath('//li/span/text()').should('contain.text',laonOfficerEmail);
     }
 
+    editFirstName(firstName)
+    {
+        cy.get(selectors.firstNameTxtbx).clear().type(firstName);
+    }
+
+    editMiddleName(middleName)
+    {
+        cy.get(selectors.middleNameTxbx).clear().type(middleName);
+    }
+
+    editLastName(lastName)
+    {
+        cy.get(selectors.lastNameTxbx).clear().type(lastName);
+    }
+
+    editTheUserNameDetails(firstName,middleName,lastName)
+    {
+        this.editFirstName(firstName);
+        this.editMiddleName(middleName);
+        this.editLastName(lastName);
+    }
+
+    verifyUserNameInTheList(userName)
+    {
+        cy.xpath(selectors.userNameInTheList).should('contain.text',userName)
+    }
+
+    verifyEditedUserNameDetails(firstName,middleName,lastName)
+    {
+        cy.get(selectors.firstNameTxtbx).should('have.value',firstName);
+        cy.get(selectors.middleNameTxbx).should('have.value',middleName);
+        cy.get(selectors.lastNameTxbx).should('have.value',lastName);
+    }
+
 }
