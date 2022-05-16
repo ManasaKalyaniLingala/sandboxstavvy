@@ -41,7 +41,9 @@ export class Orders{
 
     navigateToCompletedOrdersTab()
     {
+        cy.wait(2000);
         cy.get(selectors.completedOrdersTab).should('exist').click();
+        cy.wait(2000);
     }
 
     navigateToReadyOrdersTab()
@@ -51,6 +53,7 @@ export class Orders{
 
     verifyTabSubtitle(subtitle)
     {
+        cy.wait(2000)
         cy.xpath(selectors.OrdersTabSubtitle).should('contain.text',subtitle)
     }
     
@@ -75,7 +78,7 @@ export class Orders{
         cy.get(selectors.noOfRowsDropDown).should('exist');
         cy.get(selectors.pendingOrdersTab).should('exist');
         cy.get(selectors.inProgressOrdersTab).should('exist');
-        cy.get(selectors.completeServingTab).should('exist');
+        cy.get(selectors.completedOrdersTab).should('exist');
         cy.get(selectors.favoritesOrdersTab).should('exist');
         cy.get(selectors.readyOrdersTab).should('exist');
         this.verifyTabSubtitle(subtitle);
@@ -152,7 +155,19 @@ export class Orders{
      })
         }
     
-        
+        verifyOrderPresentInTheList()
+     {
+         cy.get('@file name').then((res)=>{
+             var fileName=res.text();
+             cy.log(fileName);
+             cy.get('@order type').then((response)=>{
+                 var orderType=response.text()
+                 cy.log(orderType);
+                 cy.xpath('//tbody/tr/td[1][text()="'+fileName+'"]/../td[4][text()="'+orderType+'"]').should('exist');
+             })
+         })
+         
+     }
 
      verifyOrderNotPresentInTheList()
      {
@@ -253,6 +268,29 @@ export class Orders{
     verifyNoOfOrdersInTheList(number)
     {
         cy.xpath('//tbody').children().should('have.length', number);
+    }
+
+    clickEditButtonOfOrder()
+    {
+        cy.get('@order type').then((response)=>{
+            var orderType=response.text()
+        cy.xpath('//div[@data-testid="stavviz-card"]/div/div[text()="'+orderType+'"]/following-sibling::div/div').should('exist').click();
+        })
+    }
+
+    clickEditButtonOfServicingOrder()
+    {
+        cy.xpath('//div[@data-testid="stavviz-card"]/div/div[text()="Foreclosure"]/following-sibling::div/div').should('exist').click();
+    }
+
+    clickMarkCompleteButton()
+    {
+        cy.get(selectors.markCompleteButton).should('exist').click();
+    }
+
+    clickCancelButton()
+    {
+        cy.get(selectors.cancelButton).should('exist').click();
     }
     
     }

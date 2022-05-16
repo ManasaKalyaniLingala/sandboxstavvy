@@ -152,7 +152,7 @@ export class Acknowledgement {
 
     verifyDocumentStatusInTheList(document,loanNumber,status)
     {
-        cy.xpath('//div[text()="certified_blank doc2.pdf"]/../following-sibling::td[text()="file443"]/following-sibling::td[2]/div').should('have.text',status);
+        cy.xpath('//div[text()="'+document+'"]/../following-sibling::td[text()="'+loanNumber+'"]/following-sibling::td[2]/div').should('have.text',status);
     }
 
     verifyDocumentLastReviewedInTheList()

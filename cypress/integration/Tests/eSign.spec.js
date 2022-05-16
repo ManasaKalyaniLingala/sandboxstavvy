@@ -8,102 +8,103 @@ const login = new Login();
 const eSign = new ESign();
 describe("stavvy application" , ()=>{
 
-    beforeEach("Login as valid user",()=>{
+  beforeEach("Login as valid user",()=>{
 
-        login.navigateToUrl();
+     login.navigateToUrl();
 
-        //Login to the application
-        login.loginToApplication();
-     })
-
-      it("Verify eSign page View",()=>{
-
-         //Navigate to eSign page
-        eSign.clickOneSignButton();
-
-        //Verify eSign Page view
-        eSign.verifyEsignPageView();
-        })
+    //Login to the application
+     login.loginToApplication();
+    })
 
 
-      it("Create new eSign with Just Others", ()=>{
+ it("Verify eSign page View",()=>{
 
-         var packetTitle=faker.name.findName();
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
-         var email=faker.internet.email();
-         var document="title_exam (4).pdf";
-         var status="Ready To Sign";
+    //Navigate to eSign page
+     eSign.clickOneSignButton();
 
-         //Creating packet
-         eSign.creatingNewESignWithJustOtherOption(packetTitle,document,firstName,middleName,lastName,email);
-
-         //Verify created packet
-         eSign.reloadThePage();
-         eSign.verifyPacketInTheList(packetTitle);
-         eSign.verifyPacketStatusInTheList(packetTitle,status);
-         eSign.clickOnPacketFromTheList(packetTitle);
-         eSign.verifyPacketStatusInDetailsPage(status);
-         eSign.verifyPacketNameInDetailsPage(packetTitle);
-        })
+    //Verify eSign Page view
+     eSign.verifyEsignPageView();
+    })
 
 
+  it("Create new eSign with Just Others", ()=>{
 
-      it("Create new eSign with Just Me & Others", ()=>{
+     var packetTitle=faker.name.findName();
+     var firstName=faker.name.firstName();
+     var middleName=faker.name.middleName();
+     var lastName=faker.name.lastName();
+     var email=faker.internet.email();
+     var document="title_exam (4).pdf";
+     var status="Ready To Sign";
 
-         var packetTitle=faker.name.findName();
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
-         var email=faker.internet.email();
-         var document="title_exam (4).pdf";
-         var status="Ready To Sign";
+    //Creating packet
+     eSign.creatingNewESignWithJustOtherOption(packetTitle,document,firstName,middleName,lastName,email);
 
-         //Creating packet
-         eSign.createNewEsignWithMeAndOthers(packetTitle,document,firstName,middleName,lastName,email);
-
-         //Verify creared packet
-         eSign.verifyPacketNameInDetailsPage(packetTitle);
-         eSign.verifyPacketStatusInDetailsPage(status);
-         eSign.clickOneSignLink();
-         eSign.reloadThePage();
-         eSign.verifyPacketStatusInTheList(packetTitle,status);
-         })
+    //Verify created packet
+     eSign.reloadThePage();
+     eSign.verifyPacketInTheList(packetTitle);
+     eSign.verifyPacketStatusInTheList(packetTitle,status);
+     eSign.clickOnPacketFromTheList(packetTitle);
+     eSign.verifyPacketStatusInDetailsPage(status);
+     eSign.verifyPacketNameInDetailsPage(packetTitle);
+    })
 
 
 
-      it("Create new eSign with just Me", () =>{
+  it("Create new eSign with Just Me & Others", ()=>{
 
-         var packetTitle=faker.name.findName();
-         var document="title_exam (4).pdf";
-         var status="Ready To Sign";
+     var packetTitle=faker.name.findName();
+     var firstName=faker.name.firstName();
+     var middleName=faker.name.middleName();
+     var lastName=faker.name.lastName();
+     var email=faker.internet.email();
+     var document="title_exam (4).pdf";
+     var status="Ready To Sign";
 
-         //Creating packet
-         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+    //Creating packet
+     eSign.createNewEsignWithMeAndOthers(packetTitle,document,firstName,middleName,lastName,email);
 
-         //Verify created packet
-         eSign.reloadThePage()
-         eSign.verifyPacketInTheList(packetTitle);
-         eSign.clickOnPacketFromTheList(packetTitle);
-         eSign.verifyPacketNameInDetailsPage(packetTitle);
-         eSign.verifyPacketStatusInDetailsPage(status);
-         eSign.clickOneSignLink();
-         eSign.verifyPacketStatusInTheList(packetTitle,status);
-       })
+    //Verify creared packet
+     eSign.verifyPacketNameInDetailsPage(packetTitle);
+     eSign.verifyPacketStatusInDetailsPage(status);
+     eSign.clickOneSignLink();
+     eSign.reloadThePage();
+     eSign.verifyPacketStatusInTheList(packetTitle,status);
+    })
 
 
-      it("verify searching a packet by title and navigating to details page",()=>{
+
+  it("Create new eSign with just Me", () =>{
+
+     var packetTitle=faker.name.findName();
+      var document="title_exam (4).pdf";
+     var status="Ready To Sign";
+
+    //Creating packet
+     eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+
+    //Verify created packet
+     eSign.reloadThePage()
+     eSign.verifyPacketInTheList(packetTitle);
+     eSign.clickOnPacketFromTheList(packetTitle);
+     eSign.verifyPacketNameInDetailsPage(packetTitle);
+     eSign.verifyPacketStatusInDetailsPage(status);
+     eSign.clickOneSignLink();
+     eSign.verifyPacketStatusInTheList(packetTitle,status);
+    })
+
+
+  it("verify searching a packet by title and navigating to details page",()=>{
         
-        //Navigate to eSign page
-        eSign.clickOneSignButton();
+   //Navigate to eSign page
+     eSign.clickOneSignButton();
 
-        //Search packet
-        eSign.searchedPacketAndVerify();
-       }) 
+   //Search packet
+     eSign.searchedPacketAndVerify();
+    }) 
 
 
-      it("upload document to  an eSign", ()=>{
+  it("upload document to  an eSign", ()=>{
 
          var document="test doc6.pdf";
          var value="Ready To Sign";
@@ -150,7 +151,7 @@ describe("stavvy application" , ()=>{
 
          //Verify removed document
          eSign.verifyDeletedDocument(document2);
-       })
+        })
 
 
       it("Add signer to an eSign", ()=>{

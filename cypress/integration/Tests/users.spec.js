@@ -552,7 +552,59 @@ describe("Users test cases" , ()=>{
          users.navigateToManageUserPage(email);
          users.verifyEditedUserNameDetails(firstName2,middleName2,lastName2);
          })
-  
-           
+         
+         
+    it("Verify users search bar",()=>{
+
+         var email = faker.internet.email().toLowerCase()
+         var firstName=faker.name.firstName();
+         var middleName=faker.name.middleName();
+         var lastName=faker.name.lastName();
+         var userName=firstName+" "+middleName+" "+lastName;
+
+         //Navigate to Users page
+         users.clickOnUsers();
+
+         //Inviting user
+         users.clickOnInviteUser();
+         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.selectNotaryOptionForUser();
+         users.clickInviteUsers();
+
+         //Search the user with email
+         users.searchUser(email);
+         
+         //Verify the user in the list
+         users.verifyTheSearchedText(email);
+         users.verifyUserEmailInTheList(email);
+
+         //Search the user with full name
+         users.searchUser(userName)
+
+         //Verify the user in the list
+         users.verifyTheSearchedText(userName)
+         users.verifyUserNameInTheList(userName);
+
+         //Search the user with first name
+         users.searchUser(firstName);
+
+         //Verify the user in the list
+         users.verifyTheSearchedText(firstName)
+         users.verifyUserNameInTheList(firstName);
+
+         //Search the user with first name
+         users.searchUser(middleName);
+
+         //Verify the user in the list
+         users.verifyTheSearchedText(middleName)
+         users.verifyUserNameInTheList(middleName);
+
+         //Search the user with first name
+         users.searchUser(lastName);
+
+         //Verify the user in the list
+         users.verifyTheSearchedText(lastName);
+         users.verifyUserNameInTheList(lastName);
+    })
 
 }) 

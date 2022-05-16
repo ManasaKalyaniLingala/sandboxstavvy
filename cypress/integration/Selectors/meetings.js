@@ -97,6 +97,8 @@ export default {
     reassignBttn:'//li/span[text()="Reassign"]',
     reassignBttnInReassignNotaryPage:'//button[text()="Reassign"]',
     myMeetingsDropdown:'[placeholder="My meetings"]',
-    selectAllBttn:'[title="Select All"]'
-
+    selectAllBttn:'[title="Select All"]',
+    editFileIdButton:'//div[3]/div/div[2]/span/*',
+    fileIdNumberTxBx:'[placeholder="ID Number"]',
+    saveIconButton:'[data-icon="check"]'
 }

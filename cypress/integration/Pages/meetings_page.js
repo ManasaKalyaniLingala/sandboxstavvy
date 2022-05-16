@@ -233,17 +233,14 @@ export class Meetings {
             cy.xpath(selectors.fileId).should('have.text',fileId);
        })
    }
-
    copyTheOrderTypeInDetailsPage()
    {
        cy.xpath('(//button[text()="Accept"])[1]/../../../div[1]/div/text()').as('order type in details page');
    }
     verifyFileId(fileId)
-  {
+   {
     cy.xpath(selectors.fileId).should('have.text',fileId);
-  }
-    
-   
+   }
    navigatingToClosingsPage()
    {
        cy.xpath(selectors.closingsLink).click();
@@ -287,8 +284,6 @@ export class Meetings {
        cy.xpath('(//div/ul/li['+randomNumber+']/span)').click({ force: true });     
   })
    }
-   
-
    filterTheMeetingsBy(notary)
    {
        cy.get(selectors.filterByNotaryDropdown).click();
@@ -700,6 +695,22 @@ clickTheMyMeetingsDropdown()
 clickTheSelectAllButton()
 {
     cy.get(selectors.selectAllBttn).should('exist').click();    
+}
+
+clickTheEditButtonOfFileId()
+{
+    cy.xpath(selectors.editFileIdButton).trigger('mouseover');
+    cy.xpath(selectors.editFileIdButton).click({force:true});
+}
+
+editTheFileIdNumber(fileId)
+{
+    cy.get(selectors.fileIdNumberTxBx).clear().type(fileId);
+}
+
+clickTheSaveIconButton()
+{
+    cy.get(selectors.saveIconButton).should('exist').click();
 }
 }
 

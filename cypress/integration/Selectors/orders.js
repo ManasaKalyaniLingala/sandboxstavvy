@@ -6,8 +6,7 @@ export default{
     inProgressOrdersTab:'[title="Select In Progress tab"]',
     favoritesOrdersTab:'[title="Select Favorites tab"]',
     archivedOrdersBttn:'[data-testid="inbox-"]',
-    completedOrdersTab:'[title="Select Completed tab"]',
-    completeServingTab:'[title="Select Complete tab"]',
+    completedOrdersTab:'[data-testid="completed"]',
     readyOrdersTab:'[title="Select Ready tab"]',
     createOrderBttn:'//button[text()="Create order"]',
     fileNameInTheList:'//div[@class="table-body"]/div/div/div[1]/text()',
@@ -24,6 +23,7 @@ export default{
     orderTypeInTheList:'//tbody/tr[1]/td[4]/text()',
     fileNameInTheList:'//tbody/tr[1]/td[1]/text()',
     fileInTheList:'//tbody/tr[1]',
-
+    markCompleteButton:'[title="Mark complete"]',
+    cancelButton:'[title="Cancel"]',
     }
     

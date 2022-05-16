@@ -123,6 +123,10 @@ export class Users{
         cy.get(selectors.notaryCheckBox).should('not.be.checked');
     }
 
+    enterEmailInDeleteUserTextBox(email)
+    {
+        cy.get('[name="delete-user"]').type(email)
+        }
 
     copyAndPasteEmail()
     {
@@ -262,11 +266,21 @@ export class Users{
         cy.xpath(selectors.userNameInTheList).should('contain.text',userName)
     }
 
+    verifyUserEmailInTheList(userEmail)
+    {
+        cy.xpath(selectors.userEmailInTheList).should('contain.text',userEmail)
+    }
+
     verifyEditedUserNameDetails(firstName,middleName,lastName)
     {
         cy.get(selectors.firstNameTxtbx).should('have.value',firstName);
         cy.get(selectors.middleNameTxbx).should('have.value',middleName);
         cy.get(selectors.lastNameTxbx).should('have.value',lastName);
+    }
+
+    verifyTheSearchedText(text)
+    {
+        cy.xpath(selectors.searchedText).should('contain.text',text)
     }
 
 }

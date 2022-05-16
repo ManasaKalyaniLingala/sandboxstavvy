@@ -874,6 +874,22 @@ describe("Meetings/Closings test cases" , ()=>{
 
         //Verify reassigned notary
         meetings.verifyPopupMessage("Notary successfully reassigned");
+        })
+
+    it.only("Verify editing file id number",()=>{
+
+        var fileId = "file"+Math.floor(Math.random()*1000);
+
+        //Creating a meeting
+        meetings.navigatingToClosingDetailsPage();
+        
+        //Edit the File Id Number
+        meetings.clickTheEditButtonOfFileId();
+        meetings.editTheFileIdNumber(fileId);
+        meetings.clickTheSaveIconButton();
+
+        //Verify edited File Id Number
+        meetings.verifyFileId(fileId);
     })
 
     })

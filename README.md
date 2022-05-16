@@ -10,7 +10,7 @@
 ```sh
    --env "username=username,password=password,baseUrl=url"
 ```
-# run on dev env
+### Run Tests
 
  ```sh
 npx cypress run --env "username=username,password=password" --headed
@@ -32,7 +32,7 @@ npx cypress run --env "username=username,password=password" --headed --browser f
 ```
 
 
- # run on other env
+### run on other env
 ```sh
  npx cypress run --env "username=username,password=password,baseUrl=url"
  ```
