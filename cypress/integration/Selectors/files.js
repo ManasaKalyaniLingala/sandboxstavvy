@@ -67,7 +67,7 @@ export default{
     fileSearchBar:'[placeholder="Search files by ID, property, or borrower name"]',
     filesTabSubtitle:'//div[@class="subtitle mb-6"]/text()',
     filesList:'//tbody/tr',
-    addedOrderInFileDetailsPage:'//div[@class="subtitle"]/../following-sibling::div/div/div/div/text()',
+    addedOrderInFileDetailsPage:'//div[@data-testid="stavviz-card"]/div/div[@class="subtitle"]',
     partyOrBorrowerColoumn:'//tr[@class="relative"]/th/span[text()="Property / Borrowers"]',
     fileNameColoumn:'//tr[@class="relative"]/th/span[text()="Name"]',
     closeDateColoumn:'//tr[@class="relative"]/th/span[text()="Close Date"]',

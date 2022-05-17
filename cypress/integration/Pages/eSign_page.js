@@ -303,7 +303,8 @@ export class ESign {
 
     clickOnSaveButton()
     {
-        cy.xpath(selectors.saveBttn).click();
+        cy.xpath(selectors.saveBttn).should('exist').click();
+        cy.wait(2000);
     }
 
     verifySaveBttnIsDisabled()
@@ -545,7 +546,7 @@ export class ESign {
     {
         cy.xpath(selectors.signerMailOfEditButton).then((mail)=>{
             var email=mail.text();
-        this.clickEditSignerBttn();
+        this.clickEditButtonOfSignerBttn();
         this.clickOnDelete();
         this.clickOnRemoveSignerButton();
 
@@ -553,9 +554,15 @@ export class ESign {
         })
     }
 
+    copyTheSignerMail()
+    {
+        cy.xpath(selectors.signerMailOfEditButton).as('signerEmail')
+    }
+
 
     selectPacketFromTheList()
    {
+       cy.wait(2000)
     cy.xpath('//tbody/tr')
     .then(($li) => {
       const items = $li.toArray()
@@ -574,9 +581,9 @@ export class ESign {
        cy.xpath(selectors.packetDetailsPage).should('exist');
    }
 
-   clickEditSignerBttn()
+   clickEditButtonOfSignerBttn(signerEmail)
    {
-       cy.xpath(selectors.editSignerButton).should('exist').click();
+       cy.xpath('//div/span[text()="'+signerEmail+'"]/following-sibling::span/div/div').should('exist').click();
    }
 
    clickResendInviteButton()
@@ -586,7 +593,7 @@ export class ESign {
 
    clickEditButtonOfDocument(document)
    {
-       cy.xpath('//div[text()="Documents"]/../following-sibling::div/div/table/tbody/tr/td[1][text()="'+document+'"]/following-sibling::td[3]/div').should('exist').click();
+       cy.xpath('//div[text()="Documents"]/../../following-sibling::div/div/table/tbody/tr/td[1][text()="'+document+'"]/following-sibling::td[3]/div').should('exist').click();
    }
 
    verifyDeletedDocument(document)
@@ -822,6 +829,11 @@ export class ESign {
     clickSaveAndAddAnnotationsBttn()
     {
         cy.xpath(selectors.saveAndAddAnnotationsBttn).should('exist').click();
+    }
+
+    copyPacketNameInPacketDetailsPage()
+    {
+        cy.xpath(selectors.packetTitleIneSignDetailsPage).as('packet name');
     }
     
    }

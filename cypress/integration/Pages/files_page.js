@@ -53,7 +53,7 @@ export class Files{
     enterPropertyAddress(address) {
         cy.get(selectors.propertyAddressInputField).type(address);
         cy.wait(200);
-        cy.xpath('//div[@class="stavviz-dropdown relative flex"]/div[2]/ul/li[2]').click();
+        cy.xpath('//div[@class="stavviz-dropdown relative flex"]/div[2]/ul/li[1]').click();
         cy.wait(5000);
     }
 
@@ -558,6 +558,7 @@ export class Files{
 
     verifyAddedOrder(order)
     {
+        cy.wait(3000)
         cy.xpath(selectors.addedOrderInFileDetailsPage).should('contain.text',order);
     }
     verifyAddedOrderInTheFileDetailsPage(order,status)
@@ -771,6 +772,7 @@ export class Files{
             this.navigateToFiles();
             this.navigateToMyFavoritesFilesTab();
             cy.get('@loanNumberInDetailsPage').then((res)=>{
+            this.selectNoOfRowsPerPage("25");
             this.verifyFileInTheList(res.text())
             })
         }
@@ -779,6 +781,7 @@ export class Files{
             this.navigateToFiles();
             this.navigateToMyFavoritesFilesTab();
             cy.get('@loanNumberInDetailsPage').then((res)=>{
+                this.selectNoOfRowsPerPage("25");
                 this.verifyFileIsNotPresentInTheList(res.text());
                 })
         }

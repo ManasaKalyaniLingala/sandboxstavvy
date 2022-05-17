@@ -181,6 +181,7 @@ it("Verify creating Floating Rate type Purchase file",()=>{
      files.clickFloatingRateType();
      files.clickPurchaseType();
      files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+     files.enterPurchasePrice(purchaseAmount);
      files.selectLoanProcessor();
      files.clickContinueButton();
      files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
@@ -204,7 +205,7 @@ it("Verify creating Floating rate type Refinance file",()=>{
      var loanNumber="loan"+Math.floor(Math.random()*1000);
      var loanAmount=Math.floor(Math.random()*1000);
      var address=1+Math.floor(Math.random())*100;
-      var streetName=faker.address.streetName();
+     var streetName=faker.address.streetName();
      var streetNumber=address;
      var city=faker.address.cityName();
      var postalCode=faker.address.zipCode();
@@ -402,7 +403,7 @@ it("Verify creating file wihtout adding orders",()=>{
     })
 
 
-it("Navigate to file details page",()=>{
+it.skip("Navigate to file details page",()=>{
     
     //Navigate to Files page
      files.navigateToFiles();
