@@ -16,13 +16,9 @@ describe("Vendor test cases" , ()=>{
 
      it("verify inviting new vendor", ()=>{
 
-        var domain=faker.name.firstName()+".com";
-        var email =faker.internet.email().toLowerCase();
-        var vendorName=faker.name.findName();
-        var firstName=faker.name.firstName();
-        var middleName=faker.name.middleName();
-        var lastName=faker.name.lastName();
-        var status="Invited";
+         var domain=faker.name.findName()+".com";
+         var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+         var status="Invited";
 
         //Navigate to Organizations
         vendors.clickOnOrganizations();
@@ -30,27 +26,23 @@ describe("Vendor test cases" , ()=>{
         //Invite new vendor
         vendors.clickOnInviteNewVendor();
         vendors.enterVendorDomain(domain);
-        vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email);
+        vendors.enterVendorInfo(email);
         vendors.clickOnInviteVendor();
 
         //Verify added vendor
-        vendors.verifyInvitedVendorMessage(vendorName+" has been invited. No further action is required.");
-        vendors.verifyStatusOfVendor(domain,status);
+        vendors.verifyInvitedVendorMessage();
+        vendors.verifyStatusOfVendor(status,domain);
      })
 
    
      it("verify inviting new vendor with the existing domain",()=>{
 
-        var vendorName=faker.name.findName();
-        var firstName=faker.name.firstName();
-        var middleName=faker.name.middleName();
-        var lastName=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+       var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
         //Navigate to Organizations
         vendors.clickOnOrganizations();
         vendors.CopyDomainAndEnterInVendorDoamin();
-        vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email);
+        vendors.enterVendorInfo(email);
         vendors.clickOnInviteVendor();
 
         //Verify error text
@@ -60,251 +52,229 @@ describe("Vendor test cases" , ()=>{
 
      it("Verify inviting new vendor with existing vendor details",()=>{
 
-        var domain=faker.name.firstName()+".com";
-        var vendorName=faker.name.findName();
-        var firstName=faker.name.firstName();
-        var middleName=faker.name.middleName();
-        var lastName=faker.name.lastName();
-        var email =faker.internet.email().toLowerCase();
+         var domain=faker.name.findName()+".com";
+         var email1="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+         var email2="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
-        //Navigate to Organizations
-        vendors.clickOnOrganizations();
+         //Navigate to Organizations
+          vendors.clickOnOrganizations();
 
-        //Invite vendor
-        vendors.clickOnInviteNewVendor();
-        vendors.enterVendorDomain(domain);
-        vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email);
-        vendors.clickOnInviteVendor();
+         //Invite vendor
+          vendors.clickOnInviteNewVendor();
+          vendors.enterVendorDomain(domain);
+          vendors.enterVendorInfo(email1);
+          vendors.clickOnInviteVendor();
 
-        //Invite vendor with existing vendor mail
-        vendors.clickOnInviteNewVendor()
-        vendors.enterVendorDomain(domain);
-        vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email);
-        vendors.clickOnInviteVendor();
+         //Invite vendor with existing vendor mail
+          vendors.clickOnInviteNewVendor();
+          vendors.enterVendorDomain(domain);
+          vendors.enterVendorInfo(email2);
+          vendors.clickOnInviteVendor();
 
-        //Verify added vendor
-        vendors.verifyErrorText("User already exists with that email. Did you use their correct domain?");
-        vendors.clickOnCloseIcon();
-        vendors.verifyDomainNotExistInTheList(domain);
-     })
+         //Verify added vendor
+          vendors.verifyErrorText("An existing or duplicate value has already been saved.");
+      })
 
 
      it("verify inviting new vendor with the existing vendor mail",()=>{
 
-        var vedndor1domain=faker.name.firstName()+".com";
-        var vendor1Name=faker.name.findName();
-        var vendor1firstName=faker.name.firstName();
-        var vendor1middleName=faker.name.middleName();
-        var vendor1lastName=faker.name.lastName();
-        var vendor2domain=faker.name.firstName()+".com";
-        var vendor2Name=faker.name.findName();
-        var vendor2firstName=faker.name.firstName();
-        var vendor2middleName=faker.name.middleName();
-        var vendor2lastName=faker.name.lastName();
-        var vendoremail=faker.internet.email().toLowerCase();
+          var vendorDomain=faker.name.firstName()+".com";
+          var vendorName=faker.name.findName();
+          var vendorFirstName=faker.name.firstName();
+          var vendorMiddleName=faker.name.middleName();
+          var vendorLastName=faker.name.lastName();
+          var vendorDomain2=faker.name.findName()+".com";
+          var domain2=faker.name.findName()+".com";
+          var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
-        //Navigate to Organizations
-        vendors.clickOnOrganizations();
+         //Navigate to Organizations
+          vendors.clickOnOrganizations();
 
-        //Invite vendor
-        vendors.clickOnInviteNewVendor();
-        vendors.enterVendorDomain(vedndor1domain);
-        vendors.enterVendorInfo(vendor1Name,vendor1firstName,vendor1middleName,vendor1lastName,vendoremail);
-        vendors.clickOnInviteVendor();
+         //Invite vendor
+          vendors.clickOnInviteNewVendor();
+          vendors.enterVendorDomain(vendorDomain);
+          vendors.enterVendorInfo(email);
+          vendors.clickOnInviteVendor();
 
-        //Invite vendor with existing vendor mail
-        vendors.clickOnInviteNewVendor()
-        vendors.enterVendorDomain(vendor2domain);
-        vendors.enterVendorInfo(vendor2Name,vendor2firstName,vendor2middleName,vendor2lastName,vendoremail);
-        vendors.clickOnInviteVendor();
+         //Invite vendor with existing vendor mail
+          vendors.clickOnInviteNewVendor();
+          vendors.enterVendorDomain(vendorDomain2);
+          vendors.enterVendorInfo(email,vendorName,vendorFirstName,vendorMiddleName,vendorLastName);
+          vendors.clickOnInviteVendor();
 
-        //Verify added vendor
-        vendors.verifyErrorText("User already exists with that email. Did you use their correct domain?");
-        vendors.clickOnCloseIcon();
-        vendors.verifyDomainNotExistInTheList(vendor2domain);
-     })
+         //Verify added vendor
+          vendors.verifyErrorText("User already exists with that email. Did you use their correct domain?");
+          vendors.clickOnCloseIcon();
+          vendors.verifyDomainNotExistInTheList(vendorDomain);
+      })
 
      it("Verify inviting new vendor with the existing vendor name credentials",()=>{
 
-        var domain=faker.name.firstName()+".com";
-        var domain2=faker.name.firstName()+".com";
-        var vendorName=faker.name.findName();
-        var firstName=faker.name.firstName();
-        var middleName=faker.name.middleName();
-        var lastName=faker.name.lastName();
-        var email1=faker.internet.email().toLowerCase();
-        var email2=faker.internet.email().toLowerCase();
-        var status="Invited";
+          var domain=faker.name.firstName()+".com";
+          var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+          var status="Invited";
 
-        //Navigate to Organizations
-        vendors.clickOnOrganizations();
+         //Navigate to Organizations
+          vendors.clickOnOrganizations();
 
-        //Invite vendor
-        vendors.clickOnInviteNewVendor();
-        vendors.enterVendorDomain(domain);
-        vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email1);
-        vendors.clickOnInviteVendor();
+         //Invite vendor
+          vendors.clickOnInviteNewVendor();
+          vendors.enterVendorDomain();
+          vendors.enterVendorInfo();
+          vendors.clickOnInviteVendor();
 
-        //Invite vendor with existing vendor name credentials
-        vendors.clickOnInviteNewVendor()
-        vendors.enterVendorDomain(domain2);
-        vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email2);
-        vendors.clickOnInviteVendor();
+         //Invite vendor with existing vendor name credentials
+          vendors.clickOnInviteNewVendor()
+          vendors.enterVendorDomain(domain);
+          vendors.clickOnNextButton();
+          vendors.enterVendorName();
+          vendors.enterFirstName();
+          vendors.enterMiddleName();
+          vendors.enterLastName();
+          vendors.enterVendoMail(email);
+          vendors.clickOnInviteVendor();
 
-        //Verify added vendor
-        vendors.verifyInvitedVendorMessage(vendorName+" has been invited. No further action is required.");
-        vendors.verifyStatusOfVendor(domain,status);
-     })
-
+         //Verify added vendor
+          vendors.verifyInvitedVendorMessage();
+          vendors.verifyStatusOfVendor(status,domain);
+      })
 
 
      it("verify navigating to details of connected org",()=>{
 
-        //Navigate to Organizations
-        vendors.clickOnOrganizations();
+         //Navigate to Organizations
+          vendors.clickOnOrganizations();
 
-        //Navigate to Vendor details
-        vendors.clickOnDetailsOfVendorAndVerifyVendorName();
+         //Navigate to Vendor details
+          vendors.clickOnDetailsOfVendorAndVerifyVendorName();
 
-        //Verify details page
-        vendors.verifyRejectConnectionButtonPresentAndDisbaled();
+         //Verify details page
+          vendors.verifyRejectConnectionButtonPresentAndDisbaled();
      })
 
 
 
      it("Verify inviting new vendor without domain",()=>{
 
-        //Navigate to Organizations
-        vendors.clickOnOrganizations();
+         //Navigate to Organizations
+          vendors.clickOnOrganizations();
 
-        //Invite vendor
-        vendors.clickOnInviteNewVendor();
-        vendors.verifyNextButtonIsDisabled();
+         //Invite vendor
+          vendors.clickOnInviteNewVendor();
+          vendors.verifyNextButtonIsDisabled();
       })
-
 
 
     it("Verify inviting new vendor without vendor detail",()=>{
 
-      var domain=faker.name.findName();
+         //Navigate to Organizations
+          vendors.clickOnOrganizations();
 
-     //Navigate to Organizations
-     vendors.clickOnOrganizations();
+         //Inviting new vendor without vendor details
+          vendors.clickOnInviteNewVendor();
+          vendors.enterVendorDomain();
+          vendors.clickOnNextButton();
 
-     //Invite vendor
-     vendors.clickOnInviteNewVendor();
-     vendors.enterVendorDomain(domain);
-     vendors.clickOnNextButton();
-     vendors.verifyInviteVendorIsDisabled();
-    })
+         //Verification
+          vendors.verifyInviteVendorIsDisabled();
+      })
 
 
     it("Verify inviting vendor without vendor's email",()=>{
 
-      var domain=faker.name.findName();
-      var firstName=faker.name.firstName();
-      var middleName=faker.name.middleName();
-      var lastName=faker.name.lastName();
-      var vendorName=faker.name.findName();
-
       //Navigate to Organizations
-      vendors.clickOnOrganizations();
+       vendors.clickOnOrganizations();
 
       //Invite vendor
-      vendors.clickOnInviteNewVendor();
-      vendors.enterVendorDomain(domain);
-      vendors.clickOnNextButton();
-      vendors.enterVendorName(vendorName);
-      vendors.enterFirstName(firstName);
-      vendors.enterMiddleName(middleName);
-      vendors.enterLastName(lastName);
-      vendors.verifyInviteVendorIsDisabled();
-    })
+       vendors.clickOnInviteNewVendor();
+       vendors.enterVendorDomain();
+       vendors.clickOnNextButton();
+       vendors.enterVendorName();
+       vendors.enterFirstName();
+       vendors.enterMiddleName();
+       vendors.enterLastName();
+       vendors.verifyInviteVendorIsDisabled();
+      })
 
 
 
     it("Verify inviting vendor with an improper vendor's email",()=>{
 
-      var domain=faker.name.findName();
-      var firstName=faker.name.firstName();
-      var middleName=faker.name.middleName();
-      var lastName=faker.name.lastName();
-      var vendorName=faker.name.findName();
-      var email=faker.name.findName();
+       var firstName=faker.name.firstName();
+       var middleName=faker.name.middleName();
+       var lastName=faker.name.lastName();
+       var vendorName=faker.name.findName();
+       var email=faker.name.findName();
 
       //Navigate to Organizations
-      vendors.clickOnOrganizations();
+       vendors.clickOnOrganizations();
       
       //Invite vendor
-      vendors.clickOnInviteNewVendor();
-      vendors.enterVendorDomain(domain);
-      vendors.enterVendorInfo(vendorName,firstName,middleName,lastName,email);
-      vendors.clickOnInviteVendor();
-      vendors.verifyErrorText('Please enter a valid email address');
-    })
+       vendors.clickOnInviteNewVendor();
+       vendors.enterVendorDomain();
+       vendors.enterVendorInfo(email,vendorName,firstName,middleName,lastName);
+       vendors.clickOnInviteVendor();
+       vendors.verifyErrorText('Please enter a valid email address');
+      })
 
 
 
     it("Verify inviting new vendor without vendor name credentials",()=>{
       
-      var domain=faker.name.findName();
-      var email=faker.internet.email();
+       var domain=faker.name.findName()+".com";
+       var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
       //Navigate to Organizations
-      vendors.clickOnOrganizations();
-
+       vendors.clickOnOrganizations();
+ 
       //Invite vendor
-      vendors.clickOnInviteNewVendor();
-      vendors.enterVendorDomain(domain);
-      vendors.clickOnNextButton();
-      vendors.enterVendoMail(email);
-      vendors.verifyInviteVendorIsDisabled();
-    })
+       vendors.clickOnInviteNewVendor();
+       vendors.enterVendorDomain(domain);
+       vendors.clickOnNextButton();
+       vendors.enterVendoMail(email);
+       vendors.verifyInviteVendorIsDisabled();
+      })
 
     it("Verify inviting new vendor with an improper domain",()=>{
 
-      var domain="1222"
+       var domain="1222"
 
       //Navigate to Organizations
-      vendors.clickOnOrganizations();
+       vendors.clickOnOrganizations();
 
       //Invite vendor
-      vendors.clickOnInviteNewVendor();
-      vendors.enterVendorDomain(domain);
+       vendors.clickOnInviteNewVendor();
+       vendors.enterVendorDomain(domain);
 
       //Verify Next button is disabled
-      vendors.verifyNextButtonIsDisabled();
-
-    })
+       vendors.verifyNextButtonIsDisabled();
+      })
 
 
    it("Verify inviting vendor by Vendor Phone Number",()=>{
 
-        var phoneNumber=faker.phone.phoneNumberFormat();
-        var email =faker.internet.email().toLowerCase();
-        var vendorName=faker.name.findName();
-        var firstName=faker.name.firstName();
-        var middleName=faker.name.middleName();
-        var lastName=faker.name.lastName();
-        var status="Invited";
+          var vendorPhoneNumber=faker.phone.phoneNumberFormat();
+          var status="Invited";
+          var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
-        //Navigate to Organizations
-        vendors.clickOnOrganizations();
 
-        //Invite new vendor
-        vendors.clickOnInviteNewVendor();
-        vendors.clickTheWebsiteNotAvailableButton();
-        vendors.enterVendorName(vendorName);
-        vendors.enterFirstName(firstName);
-        vendors.enterMiddleName(middleName);
-        vendors.enterLastName(lastName);
-        vendors.enterVendorPhoneNumber(phoneNumber);
-        vendors.enterVendoMail(email);
-        vendors.clickOnInviteVendor();
+         //Navigate to Organizations
+          vendors.clickOnOrganizations();
+
+         //Invite new vendor
+          vendors.clickOnInviteNewVendor();
+          vendors.clickTheWebsiteNotAvailableButton();
+          vendors.enterVendorName();
+          vendors.enterFirstName();
+          vendors.enterMiddleName();
+          vendors.enterLastName();
+          vendors.enterVendorPhoneNumber(vendorPhoneNumber);
+          vendors.enterVendoMail(email);
+          vendors.clickOnInviteVendor();
 
         //Verify added vendor
-        vendors.verifyInvitedVendorMessage(vendorName+" has been invited. No further action is required.");
-        vendors.verifyStatusOfVendor(phoneNumber,status)
-      })
+          vendors.verifyInvitedVendorMessage();
+          vendors.verifyStatusOfVendor(status,vendorPhoneNumber)
+         })
 
     })

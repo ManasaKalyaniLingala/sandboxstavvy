@@ -41,7 +41,7 @@ describe('api test cases',()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var signerMail=faker.internet.email();
+        var signerMail="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var attendeeRole="signer";
         var transactionSide="buy_side";
         var loanType="refinance";
@@ -70,7 +70,7 @@ describe('api test cases',()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var signerMail=faker.internet.email();
+        var signerMail="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var attendeeRole="signer";
         var transactionSide="buy_side";
         var loanType="equity";
@@ -99,7 +99,7 @@ describe('api test cases',()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var signerMail=faker.internet.email();
+        var signerMail="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var attendeeRole="signer";
         var transactionSide="buy_side";
         var loanType="purchase";
@@ -129,7 +129,7 @@ describe('api test cases',()=>{
         var signerMiddleName=faker.name.middleName();
         var signerLastName=faker.name.lastName();
         var signerPhone=faker.phone.phoneNumber();
-        var signerMail=faker.internet.email();
+        var signerMail="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var attendeeRole="signer";
         var transactionSide="buy_side";
         var loanType="modification";
@@ -149,6 +149,30 @@ describe('api test cases',()=>{
         
         meetings.verifyCreatedMeeting(customIdentifier,loanType,signerMail,streetNumber,streetName,city,postalCode)
     })
+
+
+it("Loggin in",()=>{
+
+    cy.request({
+        url:'https://connect.dev.stavvy.com/',
+        method:'GET',
+        headers:{"Sec-Fetch-Mode":"navigate",
+        "Sec-Fetch-Site":"none",
+        "Accept-Language":"en-US,en;q=0.5",
+        "Sec-Fetch-User":"?1",
+        "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Upgrade-Insecure-Requests":"1",
+        "Accept-Encoding":"gzip, deflate, br",
+        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0",
+        "Sec-Fetch-Dest":"document",
+         },
+    }).as('getMeetings')
+
+    cy.get('@getMeetings').then((res)=>{
+        expect(res.status).to.eq(200);
+        cy.log(res)
+    })
+})
 
     
 })

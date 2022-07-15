@@ -13,7 +13,7 @@ export class Meetings{
                 body:{
                     "status":status,
                      "notary_ids": [2077], 
-                     "offset": 0, 
+                     "offset": 0,
                      "limit": 10
             }
         }).as('getMeetings')

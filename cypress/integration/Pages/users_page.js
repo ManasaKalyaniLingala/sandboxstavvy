@@ -1,4 +1,13 @@
-import selectors from "../Selectors/users"
+import selectors from "../Selectors/users";
+import faker from "@faker-js/faker";
+
+     var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+     var userFirstName=faker.name.firstName();
+     var userMiddleName=faker.name.middleName();
+     var userLastName=faker.name.lastName();
+     var userName=userFirstName+" "+userMiddleName+" "+userLastName;
+     var phoneNumber=faker.phone.phoneNumber();
+     var NMLSlicesnceNumber=Math.floor(Math.random()*1000000);
 
 export class Users{
 
@@ -12,30 +21,29 @@ export class Users{
         cy.get(selectors.inviteUserBttn).click();
     }
     
-    enterUserInfo(firstName,middleName,lastName,email)
+    enterUserInfo(email=userEmail,firstName=userFirstName,middleName=userMiddleName,lastName=userLastName)
     {
         this.enterFirstName(firstName);
         this.enterMiddleName(middleName);
         this.enterLastName(lastName);
         this.enterEmail(email);
-
     }
 
-    enterFirstName(firstName)
+    enterFirstName(firstName=userFirstName)
     {
         cy.get(selectors.firstNameTxtbx).type(firstName);
     }
 
-    enterMiddleName(middleName)
+    enterMiddleName(middleName=userMiddleName)
     {
         cy.get(selectors.middleNameTxbx).type(middleName);
     }
-    enterLastName(lastName)
+    enterLastName(lastName=userLastName)
     {
         cy.get(selectors.lastNameTxbx).type(lastName);
     }
 
-    enterEmail(email)
+    enterEmail(email=userEmail)
     {
         cy.get(selectors.emailTxbx).type(email);
     }
@@ -82,7 +90,7 @@ export class Users{
 
     verifyErrorText(errorText)
     {
-        cy.get(selectors.errorText).should('have.text',errorText)
+        cy.xpath(selectors.errorText).should('have.text',errorText)
     }
 
     verifyMessageText(messageText)
@@ -91,18 +99,24 @@ export class Users{
         cy.wait(5000);
     } 
 
+    verifyInvitationMessageText(email=userEmail)  
+    {
+        cy.get(".react-toast-notifications__toast__content").should('contain.text',email+" has been invited to your Stavvy account via email!")
+        cy.wait(5000);
+    } 
+
     clickOnPageNumber(pageNumber)
     {
         cy.xpath('//div[2]/span[text()="'+pageNumber+'"]').click();
     }
-    clickOnUserMail(mail)
+    clickOnUserMail(mail=userEmail)
     {
         cy.xpath('//*[text()="'+mail+'"]').click();
     }
-    searchUser(userName)
+    searchUser(user=userName)
     {
      cy.wait(4000)
-     cy.get(selectors.searchUser).clear().type(userName);
+     cy.get(selectors.searchUser).clear().type(user);
      cy.wait(3000);
     }
     verifyUserRole(role)
@@ -123,22 +137,15 @@ export class Users{
         cy.get(selectors.notaryCheckBox).should('not.be.checked');
     }
 
-    enterEmailInDeleteUserTextBox(email)
+    enterEmailInDeleteUserTextBox(email=userEmail)
     {
-        cy.get('[name="delete-user"]').type(email)
-        }
-
-    copyAndPasteEmail()
-    {
-        cy.xpath('(//h3//text())[1]').then(($temp)=>{
-            const txt = $temp.text()
-            cy.get('[name="delete-user"]').type(`${txt}`)})
+        cy.get(selectors.deleteUserTxBx).type(email);
     }
-    clickOnUserName(userName)
+    clickOnUserName(userName=userName)
     {
         cy.xpath('//div[text()="'+userName+'"]').should('exist').click();
     }
-    verifyDeletedUserInTheList(userName)
+    verifyDeletedUserInTheList(userName=userName)
     {
         cy.xpath('//div[text()="'+userName+'"]').should('not.exist');
     }
@@ -154,16 +161,16 @@ export class Users{
    saveUserAndVerifyUserRole(role)
     {
         cy.xpath('(//h3//text())[1]').then(($temp)=>{
-            var mail = $temp.text();
+            var email = $temp.text();
 
             this.clickSaveUserButton();
             this.verifyMessageText("User has been updated!");
-            this.verifyUserRoleInTheList(mail,role);
-            this.navigateToManageUserPage(mail);
+            this.verifyUserRoleInTheList(role,email);
+            this.navigateToManageUserPage(email);
             this.verifyUserRole(role);
         })
     }
-    navigateToManageUserPage(mail)
+    navigateToManageUserPage(mail=userEmail)
     {
         cy.xpath('//tr/td/div/div[2]/div[2][text()="'+mail+'"]').should('exist').click();
     }
@@ -188,9 +195,10 @@ export class Users{
         cy.xpath(selectors.saveUserBttn).should('exist').click();
     }
 
-    verifyUserRoleInTheList(email,role)
+    verifyUserRoleInTheList(role,email=userEmail)
     {
-        cy.xpath('//tr/td/div/div[2]/div[2][text()="'+email+'"]/../../../following-sibling::td/p').should('have.text',role)
+
+        cy.xpath('//tr/td/div/div[2]/div[2][text()="'+email+'"]/../../../following-sibling::td/p').should('have.text',role);
     }
 
     clickOnAnyUserFromTheList()
@@ -203,24 +211,24 @@ export class Users{
         cy.xpath(selectors.createLoanOfficerBttn).should('exist').click();
     }
 
-    enterLoanOfficerName(name)
+    enterLoanOfficerName(name=userName)
     {
         cy.get(selectors.loanOfficerName).should('exist').type(name)
     }
 
-    enterLoanOfficerEmail(email)
+    enterLoanOfficerEmail(email=userEmail)
     {
         cy.get(selectors.laonOfficerEmail).should('exist').type(email)
     }
     
-    enterLoanOfficerNMLSlicenseNumber(licenseNumber)
+    enterLoanOfficerNMLSlicenseNumber(licenseNumber=NMLSlicesnceNumber)
     {
         cy.get(selectors.NMLSlicesnceNumber).should('exist').type(licenseNumber);
     }
 
-    enterLoanOfficerPhone(Phone)
+    enterLoanOfficerPhone(Phone=phoneNumber)
     {
-        cy.get(selectors.NMLSlicesnceNumber).should('exist').type(Phone);
+        cy.get(selectors.loanOfficerPhone).should('exist').type(Phone);
     }
 
     clickTheSubmitButton()
@@ -228,50 +236,57 @@ export class Users{
         cy.xpath(selectors.submitBttn).should('exist').click();
     }
 
+    enterLoanOfficerDetails(email=userEmail,name=userName,phone=phoneNumber,licenseNumber=NMLSlicesnceNumber)
+    {
+         this.enterLoanOfficerName(name);
+         this.enterLoanOfficerEmail(email);
+         this.enterLoanOfficerPhone(phone);
+         this.enterLoanOfficerNMLSlicenseNumber(licenseNumber);
+    }
+
     verifySubmitButtonIsDisabled()
     {
         cy.xpath(selectors.submitBttn).should('be.disabled');
     }
 
-    verifyLoanOfficerIntheList(loanOfficerName,laonOfficerEmail)
+    verifyLoanOfficerIntheList(laonOfficerEmail=userEmail)
     {
-        cy.xpath('//li/span/text()').should('contain.text',loanOfficerName);
         cy.xpath('//li/span/text()').should('contain.text',laonOfficerEmail);
     }
 
-    editFirstName(firstName)
+    editFirstName(firstName=userFirstName)
     {
         cy.get(selectors.firstNameTxtbx).clear().type(firstName);
     }
 
-    editMiddleName(middleName)
+    editMiddleName(middleName=userMiddleName)
     {
         cy.get(selectors.middleNameTxbx).clear().type(middleName);
     }
 
-    editLastName(lastName)
+    editLastName(lastName=userLastName)
     {
         cy.get(selectors.lastNameTxbx).clear().type(lastName);
     }
 
-    editTheUserNameDetails(firstName,middleName,lastName)
+    editTheUserNameDetails(firstName=userFirstName,middleName=userMiddleName,lastName=userLastName)
     {
         this.editFirstName(firstName);
         this.editMiddleName(middleName);
         this.editLastName(lastName);
     }
 
-    verifyUserNameInTheList(userName)
+    verifyUserNameInTheList(user=userName)
     {
-        cy.xpath(selectors.userNameInTheList).should('contain.text',userName)
+        cy.xpath(selectors.userNameInTheList).should('contain.text',user)
     }
 
-    verifyUserEmailInTheList(userEmail)
+    verifyUserEmailInTheList(email=userEmail)
     {
-        cy.xpath(selectors.userEmailInTheList).should('contain.text',userEmail)
+        cy.xpath(selectors.userEmailInTheList).should('contain.text',email)
     }
 
-    verifyEditedUserNameDetails(firstName,middleName,lastName)
+    verifyEditedUserNameDetails(firstName=userFirstName,middleName=userMiddleName,lastName=userLastName)
     {
         cy.get(selectors.firstNameTxtbx).should('have.value',firstName);
         cy.get(selectors.middleNameTxbx).should('have.value',middleName);

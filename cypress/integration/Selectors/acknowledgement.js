@@ -28,7 +28,7 @@ export default{
     tabHeadingText:'//div[@class="subtitle mb-4 md:mb-0 md:mr-2"]/text()',
     archicveBttn:'[data-icon="archive"]',
     moveToInboxBttn:'//button[text()="Move to inbox"]',
-    startQcBttnOfFirstDocument:'//tbody/tr[1]/td[6]/button[text()="Start QC"]',
+    startQcBttnOfFirstDocument:'//tbody/tr[1]/td[7]/button[text()="Start QC"]',
     documentStatusDropdown:'//input[@value="All Document Statuses"]',
     completedStatus:'//div/ul/li/span[text()="Completed"]',
     viewButtonOfFirstDocument:'//tbody/tr[1]/td[last()-1]/button[text()="View"]',

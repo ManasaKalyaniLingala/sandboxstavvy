@@ -3,12 +3,16 @@
 import { Login } from "../Pages/login_page";
 import { Files } from "../Pages/files_page";
 import { Meetings } from "../Pages/meetings_page";
+import { Orders } from "../Pages/orders_page";
+import { ESign } from "../Pages/eSign_page";
+
 
 const { faker } = require('@faker-js/faker');
 
 const login =new Login();
 const files= new Files();
-const meetings=new Meetings();
+const orders=new Orders();
+const eSign=new ESign();
 
 describe("Files test cases" , ()=>{
 
@@ -21,203 +25,79 @@ describe("Files test cases" , ()=>{
     
 it("Create Purchase type File", ()=> {
 
-     var fileType="Purchase";
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var purchaseAmount=Math.floor(Math.random()*1000);
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
-     var borrowerFirstName=faker.name.firstName();
-     var borrowerLastName=faker.name.lastName();
-     var borrowerEmail=faker.internet.email();
-     var borrowerPhone=faker.phone.phoneNumber();
-     var borrowerSSN=faker.phone.phoneNumber();
-     var propertyAddress=streetNumber+" "+streetName+", "+city;
-     var titleOrder="Title";
-     var foreclosureOrder="Foreclosure";
-     var status="Pending";
+     var loanType="Purchase";
+     var rateType="Fixed";
+
+    //Navigate to Files page
+     files.navigateToFiles();
+ 
+    //Create file
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
+
+    //Verify created file
+     files.verifyMessage("Creating file...");
+     files.verifyCreatedFile(loanType,rateType);
+     })
+
+
+it("Create a Refinance type file",()=>{
+
+    var loanType="Refinance";
+    var rateType="Fixed";
 
     //Navigate to Files page
      files.navigateToFiles();
 
     //Create file
      files.clickCreateFileButton();
-     files.clickPurchaseType();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-     files.selectLoanProcessor();
-     files.enterPurchasePrice(purchaseAmount);
-     files.clickContinueButton();
-     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
-     files.addTitleOrder();
-     files.addForeclosureOrder();
-     files.clickContinueInCreateFile();
-     files.clickCreateFileButtonOnReviewOfAFile();
+     files.createAFile(loanType,rateType);
 
     //Verify created file
      files.verifyMessage("Creating file...");
-     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
-     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
-     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-    })
-
-
-it("Create a refinance type file",()=>{
-
-     var fileType="Refinance";
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
-     var borrowerFirstName=faker.name.firstName();
-     var borrowerLastName=faker.name.lastName();
-     var borrowerEmail=faker.internet.email();
-     var borrowerPhone=faker.phone.phoneNumber();
-     var borrowerSSN=faker.phone.phoneNumber();
-     var propertyAddress=streetNumber+" "+streetName+", "+city;
-     var titleOrder="Title";
-     var foreclosureOrder="Foreclosure";
-     var status="Pending";
-
-    //Navigate to Files page
-     files.navigateToFiles();
-
-    //Create file
-     files.clickCreateFileButton();
-     files.clickRefinanceType();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-     files.selectLoanProcessor();
-     files.clickContinueButton();
-     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
-     files.addTitleOrder();
-     files.addForeclosureOrder();
-     files.clickContinueInCreateFile();
-     files.clickCreateFileButtonOnReviewOfAFile();
-
-    //Verify created file
-     files.verifyMessage("Creating file...");
-     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
-     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
-     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-    })
+     files.verifyCreatedFile(loanType,rateType);
+     })
 
 
 it("Create a equity type file",()=>{
 
-     var fileType="Equity";
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
-     var borrowerFirstName=faker.name.firstName();
-     var borrowerLastName=faker.name.lastName();
-      var borrowerEmail=faker.internet.email();
-     var borrowerPhone=faker.phone.phoneNumber();
-     var borrowerSSN=faker.phone.phoneNumber();
-     var propertyAddress=streetNumber+" "+streetName+", "+city;
-     var titleOrder="Title";
-     var foreclosureOrder="Foreclosure";
-     var status="Pending";
+     var loanType="Equity";
+     var rateType="Fixed";
 
     //Navigate to Files page
      files.navigateToFiles();
 
     //Create file
      files.clickCreateFileButton();
-     files.clickEquityType();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-     files.selectLoanProcessor();
-     files.clickContinueButton();
-     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
-     files.addTitleOrder();
-     files.addForeclosureOrder();
-     files.clickContinueInCreateFile();
-     files.clickCreateFileButtonOnReviewOfAFile();
+     files.createAFile(loanType,rateType);
 
     //Verify created file
      files.verifyMessage("Creating file...");
-     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
-     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
-     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-    })
+     files.verifyCreatedFile(loanType,rateType);
+     })
 
 
 it("Verify creating Floating Rate type Purchase file",()=>{
 
-     var fileType="Purchase";
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var purchaseAmount=Math.floor(Math.random()*1000);
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
-     var borrowerFirstName=faker.name.firstName();
-     var borrowerLastName=faker.name.lastName();
-     var borrowerEmail=faker.internet.email();
-     var borrowerPhone=faker.phone.phoneNumber();
-     var borrowerSSN=faker.phone.phoneNumber();
-     var propertyAddress=streetNumber+" "+streetName+", "+city;
-     var titleOrder="Title";
-     var foreclosureOrder="Foreclosure";
-     var status="Pending";
+     var loanType="Purchase";
      var rateType="Floating";
-
 
     //Navigate to Files page
      files.navigateToFiles();
 
     //Create file
      files.clickCreateFileButton();
-     files.clickFloatingRateType();
-     files.clickPurchaseType();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-     files.enterPurchasePrice(purchaseAmount);
-     files.selectLoanProcessor();
-     files.clickContinueButton();
-     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
-     files.addTitleOrder();
-     files.addForeclosureOrder();
-     files.clickContinueInCreateFile();
-     files.clickCreateFileButtonOnReviewOfAFile();
+     files.createAFile(loanType,rateType);
 
     //Verify created file
      files.verifyMessage("Creating file...");
-     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
-     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
-     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-     files.verifyRateTypeOfFile(rateType);
-    
-    })
+     files.verifyCreatedFile(loanType,rateType);
+      })
+
 
 it("Verify creating Floating rate type Refinance file",()=>{
 
-     var fileType="Refinance";
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
-     var borrowerFirstName=faker.name.firstName();
-     var borrowerLastName=faker.name.lastName();
-     var borrowerEmail=faker.internet.email();
-     var borrowerPhone=faker.phone.phoneNumber();
-     var borrowerSSN=faker.phone.phoneNumber();
-     var propertyAddress=streetNumber+" "+streetName+", "+city;
-     var titleOrder="Title";
-     var foreclosureOrder="Foreclosure";
-     var status="Pending";
+     var loanType="Refinance";
      var rateType="Floating";
 
     //Navigate to Files page
@@ -225,45 +105,17 @@ it("Verify creating Floating rate type Refinance file",()=>{
 
     //Create file
      files.clickCreateFileButton();
-     files.clickRefinanceType();
-     files.clickFloatingRateType();
-     files.selectLoanProcessor();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-     files.clickContinueButton();
-     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
-     files.addTitleOrder();
-     files.addForeclosureOrder();
-     files.clickContinueInCreateFile();
-     files.clickCreateFileButtonOnReviewOfAFile();
+     files.createAFile(loanType,rateType);
 
     //Verify created file
      files.verifyMessage("Creating file...");
-     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
-     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
-     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-     files.verifyRateTypeOfFile(rateType);
-    })
+     files.verifyCreatedFile(loanType,rateType);
+      })
 
 
 it("Verify creating Floating rate type Equity file",()=>{
 
-     var fileType="Equity";
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
-     var borrowerFirstName=faker.name.firstName();
-     var borrowerLastName=faker.name.lastName();
-     var borrowerEmail=faker.internet.email();
-     var borrowerPhone=faker.phone.phoneNumber();
-     var borrowerSSN=faker.phone.phoneNumber();
-     var propertyAddress=streetNumber+" "+streetName+", "+city;
-     var titleOrder="Title";
-     var foreclosureOrder="Foreclosure";
-     var status="Pending";
+     var loanType="Equity";
      var rateType="Floating";
 
     //Navigate to Files page
@@ -271,45 +123,26 @@ it("Verify creating Floating rate type Equity file",()=>{
 
     //Create file
      files.clickCreateFileButton();
-     files.clickEquityType();
-     files.clickFloatingRateType();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-     files.selectLoanProcessor();
-     files.clickContinueButton();
-     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
-     files.addTitleOrder();
-     files.addForeclosureOrder();
-     files.clickContinueInCreateFile();
-     files.clickCreateFileButtonOnReviewOfAFile();
+     files.createAFile(loanType,rateType);
 
     //Verify created file
      files.verifyMessage("Creating file...");
-     files.verifyFileDetailsInTheFileDetailsPage(loanNumber,fileType,propertyAddress);
-     files.verifyAddedOrderInTheFileDetailsPage(titleOrder,status);
-     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
-     files.verifyRateTypeOfFile(rateType);
+     files.verifyCreatedFile(loanType,rateType);
     })
 
 
 it("Verify creating file without assigning loan processor",()=>{
     
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var purchaseAmount=Math.floor(Math.random()*1000);
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
+    var loanType="Purchase";
 
     //Navigate to Files page
      files.navigateToFiles();
 
     //Create file
      files.clickCreateFileButton();
-     files.clickPurchaseType();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-     files.enterPurchasePrice(purchaseAmount);
+     files.selectLoanType(loanType);
+     files.enterBasicInfo();
+     files.enterPurchasePrice();
 
     //Verify creting file
      files.verifyContinueButtonDisabled();
@@ -319,48 +152,39 @@ it("Verify creating file without assigning loan processor",()=>{
 
 it("Verify creating a file without property address",()=>{
    
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var purchaseAmount=Math.floor(Math.random()*1000);;
+     var loanType="Purchase";
 
-
-    //Navigate to Files page
-     files.navigateToFiles();
-
-    //Create File
-     files.clickCreateFileButton();
-     files.enterLoanNumber(loanNumber);
-     files.selectClosingDate();
-     files.selectLoanProcessor();
-     files.enterLoanAmount(loanAmount);
-     files.enterPurchasePrice(purchaseAmount);
-
-    //Verify Continue button is disabled and error text
-     files.verifyContinueButtonDisabled();
-     files.verifyErrorText("Valid address required");
-    })
-
-
-it("Verify creating file without filling Borrower details",()=>{
-
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var purchaseAmount=Math.floor(Math.random()*1000);
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
-    
     //Navigate to Files page
      files.navigateToFiles();
 
     //Create file
      files.clickCreateFileButton();
-     files.clickPurchaseType();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+     files.selectLoanType(loanType);
+     files.enterLoanNumber();
+     files.selectClosingDate();
      files.selectLoanProcessor();
-     files.enterPurchasePrice(purchaseAmount);
+     files.enterLoanAmount();
+     files.enterPurchasePrice();
+
+    //Verify Continue button is disabled and error text
+     files.verifyContinueButtonDisabled();
+     files.verifyErrorText("Valid address required");
+     })
+
+
+it("Verify creating file without filling Borrower details",()=>{
+
+     var loanType="Purchase";
+
+    //Navigate to Files page
+     files.navigateToFiles();
+
+    //Create file
+     files.clickCreateFileButton();
+     files.selectLoanType(loanType);
+     files.enterBasicInfo();
+     files.selectLoanProcessor();
+     files.enterPurchasePrice();
      files.clickContinueButton();
      files.clickContinueButton();
     
@@ -371,31 +195,19 @@ it("Verify creating file without filling Borrower details",()=>{
 
 it("Verify creating file wihtout adding orders",()=>{
 
-     var loanNumber="loan"+Math.floor(Math.random()*1000);
-     var loanAmount=Math.floor(Math.random()*1000);
-     var address=1+Math.floor(Math.random())*100;
-     var purchaseAmount=Math.floor(Math.random()*1000);
-     var streetName=faker.address.streetName();
-     var streetNumber=address;
-     var city=faker.address.cityName();
-     var postalCode=faker.address.zipCode();
-     var borrowerFirstName=faker.name.firstName();
-     var borrowerLastName=faker.name.lastName();
-     var borrowerEmail=faker.internet.email();
-     var borrowerPhone=faker.phone.phoneNumber();
-     var borrowerSSN=faker.phone.phoneNumber();
+     var loanType="Purchase";
 
     //Navigate to Files page
      files.navigateToFiles();
- 
+
     //Create file
      files.clickCreateFileButton();
-     files.clickPurchaseType();
-     files.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
+     files.selectLoanType(loanType);
+     files.enterBasicInfo();
      files.selectLoanProcessor();
-     files.enterPurchasePrice(purchaseAmount);
+     files.enterPurchasePrice();
      files.clickContinueButton();
-     files.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
+     files.enterBorrowerDetails();
      files.clickContinueButton();
 
     //Verify created file
@@ -403,7 +215,7 @@ it("Verify creating file wihtout adding orders",()=>{
     })
 
 
-it.skip("Navigate to file details page",()=>{
+it("Navigate to file details page",()=>{
     
     //Navigate to Files page
      files.navigateToFiles();
@@ -542,11 +354,16 @@ it("Verify navigating to Archived files tab and view",()=>{
 
 it("Verify adding document",()=>{
 
+     var loanType="Purchase";
+     var rateType="Fixed";
      var document="title_exam (4).pdf"
 
     //Navigate to Files
      files.navigateToFiles();
-     files.createAFile();
+
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
      files.verifyNavigatedToFileDetailsPage();
 
     //Add document
@@ -555,16 +372,22 @@ it("Verify adding document",()=>{
 
     //Verify added document
      files.verifyMessage("Documents uploaded!");
+     files.verifyAddedDocumentInTheList(document);
     })
 
 
 it("Verify updating Loan Number",()=>{
 
+     var loanType="Purchase";
+     var rateType="Fixed";
      var fileName=faker.name.findName();
 
     //Navigate to Files
      files.navigateToFiles();
-     files.createAFile();
+
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
 
     //Update loan number
      files.updateLoanNumber(fileName);
@@ -576,9 +399,15 @@ it("Verify updating Loan Number",()=>{
 
 it("Assign closer to file",()=>{
 
+     var loanType="Purchase";
+     var rateType="Fixed";
+
     //Navigate to Files
      files.navigateToFiles();
-    files.createAFile();
+
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
  
     //Assign closer
      files.assignCloser();
@@ -587,9 +416,15 @@ it("Assign closer to file",()=>{
 
 it("Assign Loan Processor",()=>{
 
+     var loanType="Purchase";
+     var rateType="Fixed";
+    
     //Navigate to Files
      files.navigateToFiles();
-     files.createAFile();
+
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
 
     //Assign Loan processor
      files.assignLoanProcessor();
@@ -599,11 +434,16 @@ it("Assign Loan Processor",()=>{
 it("Verify archiving file",()=>{
 
      var status="Archived"
-
-    //Navigate to files
+     var loanType="Purchase";
+     var rateType="Fixed";
+     
+    //Navigate to Files
      files.navigateToFiles();
-     files.createAFile();
 
+    // Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
+    
     //Archive File
      files.archiveThefile();
      files.reloadThePage();
@@ -613,7 +453,7 @@ it("Verify archiving file",()=>{
     })
  
 
-it.skip("Verify reopening archived file",()=>{
+it("Verify reopening archived file",()=>{
 
      var status="Active";
 
@@ -630,22 +470,23 @@ it.skip("Verify reopening archived file",()=>{
     })
 
 
-it.skip("Verify adding orders in file details page",()=>{
+it("Verify adding orders in file details page",()=>{
     
      var status="Pending";
      var foreclosureOrder="Foreclosure";
-     var settlementOrder="Settlement"
-
-    //Navigate to Files page
+     var settlementOrder="Settlement";
+     var loanType="Purchase";
+     var rateType="Fixed";
+     
+    //Navigate to Files
      files.navigateToFiles();
 
-    //Create file
-     files.createAFile();
+    //Create a file
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
 
     //Add order in File details page
      files.clickAddOrderButton();
-     files.selectForeclosurOrder();
-     files.selectSettlementOrder();
      files.addSettlementOrder();
      files.addForeclosureOrder();
      files.clickSubmitOrderButton();
@@ -662,10 +503,15 @@ it("Verify switching between Details, Messages and Documents tabs",()=>{
      var messagesTab="Messages";
      var detailsTab="Details";
      var detailsSutbtitle="Orders";
-
-    //Navigate to files
+     var loanType="Purchase";
+     var rateType="Fixed";
+     
+    //Navigate to Files
      files.navigateToFiles();
-     files.createAFile();
+
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
 
     //Switch to "Documents tab"
      files.clickDocumentsButton();
@@ -699,10 +545,16 @@ it("Verify messaging in file details page",()=>{
 
      var subject=faker.name.findName();
      var message=faker.name.firstName();
+     var loanType="Purchase";
+     var rateType="Fixed";
+     
+    //Navigate to Files
+     files.navigateToFiles();
 
-    //Create a file
-     files.createAFile();
-
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
+    
     //Start discussion
      files.clickMessagesTab();
      files.clickStartDiscussionButton();
@@ -722,9 +574,16 @@ it("Verify messaging in file details page",()=>{
 
 it("Verify making a file favorite or non favorite",()=>{
 
-    //Navigate to files
+     var loanType="Purchase";
+     var rateType="Fixed";
+     
+    //Navigate to Files
      files.navigateToFiles();
-     files.createAFile();
+
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
+    
      files.copyTheLoanNumberInFileDetailsPage();
 
     //Make a file as Favorite or non-Favorite and then verify it
@@ -734,11 +593,18 @@ it("Verify making a file favorite or non favorite",()=>{
     
 it("Verify reassigning vendor for an order",()=>{
 
-    //Create a file
-     files.createAFile();
+     var loanType="Purchase";
+     var rateType="Fixed";
+    
+    //Navigate to Files
+     files.navigateToFiles();
+
+    //Creata a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
 
     //Reassign the vendor for an order
-     files.clickEditButtinOfAnOrder();
+     files.clickEditButtonOfAnOrder();
      files.clickReassignButton();
      files.selectVendorForReassigning();
      files.clickReassignOrderButton();
@@ -751,12 +617,18 @@ it("Verify reassigning vendor for an order",()=>{
 it("Verify cancelling the order",()=>{
 
      var status="Rejected"
+     var loanType="Purchase";
+     var rateType="Fixed";
+     
+    //Navigate to Files
+     files.navigateToFiles();
 
-    //creating a file
-     files.createAFile();
-
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
+    
     //Reassign the vendor for an order
-     files.clickEditButtinOfAnOrder();
+     files.clickEditButtonOfAnOrder();
      files.cancelTheOrder();
 
     //Verify the status of order
@@ -768,23 +640,116 @@ it("Verify reopening a rejected order",()=>{
 
      var status1="Rejected";
      var status2="Pending";
+     var loanType="Purchase";
+     var rateType="Fixed";
+     
+    //Navigate to Files
+     files.navigateToFiles();
 
-    //creating a file
-     files.createAFile();
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
 
     //Reassign the vendor for an order
-     files.clickEditButtinOfAnOrder();
+     files.clickEditButtonOfAnOrder();
      files.cancelTheOrder();
 
     //Verify the status of order
      files.verifyStatusOfOrder(status1);
 
     //Reopen a rejected order
-     files.clickEditButtinOfAnOrder();
+     files.clickEditButtonOfAnOrder();
      files.clickReopenButton();
 
     //Verify reopened order
-     files.verifyStatusOfOrder(status2)
+     files.verifyStatusOfOrder(status2);
+    })
+
+
+it("Verify creating Origination Order file",()=>{
+
+     var loanType="Purchase";
+     var rateType="Fixed";
+     var settlementOrder="Settlement";
+     var status="Pending";
+
+    //Navigate to Orders page
+     orders.navigateToOrders();
+
+   //Create file
+     files.clickCreateOrderButton();
+     files.selectSettlementOrderInCreateOrderPage();
+     files.selectSettlementVendorFromTheList();
+     files.clickContinueButton();
+     files.createAFile(loanType,rateType);
+
+    //Verify created file
+     files.verifyCreatedFile(loanType,rateType);
+     files.verifyAddedOrderInTheFileDetailsPage(settlementOrder,status);
+    })
+
+
+it("Verify creating Servicing order file",()=>{
+
+     var foreclosureOrder="Foreclosure";
+     var status="Pending";
+
+    //Navigate to Orders page
+     orders.navigateToOrders();
+     files.createAServicingOrderFile();
+
+    //Verify created file
+     files.verifyMessage("Successfully created order");
+     files.verifyNavigatedToFileDetailsPage();
+     files.verifyLoanNumber();
+     files.verifyOrderTypeText(foreclosureOrder);
+     files.verifyAddressInFileDetailsPage();
+     files.verifyAddedOrderInTheFileDetailsPage(foreclosureOrder,status);
+    })
+
+
+it("Verify adding document for a servicing order files page",()=>{
+
+     var document="title_exam (4).pdf"
+
+     //Navigate to Orders page
+     orders.navigateToOrders();
+
+    //Create a servicving order file
+     files.createAServicingOrderFile();
+
+    //upload document to the file
+     files.clickDocumentsButton();
+     files.clickAddDocumentButton();
+     files.attachDocumentInForeclosureOrdersPage(document);
+     files.clickUploadButton();
+
+    // Verify added document
+     files.verifyMessage("Documents uploaded!");
+     files.verifyAddedDocumentInTheServicingOrderFileDetailsPage(document)
+    })
+
+
+it("Verify adding eSign packet to the File",()=>{
+
+     var loanType="Purchase";
+     var rateType="Fixed";
+     var packetTitle=faker.name.findName();
+     var document="document2.pdf";
+    
+    //Navigate to Files
+     files.navigateToFiles();
+
+    //Create a File
+     files.clickCreateFileButton();
+     files.createAFile(loanType,rateType);
+
+    //Add eSign packet to the file
+     files.clickAddeSignPacketButton();
+     eSign.creatingNewESignWithJustMeOption(packetTitle,document);
+
+    //Verify added eSign packet to the file
+     files.verifyAddedeSignInTheFileDetailsPage(packetTitle); 
     })
 
 })

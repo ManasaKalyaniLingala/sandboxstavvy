@@ -1,7 +1,23 @@
-
 import selectors from "../Selectors/files"
 
 const { faker } = require('@faker-js/faker');
+
+ var loanNumber="loan"+Math.floor(Math.random()*100000);
+ var loanAmount=Math.floor(Math.random()*1000);
+ var address=100+Math.floor(Math.random())*100;
+ var addressUnit=1+Math.floor(Math.random())*100;
+ var purchaseAmount=Math.floor(Math.random()*1000);
+ var streetName=faker.address.streetName();
+ var streetNumber=address;
+ var city=faker.address.cityName();
+ var postalCode=faker.address.zipCode();
+ var propertyAddress=streetNumber+" "+streetName+", "+city;
+ var borrowerFirstName=faker.name.firstName();
+ var borrowerLastName=faker.name.lastName();
+ var borrowerEmail="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+ var borrowerPhone="111-111-1111";
+ var borrowerSSN="111-11-1111";
+ var borrowerName=borrowerFirstName+" "+borrowerLastName;
 
 export class Files{
     navigateToFiles() {
@@ -12,20 +28,12 @@ export class Files{
         return Math.floor(Math.random() * (max - min + 1)) + min;    
       } 
     
-    clickPurchaseType()
+    selectLoanType(loanType)
     {
-        cy.get(selectors.purachaseLoanType).click();
-    }
-    clickRefinanceType()
-    {
-        cy.get(selectors.refinanceLoanType).click();
-    }
-    clickEquityType()
-    {
-        cy.get(selectors.equityLoanType).click();
+        cy.get("[data-button-group-text="+loanType+"]").should('exist').click();
     }
     clickCreateFileButton() {
-        cy.get(selectors.CreateFileButton).click()
+        cy.get(selectors.CreateFileButton).should('exist').click();
     }
 
     selectPurchaseLoanType() 
@@ -33,47 +41,47 @@ export class Files{
         cy.get(selectors.purachaseLoanType).click()
     }
 
-    clickFloatingRateType()
+    selectRateType(rateType)
     {
-        cy.xpath(selectors.floatingRateTyepBttn).should('exist').click();
+        cy.xpath('//div[@class="flex h-8"]/label[@for="-'+rateType+'"]').should('exist').click();
     }
 
-    enterLoanNumber(loanNumber) {
-        cy.xpath(selectors.enterLoanNumber).type(loanNumber);
+    enterLoanNumber(loanNo=loanNumber) {
+        cy.xpath(selectors.enterLoanNumber).type(loanNo);
     }
 
-    enterLoanAmount(loanAmount) {
-        cy.get(selectors.enterLoanAmount).type(loanAmount);
+    enterLoanAmount(amount=loanAmount) {
+        cy.get(selectors.enterLoanAmount).type(amount);
     }
 
-    enterPurchasePrice(purchasePrice) {
+    enterPurchasePrice(purchasePrice=purchaseAmount) {
         cy.get(selectors.enterPurchasePrice).type(purchasePrice);
     }
 
-    enterPropertyAddress(address) {
-        cy.get(selectors.propertyAddressInputField).type(address);
+    enterPropertyAddress(propertyAddress=address){
+        cy.get(selectors.propertyAddressInputField).type(propertyAddress);
         cy.wait(200);
         cy.xpath('//div[@class="stavviz-dropdown relative flex"]/div[2]/ul/li[1]').click();
         cy.wait(5000);
     }
 
-    enterStreetNumber(streetNumber)
+    enterStreetNumber(streetNo=streetNumber)
     {
-        cy.get(selectors.streetNumber).clear().type(streetNumber);
+        cy.get(selectors.streetNumber).clear().type(streetNo);
     }
 
-    enterStreetName(streetName)
+    enterStreetName(street=streetName)
     {
-        cy.get(selectors.streetName).clear().type(streetName);
+        cy.get(selectors.streetName).clear().type(street);
     }
 
-    enterPostalCode(postalCode){
-        cy.get(selectors.postalCode).clear().type(postalCode)
+    enterPostalCode(zipCode=postalCode){
+        cy.get(selectors.postalCode).clear().type(zipCode);
     }
 
-    enterCity(city)
+    enterCity(cityName=city)
     {
-        cy.get(selectors.city).clear().type(city)
+        cy.get(selectors.city).clear().type(cityName)
     }
 
     selectClosingDate() {
@@ -117,32 +125,36 @@ export class Files{
         cy.xpath(selectors.createFileButtonInReviewPageOfFile).click();
     }
 
-    verifyCreatedFile(address) {
-        cy.xpath('//div[text()="'+address+'"]').click();
-    }
-
-    enterBasicInfo(loanNumber, loanAmount, address,streetNumber,streetName,city,postalCode) {
-    
-        this.enterLoanNumber(loanNumber);
+    enterBasicInfo()
+    {
+        this.enterLoanNumber();
         this.selectClosingDate();
-        this.enterLoanAmount(loanAmount);
-        this.enterPropertyAddress(address);
-        this.enterStreetNumber(streetNumber);
-        this.enterStreetName(streetName);
-        this.enterCity(city);
-        this.enterPostalCode(postalCode);
+        this.enterLoanAmount();
+        this.enterPropertyAddress();
+        this.enterStreetNumber();
+        this.enterStreetName();
+        this.enterCity();
+        this.enterPostalCode();
     }
 
-    enterBorrowerDetails(firstName, lastName, email, phoneNumber, SSN)
+    enterBorrowerDetails(firstName=borrowerFirstName,lastName=borrowerLastName,email=borrowerEmail,phoneNumber=borrowerPhone,SSN=borrowerSSN)
      {
         cy.get(selectors.enterBorrowerFirstName).type(firstName);
         cy.get(selectors.enterBorrowerLastName).type(lastName);
         cy.get(selectors.enterBorrowerEmail).type(email);
-        cy.xpath(selectors.enterPhoneNumberOfBorrower).clear();
-        cy.xpath(selectors.enterPhoneNumberOfBorrower).type(phoneNumber);
-        cy.xpath(selectors.enterSSNOfBorrower).clear();
-        cy.xpath(selectors.enterSSNOfBorrower).type(SSN);
+        cy.xpath(selectors.enterPhoneNumberOfBorrower).clear().type(phoneNumber);
+        cy.xpath(selectors.enterSSNOfBorrower).clear().type(SSN);
         this.clickContinueButton();
+    }
+
+    verifyBorrowerDetails()
+    {
+        cy.xpath(selectors.borrowerDetails).should('exist').click();
+        cy.xpath(selectors.borrowerName).should('contain.text',borrowerName);
+        cy.xpath(selectors.borrowerPhoneNumber).should('contain.text',borrowerPhone);
+        cy.xpath(selectors.borrowerEmail).should('contain.text',borrowerEmail);
+        cy.xpath(selectors.borrowerSSN).should('exist').click();
+        cy.xpath(selectors.borrowerSSN).should('contain.text',borrowerSSN);
     }
     addSettlementOrder()
     {
@@ -260,12 +272,12 @@ export class Files{
     }
     veifyLoanType(loanType)
     {
-      cy.xpath(selectors.loanTypeTxt).should('have.text',loanType)
+      cy.xpath(selectors.loanTypeTxt).should('have.text',loanType);
     }
 
-    verifyLoanNumber(loanNumber)
+    verifyLoanNumber(loanNo=loanNumber)
     {
-        cy.xpath(selectors.loanNumberText).should('have.text',loanNumber);
+        cy.xpath(selectors.loanNumberText).should('have.text',loanNo);
     }
 
     verifyLoanNumberInDetailsPage()
@@ -277,7 +289,7 @@ export class Files{
         })
     }
     
-    verifyAddressInFileDetailsPage(address)
+    verifyAddressInFileDetailsPage(address=propertyAddress)
     {
         cy.xpath(selectors.addressTextInFileDetailsPage).should('contain.text',address);
     }
@@ -402,8 +414,16 @@ export class Files{
     
     verifyAddedDocumentInTheList(documentName)
     {
-        cy.xpath(selectors.addedDocumentName).should('have.text',documentName);
+        cy.xpath(selectors.addedDocumentName).should('contain.text',documentName);
     }
+
+    verifyAddedDocumentInTheServicingOrderFileDetailsPage(documentName)
+    {
+        cy.reload();
+        this.clickDocumentsButton();
+        cy.xpath(selectors.addedDocumentName).should('contain.text',documentName);
+    }
+
     updateLoanNumber(loanNumber)
     {  
         this.clickSetLoanNumberButton();
@@ -821,7 +841,7 @@ export class Files{
 
     }
 
-    clickEditButtinOfAnOrder()
+    clickEditButtonOfAnOrder()
     {
         cy.xpath(selectors.editButtonOfAnOrderl).should('exist').click();
     }
@@ -862,39 +882,32 @@ export class Files{
         cy.xpath(selectors.statusOfOrder).should('have.text',status)
     }
 
-    createAFile()
+    createAFile(loanType,rateType)
     {
-    var loanNumber="loan"+Math.floor(Math.random()*1000);
-    var loanAmount=Math.floor(Math.random()*1000);
-    var address=100+Math.floor(Math.random())*100;
-    var addressUnit=1+Math.floor(Math.random())*100;
-    var purchaseAmount=Math.floor(Math.random()*1000);
-    var streetName=faker.address.streetName();
-    var streetNumber=address;
-    var city=faker.address.cityName();
-    var postalCode=faker.address.zipCode();
-    var borrowerFirstName=faker.name.firstName();
-    var borrowerLastName=faker.name.lastName();
-    var borrowerEmail=faker.internet.email();
-    var borrowerPhone=faker.phone.phoneNumber();
-    var borrowerSSN=faker.phone.phoneNumber();
+     //Create file
+     this.enterBasicInfo();
+     this.selectLoanType(loanType);
+     this.selectRateType(rateType);
+     this.selectLoanProcessor();
 
-    //Navigate to Files page
-    this.navigateToFiles();
+     if(loanType=="Purchase")
+     {
+     this.enterPurchasePrice();
+     }
+     this.clickContinueButton();
+     this.enterBorrowerDetails();
+     this.addTitleOrder();
+     this.clickContinueInCreateFile();
+     this.clickCreateFileButtonOnReviewOfAFile();
+     }
 
-    //Create file
-    this.clickCreateFileButton();
-    this.clickPurchaseType();
-    this.enterBasicInfo(loanNumber,loanAmount,address,streetNumber,streetName,city,postalCode);
-    cy.get('[name="Unit/Apt"]').clear().type(addressUnit)
-    this.selectLoanProcessor();
-    this.enterPurchasePrice(purchaseAmount);
-    this.clickContinueButton();
-    this.enterBorrowerDetails(borrowerFirstName,borrowerLastName,borrowerEmail,borrowerPhone,borrowerSSN);
-    this.addTitleOrder();
-    this.clickContinueInCreateFile();
-    this.clickCreateFileButtonOnReviewOfAFile();
-    }
+     verifyCreatedFile(loanType,rateType)
+     {
+        this.verifyFileDetailsInTheFileDetailsPage(loanNumber,loanType,propertyAddress);
+        this.verifyAddedOrderInTheFileDetailsPage("Title","Pending");
+        this.verifyBorrowerDetails();
+        this.verifyRateTypeOfFile(rateType);
+     }
 
     clickReopenButton()
     {
@@ -958,5 +971,70 @@ export class Files{
         cy.reload();
     }
 
+    clickCreateOrderButton()
+    {
+        cy.xpath(selectors.createOrderBttn).should('exist').click();
+    }
+
+    selectTitleOrderInCreateOrderPage()
+    {
+        cy.xpath(selectors.titleOrderButtonInCreateOrder).should('exist').click();
+    }
+
+    selectSettlementOrderInCreateOrderPage()
+    {
+        cy.xpath(selectors.settlementOrderBtttonInCreateOrder).should('exist').click();
+    }
+
+    selectForeclosureOrderInCreateOrderPage()
+    {
+        cy.xpath(selectors.foreclosureOrderButtonInCreateOrder).should('exist').click();
+    }
+
+    clickCreateOrderButtonInReviewPage()
+    {
+        cy.xpath(selectors.createOrderBttnInReviewPage).should('exist').click();
+    }
+
+    verifyOrderTypeText(orderType)
+    {
+        cy.xpath(selectors.orderTypeText).should('contain.text',orderType)
+    }
+
+    createAServicingOrderFile()
+    {
+    //Create file
+     this.clickCreateOrderButton();
+     this.selectForeclosureOrderInCreateOrderPage();
+     this.selectForeclosureServicerFromTheList();
+     this.clickContinueButton();
+     this.enterLoanNumber();
+     this.selectClosingDate();
+     this.enterPropertyAddress();
+     this.enterStreetNumber();
+     this.enterStreetName();
+     this.enterCity();
+     this.enterPostalCode();
+     this.clickContinueButton();
+     this.clickContinueButton();
+     this.clickCreateOrderButtonInReviewPage();
+    }
+
+    attachDocumentInForeclosureOrdersPage(document)
+    {
+        //cy.xpath(selectors.uploadDocumentFiledOfForeclosureOrder).should('exist').click();
+        cy.xpath(selectors.uploadDocumentFiledOfForeclosureOrder).should('exist').attachFile(document);
+        cy.log('attaching file');
+    }
+
+    verifyAddedeSignInTheFileDetailsPage(packetTitle)
+    {
+        cy.xpath('//div[@class="subtitle mr-2"][text()="eSign"]/../../following-sibling::div/div/table/tbody/tr/td[1]').should('have.text',packetTitle);
+    }
+
+    clickAddeSignPacketButton()
+    {
+        cy.xpath(selectors.addeSignPacketBttn).should('exist').click();
+    }
 }
 

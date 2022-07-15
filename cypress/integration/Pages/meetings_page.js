@@ -1,5 +1,25 @@
 import selectors from "../Selectors/meetings"
 const { faker } = require('@faker-js/faker')
+
+     var fileId = "file"+Math.floor(Math.random()*1000);
+     var propertyAddress=1+Math.floor(Math.random())*100;
+     var streetName=faker.address.streetName();
+     var streetNumber=propertyAddress;
+     var city=faker.address.cityName();
+     var postalCode=faker.address.zipCode();
+     var signerFirstName=faker.name.firstName();
+     var signerMiddleName=faker.name.middleName();
+     var signerLastName=faker.name.lastName();
+     var signerPhone=faker.phone.phoneNumber();
+     var address=streetNumber+" "+streetName+", "+city;
+     var signerEmail="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+     var signerName=signerFirstName+" "+signerMiddleName+" "+signerLastName;
+     var notaryFirstName=faker.name.firstName();
+     var notaryMiddleName=faker.name.middleName();
+     var notaryLastName=faker.name.lastName();
+     var notaryEmail="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+     var externalNotaryName=notaryFirstName+" "+notaryMiddleName+" "+notaryLastName;
+
 export class Meetings {
 
     getRandomInt(min, max){      
@@ -18,6 +38,7 @@ export class Meetings {
     clickTheClosingMeetingButton()
     {
         cy.xpath(selectors.closingMeetingBttn).should('exist').click();
+        cy.get(selectors.createNewRONBtnn).click();
     }
 
     clickTheSigningMeetingButton()
@@ -36,10 +57,10 @@ export class Meetings {
         })
     }
 
-    clickOnPurchaseType()
+    selectMeetingType(meetingType)
     {
         this.clickTheMeetingTypeDropdown();
-        cy.xpath(selectors.purchaseTypeBttn).click();
+        cy.xpath('//span[text()="'+meetingType+'"]').click();
     }
 
     clickOnRefinanceType()
@@ -60,9 +81,9 @@ export class Meetings {
         cy.xpath(selectors.modificationTypeBtnn).click();
     }
 
-    enterFileNumber(fileNumber)
+    enterFileId(meetingId=fileId)
     {
-        cy.get(selectors.fileNumberTxBx).type(fileNumber);
+        cy.get(selectors.fileNumberTxBx).type(meetingId);
     }
 
     clickTheNextBttn()
@@ -77,18 +98,18 @@ export class Meetings {
         })
     }
 
-    selectPropertyAddress(address,streetNumber,streetName,city,postalCode)
+    selectPropertyAddress()
     {
-        this.enterPropertyInformation(address);
+        this.enterPropertyInformation(propertyAddress);
         this.enterStreetNumber(streetNumber);
         this.enterStreetName(streetName);
         this.enterCity(city);
         this.enterPostalCode(postalCode);   
     }
 
-    enterPropertyInformation(address)
+    enterPropertyInformation(propertyAddress)
     {
-        cy.get(selectors.propertyAddressTextbx).type(address);
+        cy.get(selectors.propertyAddressTextbx).type(propertyAddress);
         cy.wait(200);
         cy.xpath('//div[@class="stavviz-dropdown relative flex"]/div[2]/ul/li[2]').click();
         cy.wait(5000);
@@ -149,24 +170,22 @@ export class Meetings {
         cy.xpath('//span//div[text()="'+ notary +'"]').click();
     }
 
-    enterSignerInfo(firstName,middleName,lastName,phoneNumber,email)
+    enterSignerInfo(firstName=signerFirstName,middleName=signerMiddleName,lastName=signerLastName,phone=signerPhone,email=signerEmail)
     {
-        this.clickTheNextBttn();
         this.enterFirstName(firstName);
         this.enterMiddleName(middleName);
         this.enterLastName(lastName);
-        this.enterPhoneNumber(phoneNumber);
+        this.enterPhoneNumber(phone);
         this.enterEmail(email);
     }
 
-    addAttendeeToTheMeeting(firstName,middleName,lastName,email,phoneNumber)
+    addAttendeeToTheMeeting(firstName=signerFirstName,middleName=signerMiddleName,lastName=signerLastName,email=signerEmail,phoneNumber=signerPhone)
     {
         cy.xpath(selectors.firstNameInAddAttendee).should('exist').type(firstName);
         cy.xpath(selectors.middleNameInAddAttendee).should('exist').type(middleName);
         cy.xpath(selectors.lastNameInAddAttendee).should('exist').type(lastName);
         cy.xpath(selectors.emailInAddAttendee).should('exist').type(email);
-        this.enterPhoneNumber(phoneNumber)
-
+        this.enterPhoneNumber(phoneNumber);
     }
 
     enterFirstName(firstName)
@@ -206,6 +225,13 @@ export class Meetings {
     {
         cy.xpath(selectors.closingDetailsPage).should('have.text',"Closing Detail");
     }
+
+    verifyNavigatedToMeetingDetailsPage()
+    {
+        cy.xpath(selectors.closingDetailsPage).should('have.text',"Meeting Detail");    
+        cy.wait(4000);
+        cy.reload();
+    }
     copyTheLoanNumber()
     {
         cy.xpath(selectors.firstMeetingLoanNumber).as('loan number');
@@ -224,7 +250,7 @@ export class Meetings {
         
    verifyPopupMessage(message)
    {
-    cy.get(".react-toast-notifications__toast__content").should('have.text', message)
+    cy.get(".react-toast-notifications__toast__content").should('contain.text', message)
    }
    verifyFileIdInMeetingDetailsPage()
    {
@@ -237,39 +263,48 @@ export class Meetings {
    {
        cy.xpath('(//button[text()="Accept"])[1]/../../../div[1]/div/text()').as('order type in details page');
    }
-    verifyFileId(fileId)
+    verifyFileId(loanNumber=fileId)
    {
-    cy.xpath(selectors.fileId).should('have.text',fileId);
+    cy.xpath(selectors.fileId).should('have.text',loanNumber);
    }
    navigatingToClosingsPage()
    {
        cy.xpath(selectors.closingsLink).click();
    }
-   navigateToScheduledMeetings()
+   navigateToUpcomingMeetingsTab()
    {
        cy.xpath(selectors.scheduledMeetingsBttn).click();
    }
-   navigateToCompletedMeetings()
+   navigateToPastMeetingsTab()
    {
        cy.xpath(selectors.completedMeetingsBttn).click();
        cy.wait(6000)
    }
-   navigateToCancelledMeetings()
+   navigateToCancelledMeetingsTab()
    {
        cy.xpath(selectors.cancelledMeetingsBttn).click();
    }
-   verifyNavigatedToScheduledMeetings()
+   verifyNavigatedToMeetingsTab(meetingType)
    {
-       cy.xpath(selectors.meetingsHeading).should('have.text',"Meetings: Scheduled");
+      if(meetingType=="upcoming")
+      {
+        cy.xpath('//div[@data-testid="StavvizCard"]//div[contains(@class,"text-brand-secondary bg-brand-secondary-light")]').should('exist');
+        cy.xpath('//div[@data-testid="upcoming"]').should('contain.text',"Upcoming");
+      }
+     else if(meetingType=="completed")
+     {
+        cy.xpath('//div[@data-testid="StavvizCard"]//div[contains(@class,"text-success-dark bg-success-light grid")]').should('exist');
+        cy.xpath('//div[@data-testid="completed"]').should('contain.text',"Past");
+     }
+
+     else if(meetingType=="cancelled")
+     {
+      cy.xpath('//div[@data-testid="StavvizCard"]//div[contains(@class,"text-grey-dark bg-grey")]').should('exist');
+      cy.xpath('//div[@data-testid="cancelled"]').should('contain.text',"Cancelled");
+     }
+      cy.xpath('//div[@data-testid="'+meetingType+'"][contains(@class,"stavviz-tab-is-active font-bold text-black")]').should('exist')
    }
-   verifyNavigatedToCompletedMeetings()
-   {
-       cy.xpath(selectors.meetingsHeading).should('have.text',"Meetings: Completed");
-   }
-   verifyNavigatedToCancelledMeetings()
-   {
-       cy.xpath(selectors.meetingsHeading).should('have.text',"Meetings: Cancelled");
-   }
+
    verifyMeetingCardStatus(status)
    {
        cy.xpath(selectors.meetingCardStatus).should('have.text',status)
@@ -325,11 +360,13 @@ export class Meetings {
        cy.xpath(selectors.addAttendeeBttnInMeetingInfoPage).click();
        cy.wait(2000);
    }
-   verifyAddedSigner(attendeeEmail1)
+   verifyAddedAttendee(role,attendeeEmail=signerEmail,attendeeName=signerName)
    {
-       cy.xpath(selectors.addedAttendeeEmail).should('contain.text',attendeeEmail1);
+       cy.xpath('//tbody/tr/td[3][text()="'+attendeeEmail+'"]/../td[2]/text()').should('contain.text',role)
+       cy.xpath(selectors.addedAttendeeEmail).should('contain.text',attendeeEmail);
+       cy.xpath(selectors.addedAttendeeName).should('contain.text',attendeeName);
    }
-   verifyEditedSigner(attendeeEmail1,attendeeEmail2)
+   verifyEditedSigner(attendeeEmail1,attendeeEmail2=signerEmail)
    {
        cy.xpath(selectors.addedAttendeeEmail).should('contain.text',attendeeEmail1)
        cy.xpath(selectors.addedAttendeeEmail).should('not.have.text',attendeeEmail2)
@@ -345,9 +382,9 @@ export class Meetings {
        cy.xpath('//tbody/tr[last()]/td[last()]').click();
    }
 
-   verifyAddressInMeetingDetailsPage(address)
+   verifyAddressInMeetingDetailsPage(meetingAddress=address)
    {
-       cy.xpath(selectors.addressTextInMeetingDetailsPage).should('contain.text',address);
+       cy.xpath(selectors.addressTextInMeetingDetailsPage).should('contain.text',meetingAddress);
    }
   
 clickMeeting(fileId)
@@ -361,43 +398,62 @@ selectObserverAttendeeType()
     cy.get(selectors.observerAttendeeType).should('exist').click();
 }
 
-verifyAttendeeType(email,attendeeType)
+verifyAttendeeType(attendeeType,email=signerEmail,)
 {
     cy.xpath('//tr/td[text()="'+email+'"]/../td[2]').should('contain.text',attendeeType)
 }
 
-createMeeting()
+createRonClosingMeeting(meetingType)
 {
-        var fileId = "file"+Math.floor(Math.random()*1000);
-        var propertyAddress=1+Math.floor(Math.random())*100;
-        var streetName=faker.address.streetName();
-        var streetNumber=propertyAddress;
-        var city=faker.address.cityName();
-        var postalCode=faker.address.zipCode();
-        var signerFirstName=faker.name.firstName();
-        var signerMiddleName=faker.name.middleName();
-        var signerLastName=faker.name.lastName();
-        var signerPhone=faker.phone.phoneNumber();
-        var email=faker.internet.email();
-        
-
-
-        //creating meeting
-        this.clickOnCreateMeeting();
-        this.clickTheClosingMeetingButton();
-        this.clickOnPurchaseType();
-        this.enterFileNumber(fileId);
-        this.selectPropertyAddress(propertyAddress,streetNumber,streetName,city,postalCode);
-        this.enterMeetingInfo();
-        this.selectHost();
-        this.enterSignerInfo(signerFirstName,signerMiddleName,signerLastName,signerPhone,email); 
-        this.clickOnCreateClosing();
-        cy.wait(5000)
+    //creating meeting
+    this.clickOnCreateMeeting();
+    this.clickTheClosingMeetingButton();
+    this.selectMeetingType(meetingType);
+    this.enterFileId();
+    this.selectPropertyAddress();
+    this.enterMeetingInfo();
+    this.clickTheNextBttn();
+    this.selectHost();
+    this.enterSignerInfo(); 
+    this.clickOnCreateClosing();
+    cy.wait(5000);
 }
 
-clickEditButtonOfSigner(signerEmail)
+verifyCreatedMeeting(transactionType,role)
 {
-    cy.xpath('//tr/td[text()="'+signerEmail+'"]/following-sibling::td/div/div/div').should('exist').click();
+    this.verifyNavigatedToClosingDetailsPage();
+    this.verifyFileId();
+    this.verifyAddressInMeetingDetailsPage();
+    this.verifyTransactionType(transactionType);
+    this.verifyAddedAttendee(role);
+}
+
+createASigningMeeting()
+{
+     this.clickOnCreateMeeting();
+     this.clickTheSigningMeetingButton();
+     this.enterFileId();
+     this.enterMeetingInfo();
+     this.selectHost();
+     this.addAttendeeToTheMeeting(); 
+     this.clickOnCreateClosing();
+}
+
+verifyCreatedSigningMeeting(role)
+{
+    this.verifyNavigatedToMeetingDetailsPage();
+  //  this.verifyMeetingNameInSignigngMeetingDetailsPage();
+    this.verifyAddedAttendee(role);
+}
+
+verifyAddedExternalNotary(role)
+{
+    this.verifyAddedAttendee(role,notaryEmail,externalNotaryName)
+}
+
+clickEditButtonOfSigner(email=signerEmail)
+{
+    cy.xpath('//tr/td[text()="'+email+'"]/following-sibling::td/div/div/div').should('exist').click();
 }
 
 clickOnEdit()
@@ -425,7 +481,7 @@ editEmail(email)
     cy.get(selectors.emailInEditSigner).should('exist').clear().type(email)
 }
 
-editSignerDetails(firstName,middleName,lastName,email)
+editSignerDetails(firstName=signerFirstName,middleName=signerMiddleName,lastName=signerLastName,email=signerEmail)
 {
    this.editFirstName(firstName);
    this.editMiddleName(middleName);
@@ -443,7 +499,7 @@ verifyAddedAttendeeName(signerName1)
     cy.xpath(selectors.addedAttendeeName).should('contain.text',signerName1);
 }
 
-verifyEditedAttendeeName(signerName1,signerName2)
+verifyEditedAttendeeName(signerName1,signerName2=signerName)
 {
     cy.xpath(selectors.addedAttendeeName).should('contain.text',signerName1);
     cy.xpath(selectors.addedAttendeeName).should('not.have.text',signerName2);
@@ -484,7 +540,7 @@ verifyCreateClosingButtonIsDisabled()
     cy.xpath(selectors.createClosingBttn).should('be.disabled')
 }
 
-verifyMeetingNameInSignigngMeetingDetailsPage(meetingName)
+verifyMeetingNameInSignigngMeetingDetailsPage(meetingName=fileId)
 {
     cy.xpath(selectors.addressTextInMeetingDetailsPage).should('contain.text',meetingName)
 }
@@ -492,6 +548,12 @@ verifyMeetingNameInSignigngMeetingDetailsPage(meetingName)
 verifyErrorText(errorText)
 {
     cy.xpath(selectors.errorText).should('contain.text',errorText)
+}
+
+verifyEmailErrorText(errorText,email=signerEmail)
+{
+    cy.log(email);
+    cy.xpath(selectors.errorText).should('contain.text',email+" "+errorText);
 }
 
 clickTheAddObserverButton()
@@ -562,7 +624,7 @@ clickAddExternalNotary()
     cy.xpath(selectors.addExternalNotaryBttn).should('exist').click();
 }
 
-enterNotaryEmail(email)
+enterNotaryEmail(email=notaryEmail)
 {
     cy.get(selectors.notaryEmail).should('exist').type(email);
 }
@@ -587,7 +649,7 @@ enterNotaryLastName(lastName)
     cy.get(selectors.notaryLastName).should('exist').type(lastName);
 }
 
-enterNotaryNameCredentials(firstName,middleName,lastName)
+enterNotaryNameCredentials(firstName=notaryFirstName,middleName=notaryMiddleName,lastName=notaryLastName)
 {
     this.enterNoatryFirstName(firstName);
     this.enterNotaryMiddleName(middleName);
@@ -599,18 +661,18 @@ clickInviteNotaryButton()
     cy.xpath(selectors.inviteNotaryBttn).should('exist').click();
 }
 
-addExternalNotary(email,firstName,middleName,lastName)
+addExternalNotary(firstName,middleName,lastName,email)
 {
     this.clickAddExternalNotary();
     this.enterNotaryEmail(email);
     this.clickAddNotaryButton();
     this.enterNotaryNameCredentials(firstName,middleName,lastName);
-    this.clickInviteNotaryButton()
+    this.clickInviteNotaryButton();
 }
 
-verifyExternalNotaryNameInCreateMeetingPage(name)
+verifyExternalNotaryNameInCreateMeetingPage()
 {
-    cy.xpath(selectors.externalNotaryNameInCreateMeetingPage).should('contain.text',name)
+    cy.xpath(selectors.externalNotaryNameInCreateMeetingPage).should('contain.text',externalNotaryName)
 }
 
 clickViewVerificationResultsButton()
@@ -618,7 +680,7 @@ clickViewVerificationResultsButton()
     cy.xpath(selectors.viewVerificationResultsBttn).should('exist').click();
 }
 
-verifyViewingVerificationResults(signer)
+verifyViewingVerificationResults(signer=signerName)
 {
     cy.xpath(selectors.signerNameInVerificationResultPage).should('contain.text',signer);
     cy.xpath(selectors.securityDetailsTxt).should('contain.text'," Security Results");
@@ -699,7 +761,7 @@ clickTheSelectAllButton()
 
 clickTheEditButtonOfFileId()
 {
-    cy.xpath(selectors.editFileIdButton).trigger('mouseover');
+    cy.xpath(selectors.editFileIdButton).realClick();
     cy.xpath(selectors.editFileIdButton).click({force:true});
 }
 

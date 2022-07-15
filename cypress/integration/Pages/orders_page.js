@@ -124,7 +124,7 @@ export class Orders{
 
      acceptOrRejectServicingOrderInDetailsPage(action)
      {
-         cy.xpath('//div[@data-testid="stavviz-card"]/div/div[text()="Foreclosure"]/../following-sibling::div/div[5]/button[text()="'+action+'"]').should('exist').click();  
+         cy.xpath('//div[@data-testid="StavvizCard"]/div/div[text()="Foreclosure"]/../following-sibling::div/div[5]/button[text()="'+action+'"]').should('exist').click();  
     }
      
      verifyServicingOrderPresentInTheList()
@@ -246,7 +246,7 @@ export class Orders{
         cy.get('@order type').then((res)=>{
     
             var orderType=res.text();
-            cy.xpath('//div[@data-testid="stavviz-card"]/div/div[text()="'+orderType+'"]/../following-sibling::div/div[5]/button[text()="'+action+'"]').should('exist').click();
+            cy.xpath('//div[@data-testid="StavvizCard"]/div/div[text()="'+orderType+'"]/../following-sibling::div/div[5]/button[text()="'+action+'"]').should('exist').click();
         })
         
     }
@@ -274,13 +274,13 @@ export class Orders{
     {
         cy.get('@order type').then((response)=>{
             var orderType=response.text()
-        cy.xpath('//div[@data-testid="stavviz-card"]/div/div[text()="'+orderType+'"]/following-sibling::div/div').should('exist').click();
+        cy.xpath('//div[@data-testid="StavvizCard"]/div/div[text()="'+orderType+'"]/following-sibling::div/div').should('exist').click();
         })
     }
 
     clickEditButtonOfServicingOrder()
     {
-        cy.xpath('//div[@data-testid="stavviz-card"]/div/div[text()="Foreclosure"]/following-sibling::div/div').should('exist').click();
+        cy.xpath('//div[@data-testid="StavvizCard"]/div/div[text()="Foreclosure"]/following-sibling::div/div').should('exist').click();
     }
 
     clickMarkCompleteButton()

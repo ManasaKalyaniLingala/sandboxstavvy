@@ -33,7 +33,7 @@ describe("stavvy application" , ()=>{
      var firstName=faker.name.firstName();
      var middleName=faker.name.middleName();
      var lastName=faker.name.lastName();
-     var email=faker.internet.email();
+     var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
      var document="title_exam (4).pdf";
      var status="Ready To Sign";
 
@@ -50,14 +50,13 @@ describe("stavvy application" , ()=>{
     })
 
 
-
   it("Create new eSign with Just Me & Others", ()=>{
 
      var packetTitle=faker.name.findName();
      var firstName=faker.name.firstName();
      var middleName=faker.name.middleName();
      var lastName=faker.name.lastName();
-     var email=faker.internet.email();
+     var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
      var document="title_exam (4).pdf";
      var status="Ready To Sign";
 
@@ -77,10 +76,12 @@ describe("stavvy application" , ()=>{
   it("Create new eSign with just Me", () =>{
 
      var packetTitle=faker.name.findName();
-      var document="title_exam (4).pdf";
+     var document="title_exam (4).pdf";
      var status="Ready To Sign";
 
     //Creating packet
+     eSign.clickOneSignButton();
+     eSign.clickOnCreateNeweSignButton();
      eSign.creatingNewESignWithJustMeOption(packetTitle,document);
 
     //Verify created packet
@@ -135,6 +136,7 @@ describe("stavvy application" , ()=>{
      eSign.clickOneSignButton();
 
     //Upload document
+     eSign.clickOnCreateNeweSignButton();
      eSign.creatingNewESignWithJustMeOption(packetTitle,document1)
      eSign.reloadThePage();
      eSign.clickOnPacketFromTheList(packetTitle);
@@ -156,7 +158,7 @@ describe("stavvy application" , ()=>{
 
   it("Add signer to an eSign", ()=>{
 
-     var email = faker.internet.email().toLowerCase();
+     var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
      var firstName=faker.name.firstName();
      var middleName=faker.name.middleName();
      var lastName=faker.name.lastName();
@@ -179,8 +181,8 @@ describe("stavvy application" , ()=>{
 
   it("Adding multiple signer to eSign", ()=>{
 
-     var signer1Email = faker.internet.email().toLowerCase();
-     var signer2Email = faker.internet.email().toLowerCase();
+     var signer1Email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
+     var signer2Email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
      var firstName1=faker.name.firstName();
      var middleName1=faker.name.middleName();
      var lastName1=faker.name.lastName();
@@ -209,7 +211,7 @@ describe("stavvy application" , ()=>{
 
   it("verify adding similar signers to an eSign",()=>{
 
-        var signerEmail = faker.internet.email().toLowerCase();
+        var signerEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
@@ -234,7 +236,7 @@ describe("stavvy application" , ()=>{
 
       it("Verify adding signer with same email",()=>{
 
-        var signerEmail = faker.internet.email().toLowerCase();
+        var signerEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName1=faker.name.firstName();
         var middleName1=faker.name.middleName();
         var lastName1=faker.name.lastName();
@@ -262,8 +264,8 @@ describe("stavvy application" , ()=>{
 
       it("Verify adding signer with same name credentials",()=>{
 
-        var signerEmail1 = faker.internet.email().toLowerCase();
-        var signerEmail2 = faker.internet.email().toLowerCase();
+        var signerEmail1 = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
+        var signerEmail2 = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
@@ -289,7 +291,7 @@ describe("stavvy application" , ()=>{
 
       it("Verify deleting Signer",()=>{
 
-         var email = faker.internet.email().toLowerCase();
+         var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
          var firstName=faker.name.firstName();
          var middleName=faker.name.middleName();
          var lastName=faker.name.lastName();
@@ -320,7 +322,7 @@ describe("stavvy application" , ()=>{
         var firstName1=faker.name.firstName();
         var middleName1=faker.name.middleName();
         var lastName1=faker.name.lastName();
-        var email1 =faker.internet.email().toLowerCase();
+        var email1 ="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName2=faker.name.firstName();
         var middleName2=faker.name.middleName();
         var lastName2=faker.name.lastName();
@@ -375,7 +377,7 @@ describe("stavvy application" , ()=>{
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email=faker.internet.email();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var document="document2.pdf";
 
         //Navigate to eSign page
@@ -429,7 +431,7 @@ describe("stavvy application" , ()=>{
 
       it("Verify sending invite for an added signer",()=>{
 
-        var email = faker.internet.email().toLowerCase();
+        var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
@@ -461,7 +463,7 @@ describe("stavvy application" , ()=>{
       it("Verify sending invite to signer which doesn't have documents",()=>{
 
         var packetTitle=faker.name.findName();
-        var email = faker.internet.email().toLowerCase();
+        var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
@@ -471,6 +473,7 @@ describe("stavvy application" , ()=>{
         eSign.clickOneSignButton();
 
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -498,7 +501,11 @@ describe("stavvy application" , ()=>{
         var document="document2.pdf";
         var status="Annotating";
       
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
         eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -523,7 +530,11 @@ describe("stavvy application" , ()=>{
         var document="document2.pdf";
         var status="Download";
       
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
         eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -547,7 +558,11 @@ describe("stavvy application" , ()=>{
         var documentStatus="Download";
         var status="Completed";
       
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -576,14 +591,18 @@ describe("stavvy application" , ()=>{
        })
 
        
-      it.only("Verify Performing signing without clicking 'Finish signing'",()=>{
+      it("Verify Performing signing without clicking 'Finish signing'",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var documentStatus="In progress";
         var status="Signing In Progress";
       
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -615,7 +634,11 @@ describe("stavvy application" , ()=>{
         var document="document2.pdf";
         var link="view";
 
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -637,7 +660,11 @@ describe("stavvy application" , ()=>{
         var document="document2.pdf";
         var link="view";
 
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -664,7 +691,11 @@ describe("stavvy application" , ()=>{
         var document="document2.pdf";
         var status="Download";
       
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
         eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
@@ -681,12 +712,16 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify editing annotations by 'Edit Annotations' button in view document page",()=>{
+      it("Verify editing annotations by 'Edit Annotations' button in view document page",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
       
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -704,17 +739,20 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify adding signer through view document page",()=>{
+      it("Verify adding signer through view document page",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email = faker.internet.email().toLowerCase();
+        var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
 
-      
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -733,13 +771,17 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify sending invite to signer in View document page",()=>{
+      it("Verify sending invite to signer in View document page",()=>{
 
         
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
       
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage()
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -756,12 +798,17 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify switching between Signer Portal, Packet Overiview, and Signing document pages",()=>{
+      it("Verify switching between Signer Portal, Packet Overiview, and Signing document pages",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var status="In progress"
       
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
+        //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document);
         eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle)
@@ -783,14 +830,14 @@ describe("stavvy application" , ()=>{
        });
 
 
-      it.only("Verify creating eSign packet with multiple signers and just me option",()=>{
+      it("Verify creating eSign packet with multiple signers and just me option",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         
         //Navigate to eSign
         eSign.clickOneSignButton();
@@ -816,14 +863,14 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify creating eSign packet with Just me& others and multiple signers",()=>{
+      it("Verify creating eSign packet with Just me& others and multiple signers",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         
         //Navigate to eSign page
         eSign.clickOneSignButton();
@@ -849,18 +896,18 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify creating eSign packet with just others and mutliple signers",()=>{
+      it("Verify creating eSign packet with just others and mutliple signers",()=>{
        
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var firstName1=faker.name.firstName();
         var middleName1=faker.name.middleName();
         var lastName1=faker.name.lastName();
-        var email1=faker.internet.email().toLowerCase();
+        var email1="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName2=faker.name.firstName();
         var middleName2=faker.name.middleName();
         var lastName2=faker.name.lastName();
-        var email2=faker.internet.email().toLowerCase();
+        var email2="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         
         //Navigate to eSign page
         eSign.clickOneSignButton();
@@ -889,7 +936,7 @@ describe("stavvy application" , ()=>{
        })
 
      
-      it.only("Verify creating new eSign packet following upto 'enter packet title' page",()=>{
+      it("Verify creating new eSign packet following upto 'enter packet title' page",()=>{
 
         var packetTitle=faker.name.findName();
         var status="Draft";
@@ -910,7 +957,7 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify creating new eSign packet upto step1",()=>{
+      it("Verify creating new eSign packet upto step1",()=>{
 
         var packetTitle=faker.name.findName();
         var status="Draft";
@@ -936,14 +983,14 @@ describe("stavvy application" , ()=>{
        })
 
        
-      it.only("Verify creating eSign packet following upto step 2",()=>{
+      it("Verify creating eSign packet following upto step 2",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var status="Draft";
 
         //Navigate to eSign page
@@ -968,14 +1015,14 @@ describe("stavvy application" , ()=>{
        })
 
       
-      it.only("Verify creating packet without adding annotations to the document",()=>{
+      it("Verify creating packet without adding annotations to the document",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var status="Draft";
         var documentStatus="Uploaded"
 
@@ -1003,12 +1050,12 @@ describe("stavvy application" , ()=>{
         })
 
 
-      it.only("Verify editing signer details with empty fields in packet details page",()=>{
+      it("Verify editing signer details with empty fields in packet details page",()=>{
 
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email = faker.internet.email().toLowerCase();
+        var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var value="Ready To Sign";
 
         //Navigate to eSign page
@@ -1032,13 +1079,12 @@ describe("stavvy application" , ()=>{
        })
 
       
-      it.only("Verify editing signer details with an invalid email",()=>{
-
+      it("Verify editing signer details with an invalid email",()=>{
 
         var firstName1=faker.name.firstName();
         var middleName1=faker.name.middleName();
         var lastName1=faker.name.lastName();
-        var email1 =faker.name.findName().toLowerCase();
+        var email1 = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName2=faker.name.firstName();
         var middleName2=faker.name.middleName();
         var lastName2=faker.name.lastName();
@@ -1057,7 +1103,6 @@ describe("stavvy application" , ()=>{
         eSign.clickEditButtonOfSignerBttn(email1);
         eSign.clickOnEdit();
         eSign.editSignerDetails(firstName2,middleName2,lastName2,email2);
-        eSign.verifySaveBttnIsDisabled();
 
         //Verify edited signer
         eSign.verifyInputValidationError("Invalid email format");
@@ -1065,13 +1110,13 @@ describe("stavvy application" , ()=>{
         })
 
       
-      it.only("Verify editing signer details with an empty email",()=>{
+      it("Verify editing signer details with an empty email",()=>{
 
         var value="Ready To Sign";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email =faker.name.findName().toLowerCase();
+        var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
 
         //Navigate to eSign page
         eSign.clickOneSignButton();
@@ -1093,13 +1138,13 @@ describe("stavvy application" , ()=>{
         })
 
 
-      it.only("Verify editing signer details with empty name fields",()=>{
+      it("Verify editing signer details with empty name fields",()=>{
 
         var value="Ready To Sign";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email =faker.name.findName().toLowerCase();
+        var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
 
         //Navigate to eSign page
         eSign.clickOneSignButton();
@@ -1124,14 +1169,14 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify creating new eSign packet with signers that has similar mail",()=>{
+      it("Verify creating new eSign packet with signers that has similar mail",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         
         //Navigate to eSign page
         eSign.clickOneSignButton();
@@ -1146,20 +1191,18 @@ describe("stavvy application" , ()=>{
         eSign.clickOnaddSignerBttn();
         eSign.addSignerInfo(firstName,middleName,lastName,email);
         
-
-        //Verify added signers
-        
+        //Verify added signers 
         eSign.verifyEmailValidationError("Signer with this email address has already been added");
         })
 
 
-      it.only("Verify creating new eSign packet with multiple documents",()=>{
+      it("Verify creating new eSign packet with multiple documents",()=>{
 
         var packetTitle=faker.name.findName();
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var document1="document2.pdf";
         var document2="test doc2.pdf";
         var document3="test doc6.pdf";
@@ -1188,7 +1231,7 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify creating new eSign packet with multiple documents and marking documents to Sign",()=>{
+      it("Verify creating new eSign packet with multiple documents and marking documents to Sign",()=>{
         
         var packetTitle=faker.name.findName();
         var document1="document2.pdf";
@@ -1197,7 +1240,7 @@ describe("stavvy application" , ()=>{
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var documentStatus="Ready for Signing";
         var packetStatus="Ready To Sign";
         
@@ -1237,7 +1280,7 @@ describe("stavvy application" , ()=>{
       })
 
 
-    it.only("Verify creating new eSign packet with similar signer emails",()=>{
+    it("Verify creating new eSign packet with similar signer emails",()=>{
 
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
@@ -1247,7 +1290,7 @@ describe("stavvy application" , ()=>{
         var firstName2=faker.name.firstName();
         var middleName2=faker.name.middleName();
         var lastName2=faker.name.lastName();
-        var email=faker.internet.email().toLowerCase();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         
         //Navigate to eSign page
         eSign.clickOneSignButton();
@@ -1267,15 +1310,15 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify creating new eSign packet with similar signer name credentials",()=>{
+      it("Verify creating new eSign packet with similar signer name credentials",()=>{
         
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
-        var email1=faker.internet.email().toLowerCase();
-        var email2=faker.internet.email().toLowerCase();
+        var email1="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
+        var email2="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         
         //Navigate to eSign page
         eSign.clickOneSignButton();
@@ -1299,16 +1342,20 @@ describe("stavvy application" , ()=>{
        })
 
 
-      it.only("Verify adding signer and adding annotations of signer",()=>{
+      it("Verify adding signer and adding annotations of signer",()=>{
 
-        var email = faker.internet.email().toLowerCase();
+        var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
         var packetTitle=faker.name.findName();
         var document="document2.pdf";
 
+        //Navigate to eSign page
+        eSign.clickOneSignButton();
+
         //Create new eSign packet
+        eSign.clickOnCreateNeweSignButton();
         eSign.creatingNewESignWithJustMeOption(packetTitle,document)
         eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);

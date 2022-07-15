@@ -351,8 +351,7 @@ export class ESign {
     
     creatingNewESignWithJustMeOption(packetTitle,documentName)
     {   
-        this.clickOneSignButton();
-        this.clickOnCreateNeweSignButton();
+    
         this.enterPacketTitle(packetTitle);
         this. clickOnUploadDocuments(documentName);
         this.selectJustMe();

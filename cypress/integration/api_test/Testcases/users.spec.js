@@ -18,7 +18,7 @@ describe('Users test cases',()=>{
 
     it("Verify inviting a new User",()=>{
 
-        var email=faker.internet.email();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
@@ -42,7 +42,7 @@ describe('Users test cases',()=>{
 
     it("Verify inviting new User as Admin",()=>{
 
-        var email=faker.internet.email();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
@@ -66,7 +66,7 @@ describe('Users test cases',()=>{
     
     it("Verify inviting new User as Notary",()=>{
 
-        var email=faker.internet.email();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();
@@ -90,7 +90,7 @@ describe('Users test cases',()=>{
 
    it("Verify inviting new User as Admin and Notary",()=>{
 
-        var email=faker.internet.email();
+        var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
         var firstName=faker.name.firstName();
         var middleName=faker.name.middleName();
         var lastName=faker.name.lastName();

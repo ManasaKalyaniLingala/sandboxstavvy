@@ -3,6 +3,7 @@
 import { Login } from "../Pages/login_page";
 import { Users } from "../Pages/users_page";
 import { Files } from "../Pages/files_page";
+import { use } from "chai";
 
 const { faker } = require('@faker-js/faker');
 
@@ -21,10 +22,7 @@ describe("Users test cases" , ()=>{
 
      it("inviting new user", () =>{
 
-         var email = faker.internet.email().toLowerCase()
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
+         var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
          var role="User";
 
          //Navigating to Users page.
@@ -32,24 +30,20 @@ describe("Users test cases" , ()=>{
 
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterUserInfo(userEmail);
          users.clickInviteUsers();
 
          //Verifying invited user
-         users.verifyMessageText(email+" has been invited to your Stavvy account via email!");
-         users.searchUser(firstName+" "+middleName+" "+lastName);
-         users.navigateToManageUserPage(email);
+         users.verifyInvitationMessageText(userEmail);
+         users.searchUser(userEmail);
+         users.navigateToManageUserPage(userEmail);
          users.verifyUserRole(role);
-         users.clickOnManageUserCloseButton();
         })
 
 
      it("inviting new user as notary", () =>{
 
-         var email = faker.internet.email().toLowerCase();
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
+         var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
          var role="User";
 
          //Navigate to Users page
@@ -57,26 +51,22 @@ describe("Users test cases" , ()=>{
  
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterUserInfo(userEmail);
          users.selectNotaryOptionForUser();
          users.clickInviteUsers();
 
          //Verifying invited user
-         users.verifyMessageText(email+" has been invited to your Stavvy account via email!");
-         users.searchUser(firstName+" "+middleName+" "+lastName);
-         users.navigateToManageUserPage(email);
+         users.verifyInvitationMessageText(userEmail);
+         users.searchUser(userEmail);
+         users.navigateToManageUserPage(userEmail);
          users.verifyNotaryCheckBoxIsSelected();
          users.verifyUserRole(role);
-         users.clickOnManageUserCloseButton();
        })
 
 
      it("inviting new user as Admin", () =>{
 
-         var email = faker.internet.email().toLowerCase()
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
+         var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
          var role="Admin";
 
          //Navigate to Users page
@@ -84,26 +74,22 @@ describe("Users test cases" , ()=>{
  
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterUserInfo(userEmail);
          users.clickRoleDropdown();
          users.selectAdminRole();
          users.clickInviteUsers();
 
           //verifying invited user
-         users.verifyMessageText(email+" has been invited to your Stavvy account via email!");
-         users.searchUser(firstName+" "+middleName+" "+lastName);
-         users.navigateToManageUserPage(email);
+         users.verifyInvitationMessageText(userEmail);
+         users.searchUser(userEmail);
+         users.navigateToManageUserPage(userEmail);
          users.verifyUserRole(role);
-         users.clickOnManageUserCloseButton();
        })
 
 
      it("inviting new user as Notary and Admin", () =>{
 
-         var email = faker.internet.email().toLowerCase()
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
+         var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
          var role="Admin";
 
          //Navigate to Users page
@@ -111,47 +97,43 @@ describe("Users test cases" , ()=>{
  
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterUserInfo(userEmail);
          users.selectNotaryOptionForUser();
          users.clickRoleDropdown();
          users.selectAdminRole();
          users.clickInviteUsers();
-         users.verifyMessageText(email+" has been invited to your Stavvy account via email!")
+         users.verifyInvitationMessageText(userEmail)
         
          //Verification
-         users.searchUser(firstName+" "+middleName+" "+lastName);
-         users.navigateToManageUserPage(email)
+         users.searchUser();
+         users.navigateToManageUserPage(userEmail)
          users.verifyUserRole(role);
          users.verifyNotaryCheckBoxIsSelected();
-         users.clickOnManageUserCloseButton();
        })
 
 
      it("verify deleting user",()=>{
 
-         var email = faker.internet.email().toLowerCase()
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
+         var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
          //Navigate to Users page
          users.clickOnUsers();
 
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterUserInfo(userEmail);
          users.clickInviteUsers();
-         users.searchUser(firstName)
+         users.searchUser(userEmail)
 
          //Delete user
-         users.navigateToManageUserPage(email)
-         users.copyAndPasteEmail();
+         users.navigateToManageUserPage(userEmail)
+         users.enterEmailInDeleteUserTextBox(userEmail)
          users.clickOnDeleteUserButton();
 
          //Verifying deleted user
          users.verifyMessageText("User has been deleted.");
-         users.searchUser(firstName);
-         users.verifyDeletedUserInTheList(email);
+         users.searchUser(userEmail);
+         users.verifyDeletedUserInTheList(userEmail);
         })
    
 
@@ -173,29 +155,26 @@ describe("Users test cases" , ()=>{
 
      it("Verify inviting new user with an existing user's details",()=>{
    
-         var email = faker.internet.email().toLowerCase();
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
+        var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
          //Navigating to Users page.
          users.clickOnUsers();
 
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterUserInfo(userEmail);
          users.clickInviteUsers();
 
          //Verify invited user
-         users.verifyMessageText(email+" has been invited to your Stavvy account via email!");
-         users.searchUser(firstName+" "+middleName+" "+lastName);
-         users.navigateToManageUserPage(email);
+         users.verifyInvitationMessageText(userEmail);
+         users.searchUser(userEmail);
+         users.navigateToManageUserPage(userEmail);
          users.clickOnManageUserCloseButton();
 
          //Invite new user with existing user details
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
-         
+         users.enterUserInfo(userEmail);
+        
          //Verify inviting user
          users.verifyErrorText("User already exists, please enter a different email.");
          users.verifyInviteUsersDisabled();
@@ -204,21 +183,20 @@ describe("Users test cases" , ()=>{
 
      it("Verify inviting new user with an invalid email",()=>{
 
-
          var email = faker.name.findName();
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
 
          //Navigating to Users page.
          users.clickOnUsers();
 
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterEmail(email);
+         users.enterFirstName();
+         users.enterLastName();
         
          //Verify erorr text
          users.verifyErrorText("Please enter a valid email address.");
+         users.verifyInviteUsersDisabled();
        })
  
 
@@ -274,18 +252,14 @@ describe("Users test cases" , ()=>{
  
      it("Verify inviting new user without filling email field",()=>{
 
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
-
          //Navigate to Users page
          users.clickOnUsers();
 
          //Inviting user
          users.clickOnInviteUser();
-         users.enterFirstName(firstName);
-         users.enterMiddleName(middleName);
-         users.enterLastName(lastName);
+         users.enterFirstName();
+         users.enterMiddleName();
+         users.enterLastName();
          users.clickInviteUsers();
 
          //Verify error text
@@ -295,7 +269,7 @@ describe("Users test cases" , ()=>{
 
      it("Verify inviting new user without filling Name fields",()=>{
 
-         var email = faker.internet.email().toLowerCase();
+         var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
 
          //Navigate to Users page
          users.clickOnUsers();
@@ -312,29 +286,26 @@ describe("Users test cases" , ()=>{
 
      it("Verify making an exsiting Notary to Non-Notary and non-Notary to Notary",()=>{
 
-         var email = faker.internet.email().toLowerCase()
-         var firstName=faker.name.firstName();
-         var middleName=faker.name.middleName();
-         var lastName=faker.name.lastName();
+        var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
          //Navigate to Users page
          users.clickOnUsers();
 
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterUserInfo(userEmail);
          users.selectNotaryOptionForUser();
          users.clickInviteUsers();
 
          //Make Notary to Non-Notary
-         users.searchUser(firstName);
-         users.navigateToManageUserPage(email);
+         users.searchUser(userEmail);
+         users.navigateToManageUserPage(userEmail);
          users.selectNotaryOptionForUser();
          users.clickSaveUserButton();
 
          //Verify user's notarty status
-         users.searchUser(firstName);
-         users.navigateToManageUserPage(email);
+         users.searchUser(userEmail);
+         users.navigateToManageUserPage(userEmail);
          users.verifyNotaryCheckBoxIsDeselected();
 
          //Make Non-notary as Notary
@@ -342,28 +313,22 @@ describe("Users test cases" , ()=>{
          users.clickSaveUserButton();
 
          //Verify user's notary status
-         users.searchUser(firstName);
-         users.navigateToManageUserPage(email)
+         users.searchUser(userEmail);
+         users.navigateToManageUserPage(userEmail)
          users.verifyNotaryCheckBoxIsSelected();
        })
 
 
      it("Verify creating new Loan oficcer",()=>{
 
-          var name=faker.name.findName();
-          var email=faker.internet.email().toLowerCase();
-          var phone=faker.phone.phoneNumber();
-          var NMLSlicesnceNumber=Math.floor(Math.random()*10000);
-          
+        var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+
          //Navigate to Users page
          users.clickOnUsers();
 
          //Create new loan officer
          users.clickCreateLoanOfficer();
-         users.enterLoanOfficerName(name);
-         users.enterLoanOfficerEmail(email);
-         users.enterLoanOfficerPhone(phone);
-         users.enterLoanOfficerNMLSlicenseNumber(NMLSlicesnceNumber);
+         users.enterLoanOfficerDetails(userEmail)
          users.clickTheSubmitButton();
 
          //Verify created loan officer
@@ -371,7 +336,7 @@ describe("Users test cases" , ()=>{
          files.navigateToFiles();
          files.clickCreateFileButton();
          files.clickTheLoanOfficerDropdown();
-         users.verifyLoanOfficerIntheList(name,email)
+         users.verifyLoanOfficerIntheList(userEmail);
        })
 
 
@@ -390,56 +355,40 @@ describe("Users test cases" , ()=>{
 
      it("Verify creating new loan officer by giving only email and name",()=>{
 
-          var name=faker.name.findName();
-          var email=faker.internet.email().toLowerCase();
-     
-          
+        var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+
          //Navigate to Users page
          users.clickOnUsers();
 
          //Create new loan officer
          users.clickCreateLoanOfficer();
-         users.enterLoanOfficerName(name);
-         users.enterLoanOfficerEmail(email);
-         users.clickTheSubmitButton();
+         users.enterLoanOfficerName();
+         users.enterLoanOfficerEmail(userEmail);
 
-         //Verify created loan officer
-         users.verifyMessageText('Loan officer created!');
-         files.navigateToFiles();
-         files.clickCreateFileButton();
-         files.clickTheLoanOfficerDropdown();
-         users.verifyLoanOfficerIntheList(name,email);
+         //Verify submit button is disabled
+         users.verifySubmitButtonIsDisabled();
        })
 
 
      it("Verify creating new loan officer with an existing loan officer details",()=>{
 
-          var name=faker.name.findName();
-          var email=faker.internet.email().toLowerCase();
-          var phone=faker.phone.phoneNumber();
-          var NMLSlicesnceNumber=Math.floor(Math.random()*10000);
-          
+        var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+
          //Navigate to Users page
          users.clickOnUsers();
 
          //Create new loan officer
          users.clickCreateLoanOfficer();
-         users.enterLoanOfficerName(name);
-         users.enterLoanOfficerEmail(email);
-         users.enterLoanOfficerPhone(phone);
-         users.enterLoanOfficerNMLSlicenseNumber(NMLSlicesnceNumber);
+         users.enterLoanOfficerDetails(userEmail)
          users.clickTheSubmitButton();
 
          //Create new loan officer with existing loan officer details
          users.clickCreateLoanOfficer();
-         users.enterLoanOfficerName(name);
-         users.enterLoanOfficerEmail(email);
-         users.enterLoanOfficerPhone(phone);
-         users.enterLoanOfficerNMLSlicenseNumber(NMLSlicesnceNumber);
+         users.enterLoanOfficerDetails(userEmail);
          users.clickTheSubmitButton();
 
          //Verify created loan officer
-         users.verifyMessageText('A user with an email of '+email+' already exists.');
+         users.verifyMessageText('A user with an email of '+userEmail+' already exists.');
        })
 
 
@@ -447,7 +396,7 @@ describe("Users test cases" , ()=>{
 
           var name1=faker.name.findName();
           var name2=faker.name.findName();
-          var email=faker.internet.email().toLowerCase();
+          var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
           var phone1=faker.phone.phoneNumber();
           var phone2=faker.phone.phoneNumber();
           var NMLSlicesnceNumber1=Math.floor(Math.random()*10000);
@@ -458,18 +407,12 @@ describe("Users test cases" , ()=>{
 
          //Create new loan officer
          users.clickCreateLoanOfficer();
-         users.enterLoanOfficerName(name1);
-         users.enterLoanOfficerEmail(email);
-         users.enterLoanOfficerPhone(phone1);
-         users.enterLoanOfficerNMLSlicenseNumber(NMLSlicesnceNumber1);
+         users.enterLoanOfficerDetails(name1,email,phone1,NMLSlicesnceNumber1);
          users.clickTheSubmitButton();
 
          //Create new loan officer with existing loan officer details
          users.clickCreateLoanOfficer();
-         users.enterLoanOfficerName(name2);
-         users.enterLoanOfficerEmail(email);
-         users.enterLoanOfficerPhone(phone2);
-         users.enterLoanOfficerNMLSlicenseNumber(NMLSlicesnceNumber2);
+         users.enterLoanOfficerDetails(name2,email,phone2,NMLSlicesnceNumber2);
          users.clickTheSubmitButton();
 
          //Verify created loan officer
@@ -479,21 +422,14 @@ describe("Users test cases" , ()=>{
 
      it("Verify creating new loan officer with an existing loan officer's name, phone, and NMLS License Number",()=>{
 
-          var name=faker.name.findName();
-          var email1=faker.internet.email().toLowerCase();
-          var email2=faker.internet.email().toLowerCase();
-          var phone=faker.phone.phoneNumber();
-          var NMLSlicesnceNumber=Math.floor(Math.random()*10000);
+          var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
           
          //Navigate to Users page
          users.clickOnUsers();
 
          //Create new loan officer
          users.clickCreateLoanOfficer();
-         users.enterLoanOfficerName(name);
-         users.enterLoanOfficerEmail(email1);
-         users.enterLoanOfficerPhone(phone);
-         users.enterLoanOfficerNMLSlicenseNumber(NMLSlicesnceNumber);
+         users.enterLoanOfficerDetails();
          users.clickTheSubmitButton();
 
          //Verify created loan officer
@@ -501,15 +437,15 @@ describe("Users test cases" , ()=>{
          files.navigateToFiles();
          files.clickCreateFileButton();
          files.clickTheLoanOfficerDropdown();
-         users.verifyLoanOfficerIntheList(name,email1)
+         users.verifyLoanOfficerIntheList()
 
          //Create new loan officer with existing loan officer details
          users.clickOnUsers();
          users.clickCreateLoanOfficer();
-         users.enterLoanOfficerName(name);
-         users.enterLoanOfficerEmail(email2);
-         users.enterLoanOfficerPhone(phone);
-         users.enterLoanOfficerNMLSlicenseNumber(NMLSlicesnceNumber);
+         users.enterLoanOfficerName();
+         users.enterLoanOfficerEmail(email);
+         users.enterLoanOfficerPhone();
+         users.enterLoanOfficerNMLSlicenseNumber();
          users.clickTheSubmitButton();
 
          //Verify created loan officer
@@ -517,46 +453,44 @@ describe("Users test cases" , ()=>{
          files.navigateToFiles();
          files.clickCreateFileButton();
          files.clickTheLoanOfficerDropdown();
-         users.verifyLoanOfficerIntheList(name,email1);
+         users.verifyLoanOfficerIntheList(email);
          })
+
 
       it("Verify editing user name details",()=>{
 
-         var email = faker.internet.email().toLowerCase()
-         var firstName1=faker.name.firstName();
-         var middleName1=faker.name.middleName();
-         var lastName1=faker.name.lastName();
-         var firstName2=faker.name.firstName();
-         var middleName2=faker.name.middleName();
-         var lastName2=faker.name.lastName();
-         var userName=firstName2+" "+middleName2+" "+lastName2;
+         var firstName=faker.name.firstName();
+         var middleName=faker.name.middleName();
+         var lastName=faker.name.lastName();
+         var userName=firstName+" "+middleName+" "+lastName;
+         var userEmail = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
          //Navigate to Users page
          users.clickOnUsers();
 
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName1,middleName1,lastName1,email);
+         users.enterUserInfo(userEmail);
          users.selectNotaryOptionForUser();
          users.clickInviteUsers();
 
          //Edit the user name details
-         users.searchUser(firstName1);
-         users.navigateToManageUserPage(email);
-         users.editTheUserNameDetails(firstName2,middleName2,lastName2);
+         users.searchUser(userEmail);
+         users.navigateToManageUserPage(userEmail);
+         users.editTheUserNameDetails(firstName,middleName,lastName);
          users.clickSaveUserButton();
 
          //Verify edited user name details
-         users.searchUser(email);
+         users.searchUser(userEmail);
          users.verifyUserNameInTheList(userName);
-         users.navigateToManageUserPage(email);
-         users.verifyEditedUserNameDetails(firstName2,middleName2,lastName2);
+         users.navigateToManageUserPage(userEmail);
+         users.verifyEditedUserNameDetails(firstName,middleName,lastName);
          })
          
          
     it("Verify users search bar",()=>{
 
-         var email = faker.internet.email().toLowerCase()
+         var email = "testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com".toLowerCase()
          var firstName=faker.name.firstName();
          var middleName=faker.name.middleName();
          var lastName=faker.name.lastName();
@@ -567,7 +501,7 @@ describe("Users test cases" , ()=>{
 
          //Inviting user
          users.clickOnInviteUser();
-         users.enterUserInfo(firstName,middleName,lastName,email);
+         users.enterUserInfo(email,firstName,middleName,lastName);
          users.selectNotaryOptionForUser();
          users.clickInviteUsers();
 

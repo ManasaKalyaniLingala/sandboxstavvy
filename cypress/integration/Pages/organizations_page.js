@@ -1,5 +1,14 @@
 import Selectors from "../Selectors/organizations"
+import faker from "@faker-js/faker";
 
+        var vendorDomain=faker.name.firstName()+".com";
+        var vendorEmail ="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com"
+        var vendorName=faker.name.findName();
+        var vendorFirstName=faker.name.firstName();
+        var vendorMiddleName=faker.name.middleName();
+        var vendorLastName=faker.name.lastName();
+        var vendorPhoneNumber=faker.phone.phoneNumberFormat();
+        
 export class Vendors{
 
     clickOnOrganizations()
@@ -10,28 +19,28 @@ export class Vendors{
     {
         cy.xpath(Selectors.inviteNewVendorBttn).click();
     }
-    enterVendorDomain(vendorDomain)
+    enterVendorDomain(domain=vendorDomain)
     {
-        cy.get(Selectors.vendorDomainTxBx).type(vendorDomain).click();
+        cy.get(Selectors.vendorDomainTxBx).type(domain).click();
     
     }
-    enterVendorName(vendorName)
+    enterVendorName(vendor=vendorName)
     {
-        cy.get(Selectors.vendorNameTxBx).type(vendorName);
+        cy.get(Selectors.vendorNameTxBx).type(vendor);
     }
-    enterFirstName(firstName)
+    enterFirstName(firstName=vendorFirstName)
     {
         cy.get(Selectors.firstNameTxBx).type(firstName);
     }
-    enterMiddleName(middleName)
+    enterMiddleName(middleName=vendorMiddleName)
     {
         cy.get(Selectors.middleNameTxBx).type(middleName);
     }
-    enterLastName(lastName)
+    enterLastName(lastName=vendorLastName)
     {
         cy.get(Selectors.lastNameTxBx).type(lastName);
     }
-    enterVendoMail(mail)
+    enterVendoMail(mail=vendorEmail)
     {
         cy.get(Selectors.emailTxBx).type(mail);
     }
@@ -59,23 +68,25 @@ export class Vendors{
     {
         cy.get(Selectors.closeIcon).click()
     }
-    enterVendorInfo(vendorName,firstName,middleName,lastName,mail)
+    enterVendorInfo(mail=vendorEmail,name=vendorName,firstName=vendorFirstName,middleName=vendorMiddleName,lastName=vendorLastName)
     { 
         this.clickOnNextButton();
-        this.enterVendorName(vendorName);
+        this.enterVendorName(name);
         this.enterFirstName(firstName);
         this.enterMiddleName(middleName);
         this.enterLastName(lastName);
         this.enterVendoMail(mail);
     }
-    verifyInvitedVendorMessage(message)
+    verifyInvitedVendorMessage(vendor=vendorName)
    {
-    cy.get(".react-toast-notifications__toast__content").should('have.text', message);
+    cy.get(".react-toast-notifications__toast__content").should('have.text', vendor+" has been invited. No further action is required.");
     cy.wait(5000);
+    cy.reload();
    }
-   verifyStatusOfVendor(vendorDomain,status)
+   verifyStatusOfVendor(status,domain=vendorDomain)
    {
-    cy.xpath('(//tr/td/span[text()="'+vendorDomain+'"]/..)/following-sibling::td/div/text()').should('have.text',status);
+    cy.wait(2000);
+    cy.xpath('(//tr/td/span[text()="'+domain+'"]/..)/following-sibling::td/div/text()').should('have.text',status);
    }
    verifyAddedOnDateOfVendor(vendorDomain,date)
    {
@@ -117,7 +128,7 @@ export class Vendors{
    {
        cy.xpath(Selectors.websiteNotAvailableBttn).should('exist').click();
    }
-   enterVendorPhoneNumber(phoneNumber)
+   enterVendorPhoneNumber(phoneNumber=vendorPhoneNumber)
    {
        cy.get(Selectors.vendorPhoneNumberTxBx).should('exist').type(phoneNumber)
    }

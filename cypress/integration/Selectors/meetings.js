@@ -1,5 +1,5 @@
 export default {
-    createMeetingBttn: "[class=align-bottom]",
+    createMeetingBttn: '[data-testid="create-meeting-btn"]',
     meetingsLink:'(//a[@data-testid="nav-link-Meetings"])[1]',
     purchaseTypeBttn:'//span[text()="Purchase"]',
     refinanceTypeBtnn: "//span[text()='Refinance']",
@@ -31,9 +31,9 @@ export default {
     fileNumberTxBx:"[name='fileNumber']",
     fileId:'//div[3]/div/div[2]/text()',
     closingsLink:'//*[text()="Closings"]',
-    scheduledMeetingsBttn:'//div[text()="Scheduled"]',
-    completedMeetingsBttn:'//div[text()="Completed"]',
-    cancelledMeetingsBttn:'//div[text()="Cancelled"]',
+    scheduledMeetingsBttn:'//div[@data-testid="upcoming"]',
+    completedMeetingsBttn:'//div[@data-testid="completed"]',
+    cancelledMeetingsBttn:'//div[@data-testid="cancelled"]',
     meetingsHeading:'//h2/text()',
     meetingCardStatus:'(//*[@data-testid="meeting-card"]/div[2]/div/div[1]/span)[1]',
     filterByNotaryDropdown:'[placeholder="My meetings"]',
@@ -49,7 +49,7 @@ export default {
     addressTextInMeetingDetailsPage:'//h3/div/text()',
     nextArrowButton:'[data-icon="long-arrow-right"]',
     loanNumberInList:'//div/div[1]/div[1][@class="flex flex-row"]/p[2]/text()',
-    meetingCardInList:'//div[@data-testid="meeting-card"][1]',
+    meetingCardInList:'(//div[@data-testid="StavvizCard"])[1]',
     firstMeetingLoanNumber:'(//div/div[1]/div[1][@class="flex flex-row"]/p[2]/text())[1]',
     createNewPageText:'//div[@role="button"]/div/div',
     closingMeetingBttn:'//div[@role="button"]/div/div[text()="Closing Meeting"]',
@@ -64,7 +64,7 @@ export default {
     resendInviteBttn:'//li/span[text()="Resend invite"]',
     moreActionsBttn:'//button[text()="More actions"]',
     cancelBttn:'//li/span[text()="Cancel"]',
-    meetingCardStatusInMeetingDetailsPage:'//div[@data-testid="meeting-detail-card"]/div/div/text()',
+    meetingCardStatusInMeetingDetailsPage:'//div[@data-testid="StavvizCard-meeting-detail-card"]/div/div/text()',
     joinButton:'[data-testid="meeting-join-btn"]',
     meetingType:'[name="meeting-type"]',
     nextBttn:'//button[text()="Next"]',
@@ -100,5 +100,6 @@ export default {
     selectAllBttn:'[title="Select All"]',
     editFileIdButton:'//div[3]/div/div[2]/span/*',
     fileIdNumberTxBx:'[placeholder="ID Number"]',
-    saveIconButton:'[data-icon="check"]'
+    saveIconButton:'[data-icon="check"]',
+    createNewRONBtnn:'[data-testid="StavvizCard-CreateNewModal-RonButton"]'
 }

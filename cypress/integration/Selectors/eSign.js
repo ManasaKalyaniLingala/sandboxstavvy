@@ -129,6 +129,5 @@ export default {
     meetingsTabInSignerPortal:'[title="Select Meetings tab"]',
     checkBoxInAdopNewSignature:'//div[@title="I consent to the use of electronic signatures and records."]/span/span',
     nextDocumentBttn:'//button[text()="Next document"]',
-    saveAndAddAnnotationsBttn:'//button[text()="Save & Add annotations"]'
-
+    saveAndAddAnnotationsBttn:'//button[text()="Save & Add annotations"]',
 }
