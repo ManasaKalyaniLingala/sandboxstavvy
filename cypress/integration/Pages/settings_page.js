@@ -97,7 +97,7 @@ export class Settings{
 
     selectTheEnableFilesCheckBox()
     {
-        cy.xpath(Selectors.enableFilesCheckBx).click()
+        cy.xpath(Selectors.enableFilesCheckBx).click();
     }
 
     verifyTextOfFilesCheckBox(text)

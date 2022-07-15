@@ -1,4 +1,5 @@
-export default{
+export default
+{
     ordersBttnInSidebar:'[data-testid="nav-link-Orders"]',
     originationOrdersBttnInSidebar:'[data-testid="nav-link-Origination"]',
     servicingOrdersBtnnInSidebar:'[data-testid="nav-link-Servicing"]',

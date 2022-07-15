@@ -1,4 +1,5 @@
-export default {
+export default 
+{
     createMeetingBttn: '[data-testid="create-meeting-btn"]',
     meetingsLink:'(//a[@data-testid="nav-link-Meetings"])[1]',
     purchaseTypeBttn:'//span[text()="Purchase"]',
@@ -101,5 +102,5 @@ export default {
     editFileIdButton:'//div[3]/div/div[2]/span/*',
     fileIdNumberTxBx:'[placeholder="ID Number"]',
     saveIconButton:'[data-icon="check"]',
-    createNewRONBtnn:'[data-testid="StavvizCard-CreateNewModal-RonButton"]'
+    createNewRONBtnn:'[data-testid="StavvizCard-CreateNewModal-RonButton"]',
 }

@@ -86,7 +86,7 @@ describe("Assigned Orders test cases" , ()=>{
         //Accepting order in the list
          orders.acceptOrRejectOrder(action);
 
-        //verification
+        //verify rejected pending order
          orders.verifyTabSubtitle(PendingSubtitle);
          orders.verifyOrderNotPresentInTheList();
          orders.navigateToInProgressOrdersTab();

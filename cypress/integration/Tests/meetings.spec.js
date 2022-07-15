@@ -211,7 +211,7 @@ describe("Meetings/Closings test cases" , ()=>{
         meetings.addAttendeeToTheMeeting(signerFirstName,signerMiddleName,signerLastName,signerEmail,signerPhone)
         meetings.clickAddAttendeeButtonInTheMeetingInfoPage();
 
-        //verify added signer.
+        //verify added Attendee.
         meetings.verifyPopupMessage("Successfully invited "+signerFirstName+" "+signerLastName+" as an attendee");
         meetings.verifyAddedAttendee(role,signerEmail,signer);
      })

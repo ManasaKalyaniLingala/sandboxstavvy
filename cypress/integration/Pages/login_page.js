@@ -3,7 +3,6 @@ import selectors from "../Selectors/login"
 
 export class Login {
 
-    
     navigateToUrl(){
         cy.visit(Cypress.env("baseUrl"));
     }
@@ -13,7 +12,6 @@ export class Login {
         this.enterUserName(username);
         this.enterPassword(password);
         this.clickOnLogin();
-        cy.wait(4000);
     }
 
     enterUserName(username)

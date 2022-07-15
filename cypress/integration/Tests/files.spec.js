@@ -695,7 +695,7 @@ it("Verify creating Servicing order file",()=>{
      var status="Pending";
 
     //Navigate to Orders page
-     orders.navigateToOrders();
+     orders.navigateToOrders()
      files.createAServicingOrderFile();
 
     //Verify created file

@@ -273,7 +273,7 @@ export class Orders{
     clickEditButtonOfOrder()
     {
         cy.get('@order type').then((response)=>{
-            var orderType=response.text()
+            var orderType=response.text();
         cy.xpath('//div[@data-testid="StavvizCard"]/div/div[text()="'+orderType+'"]/following-sibling::div/div').should('exist').click();
         })
     }

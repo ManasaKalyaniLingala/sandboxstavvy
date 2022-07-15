@@ -68,18 +68,6 @@ export class Meetings {
         this.clickTheMeetingTypeDropdown();
         cy.xpath(selectors.refinanceTypeBtnn).click();
     }
- 
-    clickOnEquityType()
-    {
-        this.clickTheMeetingTypeDropdown();
-        cy.xpath(selectors.equityTypeBtnn).click();
-    }
-
-    clickOnModificationType()
-    {
-        this.clickTheMeetingTypeDropdown();
-        cy.xpath(selectors.modificationTypeBtnn).click();
-    }
 
     enterFileId(meetingId=fileId)
     {

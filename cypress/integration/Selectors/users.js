@@ -1,4 +1,5 @@
-export default {
+export default 
+{
 usersBttn: '[data-testid="nav-link-Users"]',
 inviteUserBttn: "[data-testid='open-invite-modal-btn']",
 firstNameTxtbx: "[name='first-name']",

@@ -1,4 +1,5 @@
-export default{
+export default
+{
 profileIcon:'//div[@class="hover:text-brand-secondary py-2"]',
 settingsBttn:'//span[text()="Settings"]',
 firstName:'//div[text()="First Name"]/../div[2]',

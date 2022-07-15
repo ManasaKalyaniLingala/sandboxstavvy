@@ -72,7 +72,7 @@ describe("Header test cases" , ()=>{
   it("Verify help button",()=>{
 
     //Hover over help button
-     header.hoverOverHelpButton();
+     header.hoverOverHelpButton()
 
     //Verify help buton text
      header.verifyHelpButtonText();

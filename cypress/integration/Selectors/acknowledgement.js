@@ -1,5 +1,5 @@
-export default{
-    
+export default
+{
     acknowledgmentLink:'[data-testid="nav-link-Acknowledgement"]',
     inboxLink:'[data-testid="nav-link-Inbox"]',
     meetingsLink:'(//a[@data-testid="nav-link-Meetings"])[2]',

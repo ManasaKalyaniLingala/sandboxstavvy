@@ -94,7 +94,7 @@ describe("Settings test cases" , ()=>{
         //Verify updated timezone
         settings.verifyUpdatedTimezone(timezone);
         meetings.navigateToMeetingsPage();
-        meetings.clickOnCreateMeeting();
+        meetings.clickOnCreateMeeting()
         meetings.clickTheClosingMeetingButton();
         meetings.verifyDefaultTimezone(timezone);
      })

@@ -76,11 +76,11 @@ export class Users{
 
     clickOnDeleteUserButton()
     {
-        cy.xpath(selectors.deleteUserBttn).click();
+        cy.xpath(selectors.deleteUserBttn).should('exist').click();
     }
     clickOnManageUserCloseButton()
     {
-        cy.get(selectors.manageUserCloseBttn).click();
+        cy.get(selectors.manageUserCloseBttn).should('exist').click();
     }
 
     verifyInviteUsersDisabled()

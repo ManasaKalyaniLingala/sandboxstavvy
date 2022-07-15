@@ -1,4 +1,5 @@
-export default {
+export default 
+{
     eSignBttn: '[data-testid="nav-link-eSign"]',
     createNeweSignBttn:'//button[text()="Create new eSign"]',
     packetTitlTxtBx:"[name='packetTitle']",

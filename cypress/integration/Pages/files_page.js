@@ -180,7 +180,7 @@ export class Files{
     selectSettlementVendorFromTheList()
     {
        cy.xpath(selectors.settlementVendorDropdown).click();
-       this.selectVendor()
+       this.selectVendor();
     }
     addTitleOrder()
     {

@@ -1,5 +1,5 @@
-export default{
-
+export default
+{
  profileBttn:'[class="hover:text-brand-secondary py-2"]',
  helpBttn:'[data-icon="question-circle"]',
  helpBttnTxt:'//body/div[5][text()="Help"]',
@@ -14,6 +14,4 @@ export default{
  noOfNotifications:'//div[@class="notification-bell flex open"]/span[2]/text()',
  markAllAsRead:'//button[text()="Mark All As Read"]',
  notificationsRefresh:'[class="notifications-refresh"]',
-
-    
 }

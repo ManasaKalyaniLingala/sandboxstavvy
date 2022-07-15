@@ -926,7 +926,7 @@ describe("stavvy application" , ()=>{
         eSign.clickMarkReadyForSigning();
         eSign.clickOnReviewPacketDetails();
         eSign.clickOnSaveAndSendNow();
-        eSign.clickDone();
+        eSign.clickDone()
         eSign.reloadThePage();
         eSign.clickOnPacketFromTheList(packetTitle);
 

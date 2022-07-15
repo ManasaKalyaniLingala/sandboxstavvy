@@ -129,6 +129,5 @@ describe("Acknowledgment test cases" , ()=>{
          acknowledgment.verifySearchDocuments();
          acknowledgment.verifyNoOfRowsPerPageDropDown();
        })
-
      
     })

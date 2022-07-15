@@ -37,13 +37,13 @@ describe("Vendor test cases" , ()=>{
    
      it("verify inviting new vendor with the existing domain",()=>{
 
-       var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
+         var email="testuser+"+Math.floor(Math.random()*100000)+"@qualitlabs.com";
 
         //Navigate to Organizations
-        vendors.clickOnOrganizations();
-        vendors.CopyDomainAndEnterInVendorDoamin();
-        vendors.enterVendorInfo(email);
-        vendors.clickOnInviteVendor();
+         vendors.clickOnOrganizations();
+         vendors.CopyDomainAndEnterInVendorDoamin();
+         vendors.enterVendorInfo(email);
+         vendors.clickOnInviteVendor();
 
         //Verify error text
         vendors.verifyErrorText("An existing or duplicate value has already been saved.");

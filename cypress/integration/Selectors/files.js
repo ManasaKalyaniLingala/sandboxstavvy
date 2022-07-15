@@ -1,4 +1,5 @@
-export default{
+export default
+{
     CreateFileButton : '[data-testid="create-file-btn"]',
     clickLoanProcessorDropDown : '//label[text()="Loan Processor"]/..//div//input[@name="select-toggle"]',
     searchForLoanProcessor : 'input[class="border-none p-1"]',

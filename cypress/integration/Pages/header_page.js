@@ -9,7 +9,7 @@ export class Header{
 
     hoverOverHelpButton()
     {
-        cy.get(Selectors.helpBttn).trigger('mouseover')
+        cy.get(Selectors.helpBttn).trigger('mouseover');
     }
 
     verifyHelpButtonText()

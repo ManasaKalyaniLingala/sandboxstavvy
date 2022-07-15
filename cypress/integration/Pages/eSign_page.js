@@ -69,12 +69,12 @@ export class ESign {
 
     clickSaveAndExitButton()
     {
-        cy.wait(4000)
+        cy.wait(4000);
         cy.xpath(selectors.saveAndExitBttn).click();
     }
     clickOnSaveAndExitButton()
     {
-        cy.wait(4000)
+        cy.wait(4000);
         cy.xpath(selectors.saveAndExitBttn).click();
         cy.xpath(selectors.saveExitButton).click();
     }

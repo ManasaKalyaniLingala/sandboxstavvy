@@ -62,7 +62,7 @@ export class Vendors{
     }
     clickOnBackButton()
     {
-        cy.xpath(Selectors.backBttn).click()
+        cy.xpath(Selectors.backBttn).click();
     }
     clickOnCloseIcon()
     {

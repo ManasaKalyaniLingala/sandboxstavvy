@@ -468,7 +468,7 @@ describe("Users test cases" , ()=>{
          //Navigate to Users page
          users.clickOnUsers();
 
-         //Inviting user
+         //Inviting new user
          users.clickOnInviteUser();
          users.enterUserInfo(userEmail);
          users.selectNotaryOptionForUser();

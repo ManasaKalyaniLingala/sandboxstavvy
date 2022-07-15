@@ -16,5 +16,5 @@ errorText:'//p[@class="error-text"]/text()',
 domainTxt:'//tr/td[1]/span[2]/text()',
 details:'(//tr/td[4]/span[text()="DETAILS"])[1]',
 websiteNotAvailableBttn:'//button[text()="Website not available"]',
-vendorPhoneNumberTxBx:'[inputmode="numeric"]',
+vendorPhoneNumberTxBx:'[inputmode="numeric"]'
 }
